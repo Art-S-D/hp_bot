@@ -2,7 +2,7 @@ const parser = require("./parser.js");
 
 const { get_player } = require("../../players");
 
-const arithmetic = require("./arithmetic");
+const arithmetic = require("../utils/arithmetic");
 
 function roll_result(msg, res, objectif, bonus, faces, relance) {
     msg.reply(

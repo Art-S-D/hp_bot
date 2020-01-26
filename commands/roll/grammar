@@ -36,10 +36,10 @@ var = number / word
 roll= "!roll" opt:options {return opt}
 
 options = res:(space (relance / bonus / objectif / faces / joueur / cheat))* {return merge_objects(res.map(x => x[1]))}
-bonus = "bonus" space perks:additive {return {bonus: perks}}
-relance = "relance" space perk:additive {return {relance: perk}}
-objectif = "objectif" space nb:additive {return {objectif: nb}}
-faces = "faces" space nb:additive {return {faces:nb}}
-joueur= "joueur" space "\"" name:(space? word)* "\"" {return {joueur:name.map(x => x[1]).join(" ")}}
+bonus = ("bonus"/"b") space perks:additive {return {bonus: perks}}
+relance = ("relance"/"r") space perk:additive {return {relance: perk}}
+objectif = ("objectif"/"o"/"diff"/"d") space nb:additive {return {objectif: nb}}
+faces = ("faces"/"f") space nb:additive {return {faces:nb}}
+joueur= ("joueur"/"j") space "\"" name:(space? word)* "\"" {return {joueur:name.map(x => x[1]).join(" ")}}
 
 cheat = "stp" {return {cheat:true}}

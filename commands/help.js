@@ -6,7 +6,9 @@ function help(msg) {
 
     !not_cool
 
-    !roll bonus *val* relance *val* objectif *val* faces *val* joueur *nom_d'un_joueur* 
+    !no
+
+    !roll bonus *val* relance *val* objectif(ou diff) *val* faces *val* joueur *nom_d'un_joueur* 
         *val* est une expression arithmétique qui peut contenir des nombres, des compétences, +, -, *, / et des parenthèses
         ça marche dans n'importe quel ordre et y'a de valeurs par défaut, ex: juste "!roll" c'est un de 20 avec une difficulté de 15
 

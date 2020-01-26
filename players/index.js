@@ -10,7 +10,7 @@ function get_player(name) {
 function get_stat(player, stat) {
     if (player.stats[stat] !== undefined) return player.stats[stat];
     if (player.competences[stat] !== undefined) return player.competences[stat];
-    if (player.matieres[stat] !== undefined) returnplayer.matieres[stat];
+    if (player.matieres[stat] !== undefined) return player.matieres[stat];
 }
 
 module.exports = {
