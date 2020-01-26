@@ -2,19 +2,21 @@ const parser = require("./parser.js");
 
 const { get_player } = require("../../players");
 
-function roll_result(msg, res, objectif, bonus) {
+const arithmetic = require("./arithmetic");
+
+function roll_result(msg, res, objectif, bonus, faces, relance) {
     msg.reply(
         `résultat: ${res}${
             bonus ? `+${bonus}=${res + bonus}` : ""
-        }, attendu: ${objectif}`
+        }, attendu: ${objectif},   (faces:${faces}, relance: ${relance})`
     );
 }
 
 function roll(msg) {
     try {
         const {
-            faces = 20,
-            objectif = 15,
+            faces,
+            objectif,
             bonus,
             relance,
             joueur,
@@ -27,49 +29,52 @@ function roll(msg) {
             return;
         }
 
-        const relance_val =
-            player.stats[relance] ||
-            player.competences[relance] ||
-            player.matieres[relance];
-        const bonus_val =
-            (bonus &&
-                bonus.reduce(
-                    (accum, current) =>
-                        accum +
-                        (player.stats[current] ||
-                            player.competences[current] ||
-                            player.matieres[current] ||
-                            0),
-                    0
-                )) ||
-            0;
-
-        if (relance && relance_val === undefined) {
-            msg.reply("stat inconnue " + relance);
-            return;
-        }
-        if (bonus && bonus_val === undefined) {
-            msg.reply("stat inconnue " + bonus);
+        let relance_val = 0;
+        let bonus_val = 0;
+        let objectif_val = 15;
+        let faces_val = 20;
+        try {
+            relance_val =
+                (relance && arithmetic(relance, player)) || relance_val;
+            bonus_val = (bonus && arithmetic(bonus, player)) || bonus_val;
+            objectif_val =
+                (objectif && arithmetic(objectif, player)) || objectif_val;
+            faces_val = (faces && arithmetic(faces, player)) || faces_val;
+        } catch (e) {
+            msg.reply(e);
             return;
         }
 
         if (cheat) {
-            roll_result(msg, Math.max(faces, objectif), objectif, bonus_val);
+            roll_result(
+                msg,
+                Math.max(faces_val, objectif_val),
+                objectif_val,
+                bonus_val,
+                faces_val,
+                relance_val
+            );
             msg.reply("success");
             msg.reply("c'est bien parce que c'est toi");
             return;
         }
 
-        let res = Math.ceil(Math.random() * faces);
-        roll_result(msg, res, objectif, bonus_val);
+        let res = Math.ceil(Math.random() * faces_val);
+        roll_result(msg, res, objectif_val, bonus_val, faces_val, relance_val);
         if (relance_val && res <= relance_val) {
-            console.log("test");
             msg.reply("relance");
-            res = Math.ceil(Math.random() * faces);
-            roll_result(msg, res, objectif, bonus_val);
+            res = Math.ceil(Math.random() * faces_val);
+            roll_result(
+                msg,
+                res,
+                objectif_val,
+                bonus_val,
+                faces_val,
+                relance_val
+            );
         }
 
-        if (res + (bonus_val || 0) < objectif) msg.reply("fail");
+        if (res + (bonus_val || 0) < objectif_val) msg.reply("fail");
         else msg.reply("success");
     } catch (e) {
         console.log(e);

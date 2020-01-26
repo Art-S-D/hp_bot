@@ -9,18 +9,37 @@
 
 start = roll
 
+//atithmetique
 space= " "+ {return null}
-number = nb:[0-9]+ {return makeInteger(nb)}
-word= w:([a-zA-Z]+) {return w.join("")}
+number = nb:[0-9]+ {return {number: makeInteger(nb)}}
+word= w:([a-zA-Z]+) {return {word:w.join("")}}
 
+
+additive
+  = left:multiplicative " "* operator:("+"/"-") " "* right:additive { return {[operator]:{left,right}}}
+  / multiplicative
+
+
+multiplicative
+  = left:primary " "* operator:("*"/"/") " "* right:multiplicative { return {[operator]:{left, right}}}
+  / primary
+
+primary
+  = var
+  / "(" " "* additive:additive " "* ")" { return additive; }
+
+var = number / word
+
+
+
+//dice roll
 roll= "!roll" opt:options {return opt}
 
-options = res:(space (relance / bonuses / bonus / objectif / faces / joueur / cheat))* {return merge_objects(res.map(x => x[1]))}
-bonuses = "bonus" space "[" perks:(space? word space?)* "]" {return {bonus: perks.map(x => x[1])}}
-bonus = "bonus" space perk:word {return {bonus:[perk]}}
-relance = "relance" space perk:word {return {relance: perk}}
-objectif = "objectif" space nb:number {return {objectif: nb}}
-faces = "faces" space nb:number {return {faces:nb}}
+options = res:(space (relance / bonus / objectif / faces / joueur / cheat))* {return merge_objects(res.map(x => x[1]))}
+bonus = "bonus" space perks:additive {return {bonus: perks}}
+relance = "relance" space perk:additive {return {relance: perk}}
+objectif = "objectif" space nb:additive {return {objectif: nb}}
+faces = "faces" space nb:additive {return {faces:nb}}
 joueur= "joueur" space "\"" name:(space? word)* "\"" {return {joueur:name.map(x => x[1]).join(" ")}}
 
 cheat = "stp" {return {cheat:true}}

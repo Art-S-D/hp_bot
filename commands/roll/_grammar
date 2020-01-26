@@ -1,0 +1,26 @@
+{
+  function makeInteger(o) {
+    return parseInt(o.join(""), 10);
+  }
+  function merge_objects(array){
+  	return array.reduce((accum, current) => {return{...accum, ...current}}, {})
+  }
+}
+
+start = roll
+
+space= " "+ {return null}
+number = nb:[0-9]+ {return makeInteger(nb)}
+word= w:([a-zA-Z]+) {return w.join("")}
+
+roll= "!roll" opt:options {return opt}
+
+options = res:(space (relance / bonuses / bonus / objectif / faces / joueur / cheat))* {return merge_objects(res.map(x => x[1]))}
+bonuses = "bonus" space "[" perks:(space? word space?)* "]" {return {bonus: perks.map(x => x[1])}}
+bonus = "bonus" space perk:word {return {bonus:[perk]}}
+relance = "relance" space perk:word {return {relance: perk}}
+objectif = "objectif" space nb:number {return {objectif: nb}}
+faces = "faces" space nb:number {return {faces:nb}}
+joueur= "joueur" space "\"" name:(space? word)* "\"" {return {joueur:name.map(x => x[1]).join(" ")}}
+
+cheat = "stp" {return {cheat:true}}
