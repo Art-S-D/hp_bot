@@ -1,0 +1,19 @@
+{
+  function makeInteger(o) {
+    return parseInt(o.join(""), 10);
+  }
+  function merge_objects(array){
+  	return array.reduce((accum, current) => {return{...accum, ...current}}, {})
+  }
+}
+
+start = pnj
+
+number = nb:[0-9]+ {return {number: makeInteger(nb)}}
+word= w:([a-zA-Z]+) {return {word:w.join("")}}
+
+_year =  "A" diff:("+"/"-") year:number {return diff==="+"?year.number:-year.number}
+year = y:_year / y:" "* {return Array.isArray(y)?0:y}
+
+pnj = " "* name:word " "* "[" house:word "." y:year "]" " "*
+	{return {name:name.word, house:house.word, year:y}}
