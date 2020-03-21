@@ -3,6 +3,7 @@ const parser = require("./parser.js");
 const { get_player } = require("../../models/players");
 
 const arithmetic = require("../utils/arithmetic");
+const { autoReroll } = require("../utils/autoReroll");
 
 function roll_result(msg, res, objectif, bonus, faces, relance) {
   msg.reply(
@@ -14,7 +15,7 @@ function roll_result(msg, res, objectif, bonus, faces, relance) {
 
 function roll(msg) {
   try {
-    const {
+    let {
       faces,
       objectif,
       bonus,
@@ -29,6 +30,12 @@ function roll(msg) {
       return;
     }
 
+    if (relance === "auto") {
+      const r = autoReroll(bonus);
+      if (r === null) throw "imporrible de déterminer une relance auto";
+      relance = { word: r };
+    }
+
     let relance_val = 0;
     let bonus_val = 0;
     let objectif_val = 15;
@@ -39,8 +46,7 @@ function roll(msg) {
       objectif_val = (objectif && arithmetic(objectif, player)) || objectif_val;
       faces_val = (faces && arithmetic(faces, player)) || faces_val;
     } catch (e) {
-      msg.reply(e);
-      return;
+      throw e.message;
     }
 
     if (cheat) {
@@ -68,8 +74,7 @@ function roll(msg) {
     if (res + (bonus_val || 0) < objectif_val) msg.reply("fail");
     else msg.reply("success");
   } catch (e) {
-    console.log(e);
-    msg.reply(JSON.stringify(e));
+    throw e;
   }
   return;
 }
