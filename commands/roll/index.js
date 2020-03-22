@@ -41,14 +41,11 @@ function roll(msg) {
     let bonus_val = 0;
     let objectif_val = 15;
     let faces_val = 20;
-    try {
-      relance_val = (relance && arithmetic(relance, player)) || relance_val;
-      bonus_val = (bonus && arithmetic(bonus, player)) || bonus_val;
-      objectif_val = (objectif && arithmetic(objectif, player)) || objectif_val;
-      faces_val = (faces && arithmetic(faces, player)) || faces_val;
-    } catch (e) {
-      throw e.message;
-    }
+
+    relance_val = (relance && arithmetic(relance, player)) || relance_val;
+    bonus_val = (bonus && arithmetic(bonus, player)) || bonus_val;
+    objectif_val = (objectif && arithmetic(objectif, player)) || objectif_val;
+    faces_val = (faces && arithmetic(faces, player)) || faces_val;
 
     if (cheat) {
       roll_result(
@@ -75,9 +72,8 @@ function roll(msg) {
     if (res + (bonus_val || 0) < objectif_val) msg.reply("fail");
     else msg.reply("success");
   } catch (e) {
-    throw e;
+    msg.reply(e.message);
   }
-  return;
 }
 
 module.exports = roll;
