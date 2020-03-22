@@ -33,6 +33,7 @@ function roll(msg) {
     if (relance === "auto") {
       const r = autoReroll(bonus);
       if (r === null) throw "imporrible de déterminer une relance auto";
+      msg.reply(`relance ${r}`);
       relance = { word: r };
     }
 
