@@ -72,7 +72,7 @@ function roll(msg) {
     if (res + (bonus_val || 0) < objectif_val) msg.reply("fail");
     else msg.reply("success");
   } catch (e) {
-    msg.reply(e.message);
+    msg.reply(e.message || e);
   }
 }
 
