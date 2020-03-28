@@ -1,5 +1,5 @@
 function help(msg) {
-    msg.reply(`
+  msg.reply(`
     !grimoire
 
     !merci
@@ -13,6 +13,12 @@ function help(msg) {
         ça marche dans n'importe quel ordre et y'a de valeurs par défaut, ex: juste "!roll" c'est un de 20 avec une difficulté de 15
 
         valeurs par défaut: relance 10, bonus 10, objectif 15, faces 20
+    
+    pnj:
+        !pnj <nom>
+        !pnj add <nom> <description> et une image jointe au message
+        !pnj remove <nom>
+        !pnj list
         
     faut pas oublier de dire stp et merci au bot :)`);
 }
