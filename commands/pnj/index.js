@@ -1,6 +1,6 @@
 const { addPnj, getPnj, listPnj, removePnj } = require("./subcommands");
 const parser = require("./parser.js");
-const { hasRole } = require("../utils/hasRole");
+const hasRole = require("../utils/hasRole");
 
 //FOR REFERENCE
 const _pnjAction = {
@@ -14,17 +14,22 @@ const _pnjAction = {
 const pnjActions = [null, getPnj, null, removePnj, addPnj, listPnj];
 
 async function pnj(msg) {
-  if (hasRole(msg, "MJ")) {
+  if (!hasRole(msg, "MJ")) {
     msg.reply("Vous devez être MJ pour effectuer cette action.");
     return;
   }
-  try {
-    const pnjAst = parser.parse(msg.content);
-    console.log(pnjAst);
-    await pnjActions[pnjAst.type](msg, pnjAst);
-  } catch (e) {
-    msg.reply(e.message || e);
-    throw e;
+  if (process.argv.includes("unsafe") || msg.guild.id === 661804149129871371)
+    try {
+      const pnjAst = parser.parse(msg.content);
+      console.log(pnjAst);
+      await pnjActions[pnjAst.type](msg, pnjAst);
+    } catch (e) {
+      msg.reply(e.message || e);
+      throw e;
+    }
+  else {
+    msg.reply("Unauthorized");
+    console.error("Unaothorized call");
   }
 }
 
