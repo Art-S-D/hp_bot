@@ -1,5 +1,3 @@
-const { createModel } = require("mongoose-gridfs");
-const { client, MessageAttachment } = require("discord.js");
 const { Pnj } = require("../../../models");
 
 async function addPnj(msg, ast) {
