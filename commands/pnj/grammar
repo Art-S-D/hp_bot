@@ -5,15 +5,31 @@
   function merge_objects(array){
   	return array.reduce((accum, current) => {return{...accum, ...current}}, {})
   }
+  const pnjAction={
+    get:1,
+    update:2,
+    remove:3,
+    add:4,
+    list:5,
+  }
 }
 
-start = pnj
+pnj = "!pnj" " "+ res:(getPnj / addPnj  / listPnj / removePnj /*updatePnj*/) {return res}
 
-number = nb:[0-9]+ {return {number: makeInteger(nb)}}
-word= w:([a-zA-Z]+) {return {word:w.join("")}}
+number = nb:[0-9]+ {return makeInteger(nb)}
+word= w:([a-zA-Z]+) {return w.join("")}
+phrase = p:([a-zA-Zéèùà\[\].?!] / " ")+ {return p.join("")}
 
-_year =  "A" diff:("+"/"-") year:number {return diff==="+"?year.number:-year.number}
+_year =  "A" diff:("+"/"-") year:number {return diff==="+"?year:-year}
 year = y:_year / y:" "* {return Array.isArray(y)?0:y}
 
-pnj = " "* name:word " "* "[" house:word "." y:year "]" " "*
-	{return {name:name.word, house:house.word, year:y}}
+pnjName = name:word " "* "[" house:word "." y:year "]" {return {name, house, year:y}}
+
+
+getPnj = p:pnjName {return {type: pnjAction.get, pnj: p }}
+addPnj = "add" " "+ p:pnjName " " description:phrase 
+	{return {type: pnjAction.add, pnj: p, description: description}}
+listPnj = "list" " "* {return {type:pnjAction.list}}
+removePnj = "remove" " "+ p:pnjName " "* { return {type: pnjAction.remove, pnj: p}}
+//updatePnj = "update" " "+ name:pnjName " "+ "set" " "+ newName:pnjName? " "+ description:phrase? " "*
+//	{return {type:pnjAction.update, name, newName, description}}

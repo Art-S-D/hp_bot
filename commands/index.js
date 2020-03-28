@@ -4,7 +4,7 @@ const merci = require("./merci.js");
 const not_cool = require("./not_cool.js");
 const help = require("./help.js");
 const no = require("./no");
-//const pnj = require("./pnj");
+const pnj = require("./pnj");
 
 module.exports = {
   roll,
@@ -12,6 +12,6 @@ module.exports = {
   merci,
   not_cool,
   help,
-  no
-  //pnj
+  no,
+  pnj
 };

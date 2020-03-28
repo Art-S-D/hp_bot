@@ -1,28 +1,29 @@
-const { client, MessageAttachment } = require("discord.js");
-const { connection, Pnj } = require("../../models");
-const { createModel } = require("mongoose-gridfs");
+const { addPnj, getPnj, listPnj, removePnj } = require("./subcommands");
+const parser = require("./parser.js");
 
-const Attachment = createModel();
+//FOR REFERENCE
+const _pnjAction = {
+  get: 1,
+  update: 2,
+  remove: 3,
+  add: 4,
+  list: 5
+};
 
-async function findStudent(name) {
-  const student = await Pnj.find({ name });
-}
+const pnjActions = [null, getPnj, null, removePnj, addPnj, listPnj];
 
 async function pnj(msg) {
-  const name = msg.content.split(" ")[1];
-  if (!name) {
-    msg.reply("et le nom fdp ?");
+  if (msg.member.roles.array().filter(x => x.name === "MJ").length <= 0) {
+    msg.reply("Vous devez être MJ pour effectuer cette action.");
     return;
   }
-  const student = await findStudent(name);
-  if (!student) {
-    msg.reply("Aucun pnj ne correspond à la description");
-  } else {
-    msg.reply(`${name} ${student.description}`);
-
-    const stream = Attachment.read({ _id: student.picture });
-    const pic = new MessageAttachment(stream, "pic.png");
-    message.channel.send(pic);
+  try {
+    const pnjAst = parser.parse(msg.content);
+    console.log(pnjAst);
+    await pnjActions[pnjAst.type](msg, pnjAst);
+  } catch (e) {
+    msg.reply(e.message || e);
+    throw e;
   }
 }
 
