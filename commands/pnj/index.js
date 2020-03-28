@@ -1,5 +1,6 @@
 const { addPnj, getPnj, listPnj, removePnj } = require("./subcommands");
 const parser = require("./parser.js");
+const { hasRole } = require("../utils/hasRole");
 
 //FOR REFERENCE
 const _pnjAction = {
@@ -13,7 +14,7 @@ const _pnjAction = {
 const pnjActions = [null, getPnj, null, removePnj, addPnj, listPnj];
 
 async function pnj(msg) {
-  if (msg.member.roles.array().filter(x => x.name === "MJ").length <= 0) {
+  if (hasRole(msg, "MJ")) {
     msg.reply("Vous devez être MJ pour effectuer cette action.");
     return;
   }

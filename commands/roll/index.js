@@ -1,6 +1,6 @@
 const parser = require("./parser.js");
 
-const { get_player } = require("../../models/players");
+const { getPlayerFromRole } = require("../../models/players");
 
 const arithmetic = require("../utils/arithmetic");
 const { autoReroll } = require("../utils/autoReroll");
@@ -24,9 +24,9 @@ function roll(msg) {
       cheat = false
     } = parser.parse(msg.content);
 
-    const player = get_player(joueur || msg.member.nickname);
+    const player = joueur || getPlayerFromRole(msg);
     if (!player) {
-      msg.resply("joueur inconnu");
+      msg.reply("joueur inconnu");
       return;
     }
 
@@ -73,6 +73,7 @@ function roll(msg) {
     else msg.reply("success");
   } catch (e) {
     msg.reply(e.message || e);
+    console.error(e);
   }
 }
 
