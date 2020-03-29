@@ -8,7 +8,7 @@ function printPnj(msg, pnj) {
       : `il a ${Math.abs(pnj.year)} ans de ${
           pnj.year >= 0 ? "plus" : "moins"
         } que vous`;
-  const reply = `${pnj.name} ${pnj.description}, ${ageDesc}.`;
+  const reply = `${pnj.description}\n${ageDesc}.`;
 
   if (pnj.picture) {
     const pic = new Attachment(pnj.picture);
