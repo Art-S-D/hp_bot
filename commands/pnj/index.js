@@ -1,4 +1,10 @@
-const { addPnj, getPnj, listPnj, removePnj } = require("./subcommands");
+const {
+  addPnj,
+  getPnj,
+  listPnj,
+  removePnj,
+  updatePnj
+} = require("./subcommands");
 const parser = require("./parser.js");
 const hasRole = require("../utils/hasRole");
 
@@ -11,7 +17,7 @@ const _pnjAction = {
   list: 5
 };
 
-const pnjActions = [null, getPnj, null, removePnj, addPnj, listPnj];
+const pnjActions = [getPnj, updatePnj, removePnj, addPnj, listPnj];
 
 async function pnj(msg) {
   if (!hasRole(msg, "MJ")) {
@@ -22,7 +28,7 @@ async function pnj(msg) {
     try {
       const pnjAst = parser.parse(msg.content);
       console.log(pnjAst);
-      await pnjActions[pnjAst.type](msg, pnjAst);
+      await pnjActions[pnjAst.type - 1](msg, pnjAst);
     } catch (e) {
       msg.reply(e.message || e);
       throw e;

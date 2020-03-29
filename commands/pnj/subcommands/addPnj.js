@@ -1,6 +1,8 @@
 const { Pnj } = require("../../../models");
 
 async function addPnj(msg, ast) {
+  const test = Pnj.findOne(ast.pnj);
+  if (test) throw "Ce pnj existe déjà!";
   const pnj = new Pnj({ ...ast.pnj, description: ast.description });
 
   if (msg.attachments.size > 1) throw "Trop de fichiers joint au message";
