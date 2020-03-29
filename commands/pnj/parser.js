@@ -159,7 +159,7 @@ module.exports = /*
         peg$c15 = function(w) {return w.join("")},
         peg$c16 = /^[a-zA-Z\xE9\xE8\xF9\xE0[\].?!\-]/,
         peg$c17 = peg$classExpectation([["a", "z"], ["A", "Z"], "\xE9", "\xE8", "\xF9", "\xE0", "[", "]", ".", "?", "!", "-"], false, false),
-        peg$c18 = function(p) {return p.join("").replace("-","\n")},
+        peg$c18 = function(p) {return p.join("").replace(/-/g,"\n")},
         peg$c19 = "A",
         peg$c20 = peg$literalExpectation("A", false),
         peg$c21 = function(diff, year) {return diff==="+"?year:-year},

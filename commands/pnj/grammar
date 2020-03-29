@@ -18,7 +18,7 @@ pnj = "!pnj" " "+ res:(addPnj  / listPnj / removePnj / updatePnj / getPnj) {retu
 
 number = sign:("+"/"-"/"") nb:[0-9]+ {let i = makeInteger(nb); return sign==="-"?-i:i}
 word= w:([a-zA-Z]+) {return w.join("")}
-phrase = p:([a-zA-Zéèùà\[\].?!\-] / " ")+ {return p.join("").replace("-","\n")}
+phrase = p:([a-zA-Zéèùà\[\].?!\-] / " ")+ {return p.join("").replace(/-/g,"\n")}
 
 _year =  "A" diff:("+"/"-") year:number {return diff==="+"?year:-year}
 year = y:_year / y:" "* {return Array.isArray(y)?0:y}
