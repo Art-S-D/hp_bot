@@ -17,18 +17,23 @@ const _pnjAction = {
   list: 5
 };
 
-const pnjActions = [getPnj, updatePnj, removePnj, addPnj, listPnj];
+const pnjActions = [
+  { mj: false, func: getPnj },
+  { mj: true, func: updatePnj },
+  { mj: true, func: removePnj },
+  { mj: true, func: addPnj },
+  { mj: true, func: listPnj }
+];
 
 async function pnj(msg) {
-  if (!hasRole(msg, "MJ")) {
-    msg.reply("Vous devez être MJ pour effectuer cette action.");
-    return;
-  }
   if (process.argv.includes("unsafe") || msg.guild.id === "661804149129871371")
     try {
       const pnjAst = parser.parse(msg.content);
-      console.log(pnjAst);
-      await pnjActions[pnjAst.type - 1](msg, pnjAst);
+      if (pnjActions[pnjAst.type - 1].mj && !hasRole(msg, "MJ")) {
+        msg.reply("Vous devez être MJ pour effectuer cette action.");
+        return;
+      }
+      await pnjActions[pnjAst.type - 1].func(msg, pnjAst);
     } catch (e) {
       msg.reply(e.message || e);
       throw e;
