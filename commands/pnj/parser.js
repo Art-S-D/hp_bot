@@ -162,8 +162,8 @@ module.exports = /*
         peg$c18 = function(p) {return p.join("").replace(/-/g,"\n")},
         peg$c19 = "A",
         peg$c20 = peg$literalExpectation("A", false),
-        peg$c21 = function(diff, year) {return diff==="+"?year:-year},
-        peg$c22 = function(y) {return Array.isArray(y)?0:y},
+        peg$c21 = function(nb) {return nb},
+        peg$c22 = function() {return 0},
         peg$c23 = "[",
         peg$c24 = peg$literalExpectation("[", false),
         peg$c25 = ".",
@@ -556,8 +556,8 @@ module.exports = /*
       return s0;
     }
 
-    function peg$parse_year() {
-      var s0, s1, s2, s3;
+    function peg$parseyear() {
+      var s0, s1, s2;
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 65) {
@@ -568,32 +568,11 @@ module.exports = /*
         if (peg$silentFails === 0) { peg$fail(peg$c20); }
       }
       if (s1 !== peg$FAILED) {
-        if (input.charCodeAt(peg$currPos) === 43) {
-          s2 = peg$c5;
-          peg$currPos++;
-        } else {
-          s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c6); }
-        }
-        if (s2 === peg$FAILED) {
-          if (input.charCodeAt(peg$currPos) === 45) {
-            s2 = peg$c7;
-            peg$currPos++;
-          } else {
-            s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c8); }
-          }
-        }
+        s2 = peg$parsenumber();
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsenumber();
-          if (s3 !== peg$FAILED) {
-            peg$savedPos = s0;
-            s1 = peg$c21(s2, s3);
-            s0 = s1;
-          } else {
-            peg$currPos = s0;
-            s0 = peg$FAILED;
-          }
+          peg$savedPos = s0;
+          s1 = peg$c21(s2);
+          s0 = s1;
         } else {
           peg$currPos = s0;
           s0 = peg$FAILED;
@@ -602,37 +581,18 @@ module.exports = /*
         peg$currPos = s0;
         s0 = peg$FAILED;
       }
-
-      return s0;
-    }
-
-    function peg$parseyear() {
-      var s0, s1, s2;
-
-      s0 = peg$parse_year();
       if (s0 === peg$FAILED) {
         s0 = peg$currPos;
-        s1 = [];
-        if (input.charCodeAt(peg$currPos) === 32) {
-          s2 = peg$c2;
+        if (input.charCodeAt(peg$currPos) === 65) {
+          s1 = peg$c19;
           peg$currPos++;
         } else {
-          s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c3); }
-        }
-        while (s2 !== peg$FAILED) {
-          s1.push(s2);
-          if (input.charCodeAt(peg$currPos) === 32) {
-            s2 = peg$c2;
-            peg$currPos++;
-          } else {
-            s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c3); }
-          }
+          s1 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c20); }
         }
         if (s1 !== peg$FAILED) {
           peg$savedPos = s0;
-          s1 = peg$c22(s1);
+          s1 = peg$c22();
         }
         s0 = s1;
       }
