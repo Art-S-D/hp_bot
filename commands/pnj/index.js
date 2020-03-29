@@ -24,7 +24,7 @@ async function pnj(msg) {
     msg.reply("Vous devez être MJ pour effectuer cette action.");
     return;
   }
-  if (process.argv.includes("unsafe") || msg.guild.id === 661804149129871371)
+  if (process.argv.includes("unsafe") || msg.guild.id === "661804149129871371")
     try {
       const pnjAst = parser.parse(msg.content);
       console.log(pnjAst);
@@ -36,6 +36,7 @@ async function pnj(msg) {
   else {
     msg.reply("Unauthorized");
     console.error("Unaothorized call");
+    console.error(msg.guild.id);
   }
 }
 
