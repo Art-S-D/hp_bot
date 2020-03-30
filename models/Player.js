@@ -41,10 +41,10 @@ const Player = new Schema({
   cards: [{ type: "ObjectId", ref: "Card" }]
 });
 
-Player.virtual("getStat").get(function(stat) {
-  if (this.stats[stat] !== undefined) return this.stats[stat];
-  if (this.competences[stat] !== undefined) return this.competences[stat];
-  if (this.matieres[stat] !== undefined) return this.matieres[stat];
+Player.static("getStat", function(player, stat) {
+  if (player.stats[stat] !== undefined) return this.stats[stat];
+  if (player.competences[stat] !== undefined) return this.competences[stat];
+  if (player.matieres[stat] !== undefined) return this.matieres[stat];
 });
 
 Player.static("getPlayerFromRole", async function(msg) {
