@@ -42,9 +42,9 @@ const Player = new Schema({
 });
 
 Player.static("getStat", function(player, stat) {
-  if (player.stats[stat] !== undefined) return this.stats[stat];
-  if (player.competences[stat] !== undefined) return this.competences[stat];
-  if (player.matieres[stat] !== undefined) return this.matieres[stat];
+  if (player.stats[stat] !== undefined) return player.stats[stat];
+  if (player.competences[stat] !== undefined) return player.competences[stat];
+  if (player.matieres[stat] !== undefined) return player.matieres[stat];
 });
 
 Player.static("getPlayerFromRole", async function(msg) {

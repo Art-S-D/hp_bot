@@ -1,6 +1,6 @@
 const { Player } = require("../../models");
+
 function arithmetic(ast, player) {
-  console.log(ast);
   if (!ast) throw "Erreur ast vide :)";
   else if (ast.number !== undefined) return ast.number;
   else if (ast.word) {
