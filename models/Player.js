@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const hasRole = require("./utils/hasRole");
 
 const statType = {
   type: Number,
@@ -34,7 +33,7 @@ const Player = new Schema({
     botanique: statType,
     dcfm: statType,
     enchantement: statType,
-    histoire: -statType,
+    histoire: statType,
     metamorphose: statType,
     potions: statType,
     vol: statType
@@ -42,16 +41,16 @@ const Player = new Schema({
   cards: [{ type: "ObjectId", ref: "Card" }]
 });
 
-Player.virtual("getStat", function(stat) {
+Player.virtual("getStat").get(function(stat) {
   if (this.stats[stat] !== undefined) return this.stats[stat];
   if (this.competences[stat] !== undefined) return this.competences[stat];
   if (this.matieres[stat] !== undefined) return this.matieres[stat];
 });
 
-Player.static("getPlayerFromRole", function(msg) {
-  for (const r of msg.member.roles) {
-    const player = this.findOne({ name: r });
-    if (player) return player;
+Player.static("getPlayerFromRole", async function(msg) {
+  for (const r of msg.member.roles.array()) {
+    const p = await this.findOne({ nom: r.name });
+    if (p) return p;
   }
   return null;
 });

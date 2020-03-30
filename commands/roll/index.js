@@ -1,7 +1,4 @@
 const parser = require("./parser.js");
-
-const { getPlayerFromRole } = require("../../models/players");
-
 const arithmetic = require("../utils/arithmetic");
 const { autoReroll } = require("../utils/autoReroll");
 
@@ -13,7 +10,7 @@ function roll_result(msg, res, objectif, bonus, faces, relance) {
   );
 }
 
-function roll(msg) {
+async function roll(msg, _player) {
   try {
     let {
       faces,
@@ -24,7 +21,7 @@ function roll(msg) {
       cheat = false
     } = parser.parse(msg.content);
 
-    const player = joueur || getPlayerFromRole(msg);
+    const player = joueur || _player;
     if (!player) {
       msg.reply("joueur inconnu");
       return;

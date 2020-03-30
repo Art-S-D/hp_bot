@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const { Player, connection } = require("./models");
 
 const commands = require("./commands");
 
@@ -7,7 +8,7 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on("message", msg => {
+client.on("message", async msg => {
   if (msg.content.toLowerCase().includes("nircosia"))
     msg.reply("son nom c'est nico");
   if (msg.content.toLowerCase().includes("balkany")) msg.reply("balkavoue");
@@ -19,9 +20,10 @@ client.on("message", msg => {
   );
   if (command)
     try {
-      commands[command](msg);
+      const player = await Player.getPlayerFromRole(msg);
+      commands[command](msg, player);
     } catch (e) {
-      console.error(e.message);
+      console.error(e);
     }
 });
 

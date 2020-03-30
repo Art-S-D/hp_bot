@@ -4,12 +4,16 @@
   "description": "",
   "main": "HP_Bot.js",
   "scripts": {
-    "start": "node HP_Bot.js"
+    "start": "node HP_Bot.js",
+    "migrate-up": "yarn migrate-mongo up",
+    "migrate-down": "yarn migrate-mongo down",
+    "remigrate": "yarn migrate-mongo down; migrate-mongo up"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11",
+    "migrate-mongo": "^7.1.0",
     "mongoose": "^5.9.6"
   }
 }

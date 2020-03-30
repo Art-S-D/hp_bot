@@ -1,4 +1,4 @@
-const { get_player } = require("../models/players");
+const { Player } = require("../models/Player");
 
 function print_grimoire(player) {
   const { nom, ..._player } = player;
@@ -13,8 +13,8 @@ function print_grimoire(player) {
   return res;
 }
 
-function grimoire(msg) {
-  const player = get_player(msg.member.nickname);
+async function grimoire(msg) {
+  const player = await Player.findOne({ nom: msg.member.nickname });
   if (player) msg.reply(print_grimoire(player));
   else msg.reply("joueur inconnu");
 }
