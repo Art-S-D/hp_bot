@@ -10,7 +10,7 @@ function roll_result(msg, res, objectif, bonus, faces, relance) {
   );
 }
 
-async function roll(msg, _player) {
+async function roll(msg, player) {
   try {
     let {
       faces,
