@@ -1,0 +1,33 @@
+{
+    "nom": "Nircosia Verpey",
+    "stats": {
+        "esprit": 4,
+        "coeur": 1,
+        "corps": 1,
+        "magie": 2
+    },
+    "competences": {
+        "bluff": 2,
+        "farce": 0,
+        "tactique": 2,
+        "rumeur": 1,
+        "bagarre": 0,
+        "endurance": 1,
+        "perception": 1,
+        "precision": 3,
+        "decorum": 2,
+        "discretion": 0,
+        "persuasion": 0,
+        "romance": 0
+    },
+    "matieres": {
+        "astronomie": 4,
+        "botanique": 4,
+        "dcfm": 4,
+        "enchantement": 4,
+        "histoire": 4,
+        "metamorphose": 4,
+        "potions": 4,
+        "vol": -2
+    }
+}

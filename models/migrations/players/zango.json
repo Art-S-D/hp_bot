@@ -1,0 +1,33 @@
+{
+    "nom": "Zango le Deuzo",
+    "stats": {
+        "esprit": 3,
+        "coeur": 2,
+        "corps": 1,
+        "magie": 2
+    },
+    "competences": {
+        "bluff": 1,
+        "farce": 0,
+        "tactique": 2,
+        "rumeur": 2,
+        "bagarre": 1,
+        "endurance": 0,
+        "perception": 3,
+        "precision": 0,
+        "decorum": 0,
+        "discretion": 1,
+        "persuasion": 1,
+        "romance": 1
+    },
+    "matieres": {
+        "astronomie": 0,
+        "botanique": 0,
+        "dcfm": 4,
+        "enchantement": 0,
+        "histoire": 0,
+        "metamorphose": 0,
+        "potions": 0,
+        "vol": 0
+    }
+}
