@@ -1,0 +1,42 @@
+[
+    {
+        "category": "C",
+        "name": "Falco Aesalon",
+        "description": "Premier exemple connu d'Animagus, pouvait se transformer en faucon."
+    },
+    {
+        "category": "R",
+        "name": "Cornelius Agrippa",
+        "description": "Fut emprisonné par les Moldus pour ses écrits."
+    },
+    {
+        "category": "L",
+        "name": "Archibald Alderton",
+        "description": "Fit sauter le hameau de Lagoutte en tentant de confectionner magiquement un gâteau d'anniversaire."
+    },
+    {
+        "category": "C",
+        "name": "Andros l'Invincible",
+        "description": "Seul sorcier connu à avoir produit un Patronus de la taille d'un géant."
+    },
+    {
+        "category": "C",
+        "name": "Heathcote Barbary",
+        "description": "Guitariste des Bizarr'Sisters."
+    },
+    {
+        "category": "C",
+        "name": "Musidora Barkwith",
+        "description": "Compositrice de la Suite enchantée, une oeuvre inachevée avec tuba explosif qui est interdite depuis sa dernière prestation en 1902 au cours de laquelle elle fit sauter le toit de la mairie d'Ackerley."
+    },
+    {
+        "category": "C",
+        "name": "Oswald Beamish",
+        "description": "Pionnier dans la lutte pour les droits des gobelins."
+    },
+    {
+        "category": "C",
+        "name": "Flavius Belby",
+        "description": "Seul sorcier connu à avoir survécu à une attaque de Moremplis"
+    }
+]

@@ -21,7 +21,6 @@ async function roll(msg, _player) {
       cheat = false
     } = parser.parse(msg.content);
 
-    const player = joueur || _player;
     if (!player) {
       msg.reply("joueur inconnu");
       return;
