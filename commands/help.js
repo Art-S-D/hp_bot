@@ -23,6 +23,10 @@ function help(msg) {
             *et une image jointe au message si besoin*
             *mettre la description à la fin sinon ça bug :)*
 
+    cartes:
+        !chocogrenouilles pour tirer une carte et l'ajouter à sa collection
+        !collectionCG pour lister sa collection
+
     faut pas oublier de dire stp et merci au bot :)`);
 }
 

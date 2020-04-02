@@ -5,6 +5,7 @@
   "main": "HP_Bot.js",
   "scripts": {
     "start": "node HP_Bot.js",
+    "test": "jest --detectOpenHandles",
     "migrate-up": "yarn migrate-mongo up",
     "migrate-down": "yarn migrate-mongo down",
     "remigrate": "yarn migrate-mongo down; migrate-mongo up"
@@ -13,7 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11",
+    "jest": "^25.2.4",
     "migrate-mongo": "^7.1.0",
+    "mockingoose": "^2.13.2",
     "mongoose": "^5.9.6"
   }
 }

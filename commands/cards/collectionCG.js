@@ -8,7 +8,8 @@ async function collectionCG(msg, player) {
     let reply = "";
     for (const c of player.cards) {
       const card = await Card.findById(c);
-      reply = `${reply}\n${card.asString}`;
+      if (reply === "") reply = card.asString;
+      else reply = `${reply}\n${card.asString}`;
     }
     msg.reply(reply);
   } else msg.reply("Unauthorised");
