@@ -12,14 +12,14 @@ class MockDiscord {
   // guildMember;
   // message;
 
-  constructor(opt) {
+  constructor(opt = {}) {
     this.mockClient(opt.client);
 
     this.mockGuild(opt.guild);
 
     this.mockChannel(opt.channel);
 
-    this.mockGuildChannel(opt.guildChannem);
+    this.mockGuildChannel(opt.guildChannel);
 
     this.mockTextChannel(opt.textChannel);
 
@@ -33,11 +33,11 @@ class MockDiscord {
     this.replies = [];
   }
 
-  mockClient(opt) {
+  mockClient(opt = {}) {
     this.client = new Discord.Client();
   }
 
-  mockGuild(opt) {
+  mockGuild(opt = {}) {
     this.guild = new Discord.Guild(
       this.client,
       Object.assign(
@@ -65,26 +65,26 @@ class MockDiscord {
           roles: [],
           presences: [],
           voice_states: [],
-          emojis: []
+          emojis: [],
         },
         opt
       )
     );
   }
 
-  mockChannel(opt) {
+  mockChannel(opt = {}) {
     this.channel = new Discord.Channel(
       this.client,
       Object.assign(
         {
-          id: "channel-id"
+          id: "channel-id",
         },
         opt
       )
     );
   }
 
-  mockGuildChannel(opt) {
+  mockGuildChannel(opt = {}) {
     this.guildChannel = new Discord.GuildChannel(
       this.guild,
       Object.assign(
@@ -94,14 +94,14 @@ class MockDiscord {
           name: "guild-channel",
           position: 1,
           parent_id: "123456789",
-          permission_overwrites: []
+          permission_overwrites: [],
         },
         opt
       )
     );
   }
 
-  mockTextChannel(opt) {
+  mockTextChannel(opt = {}) {
     this.textChannel = new Discord.TextChannel(
       this.guild,
       Object.assign(
@@ -112,14 +112,14 @@ class MockDiscord {
           nsfw: false,
           last_message_id: "123456789",
           lastPinTimestamp: new Date("2019-01-01").getTime(),
-          rate_limit_per_user: 0
+          rate_limit_per_user: 0,
         },
         opt
       )
     );
   }
 
-  mockUser(opt) {
+  mockUser(opt = {}) {
     this.user = new Discord.User(
       this.client,
       Object.assign(
@@ -128,14 +128,14 @@ class MockDiscord {
           username: "user username",
           discriminator: "user#0000",
           avatar: "user avatar url",
-          bot: false
+          bot: false,
         },
         opt
       )
     );
   }
 
-  mockGuildMember(opt) {
+  mockGuildMember(opt = {}) {
     this.guildMember = new Discord.GuildMember(
       this.guild,
       Object.assign(
@@ -149,7 +149,7 @@ class MockDiscord {
           nick: "nick",
           joined_at: new Date("2020-01-01").getTime(),
           user: this.user,
-          roles: []
+          roles: [],
         },
         opt
       )
@@ -175,12 +175,12 @@ class MockDiscord {
         mentions: [],
         mention_roles: [],
         mention_everyone: [],
-        hit: false
+        hit: false,
       },
       msg
     );
     this.message = new Discord.Message(this.textChannel, message, this.client);
-    this.message.reply = content => this.replies.push(content);
+    this.message.reply = (content) => this.replies.push(content);
   }
 }
 

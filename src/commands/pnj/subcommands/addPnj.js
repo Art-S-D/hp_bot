@@ -16,4 +16,5 @@ async function addPnj(msg, ast) {
   console.log("Pnj added!");
 }
 
+addPnj.mjRequired = true;
 module.exports = addPnj;

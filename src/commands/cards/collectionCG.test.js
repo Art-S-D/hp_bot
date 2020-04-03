@@ -7,25 +7,16 @@ const fakeCard = require("tests/fakeCard");
 const collectionCG = require("./collectionCG");
 
 describe("!chocogrenouilles commands", () => {
-  let discord = new MockDiscord({ guild: { id: require("../serverId") } });
+  let discord = new MockDiscord();
   fakePlayer.cards = [fakeCard._id, fakeCard._id];
   fakeCard.asString = "TEST_STRING";
   mockingoose(Player).toReturn(fakePlayer, "findOne");
   mockingoose(Card).toReturn(fakeCard, "findOne");
 
   beforeEach(() => {
-    discord = new MockDiscord({ guild: { id: require("../serverId") } });
+    discord = new MockDiscord();
     fakePlayer.markModified = jest.fn();
     fakePlayer.save = jest.fn();
-  });
-
-  it("should fail when the server is not authorised", async () => {
-    discord = new MockDiscord({ guild: { id: "INVALID_ID" } });
-    discord.mockMessage({ content: "!chocogrenouilles" });
-    await collectionCG(discord.message, fakePlayer);
-
-    expect(discord.replies.length).toBe(1);
-    expect(discord.replies[0]).toBe("Unauthorised");
   });
 
   it("should work", async () => {

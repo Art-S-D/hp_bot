@@ -10,4 +10,5 @@ async function removePnj(msg, ast) {
   }
 }
 
+removePnj.mjRequired = true;
 module.exports = removePnj;

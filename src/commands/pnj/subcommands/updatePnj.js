@@ -18,7 +18,7 @@ async function updatePnj(msg, ast) {
   await pnj.save();
 
   msg.reply("Pnj modifié!");
-  console.log("Pnj updated!");
 }
 
+updatePnj.mjRequired = true;
 module.exports = updatePnj;

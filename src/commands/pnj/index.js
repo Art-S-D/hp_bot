@@ -3,7 +3,7 @@ const {
   getPnj,
   listPnj,
   removePnj,
-  updatePnj
+  updatePnj,
 } = require("./subcommands");
 const parser = require("./parser.js");
 const hasRole = require("../utils/hasRole");
@@ -14,35 +14,24 @@ const _pnjAction = {
   update: 2,
   remove: 3,
   add: 4,
-  list: 5
+  list: 5,
 };
 
-const pnjActions = [
-  { mj: false, func: getPnj },
-  { mj: true, func: updatePnj },
-  { mj: true, func: removePnj },
-  { mj: true, func: addPnj },
-  { mj: true, func: listPnj }
-];
+const pnjActions = [getPnj, updatePnj, removePnj, addPnj, listPnj];
 
 async function pnj(msg) {
-  if (process.argv.includes("unsafe") || msg.guild.id === "661804149129871371")
-    try {
-      const pnjAst = parser.parse(msg.content);
-      if (pnjActions[pnjAst.type - 1].mj && !hasRole(msg, "MJ")) {
-        msg.reply("Vous devez être MJ pour effectuer cette action.");
-        return;
-      }
-      await pnjActions[pnjAst.type - 1].func(msg, pnjAst);
-    } catch (e) {
-      msg.reply(e.message || e);
-      throw e;
+  try {
+    const pnjAst = parser.parse(msg.content);
+    if (pnjActions[pnjAst.type - 1].mjRequired && !hasRole(msg, "MJ")) {
+      msg.reply("Vous devez être MJ pour effectuer cette action.");
+      return;
     }
-  else {
-    msg.reply("Unauthorized");
-    console.error("Unaothorized call");
-    console.error(msg.guild.id);
+    await pnjActions[pnjAst.type - 1](msg, pnjAst);
+  } catch (e) {
+    msg.reply(e.message || e);
+    throw e;
   }
 }
 
+pnj.critical = true;
 module.exports = pnj;

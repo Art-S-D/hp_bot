@@ -16,5 +16,5 @@ module.exports = {
   no,
   pnj,
   chocogrenouilles,
-  collectionCG
+  collectionCG,
 };

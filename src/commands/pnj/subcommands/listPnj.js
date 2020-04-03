@@ -8,4 +8,5 @@ async function listPnj(msg, ast) {
   }
 }
 
+listPnj.mjRequired = true;
 module.exports = listPnj;
