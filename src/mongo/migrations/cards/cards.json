@@ -1,6 +1,6 @@
-[
+﻿[
     {
-        "category": "C",
+        "category": "L",
         "name": "Falco Aesalon",
         "description": "Premier exemple connu d'Animagus, pouvait se transformer en faucon."
     },
@@ -10,19 +10,14 @@
         "description": "Fut emprisonné par les Moldus pour ses écrits."
     },
     {
-        "category": "L",
+        "category": "C",
         "name": "Archibald Alderton",
         "description": "Fit sauter le hameau de Lagoutte en tentant de confectionner magiquement un gâteau d'anniversaire."
     },
     {
-        "category": "C",
+        "category": "R",
         "name": "Andros l'Invincible",
         "description": "Seul sorcier connu à avoir produit un Patronus de la taille d'un géant."
-    },
-    {
-        "category": "C",
-        "name": "Heathcote Barbary",
-        "description": "Guitariste des Bizarr'Sisters."
     },
     {
         "category": "C",
@@ -35,8 +30,543 @@
         "description": "Pionnier dans la lutte pour les droits des gobelins."
     },
     {
-        "category": "C",
+        "category": "R",
         "name": "Flavius Belby",
         "description": "Seul sorcier connu à avoir survécu à une attaque de Moremplis"
+    },
+    {
+        "category": "C",
+        "name": "Dorcas Bienaimée",
+        "description": "Fondatrice de la Société des Sorcières en Détresse."
+    },
+    {
+        "category": "C",
+        "name": "Balfour Blane",
+        "description": "Fondateur de la Commission des sortilèges expérimentaux."
+    },
+    {
+        "category": "C",
+        "name": "Beatrix Bloxam",
+        "description": "Auteur des Contes du champignon, livre pour enfants interdit car causant des nausées."
+    },
+    {
+        "category": "C",
+        "name": "Mangouste Bonham",
+        "description": "Fondateur de l'hôbital Ste Mangouste pour les maladies et blessures magiques."
+    },
+    {
+        "category": "R",
+        "name": "Barberus Bragge",
+        "description": "A introduit un Vivet doré à un match de Quidditch en 1269, ce qui changea le jeu à tout jamais."
+    },
+    {
+        "category": "C",
+        "name": "Glenda Chittock",
+        "description": "Présentatrice de l'émission L'heure ensorcelante sur la Radio Indépendante à Transmission Magique."
+    },
+    {
+        "category": "L",
+        "name": "Circé",
+        "description": "Sorcière ayant vécu sur Aeaea où elle transformait en cochons les marins échoués sur son île."
+    },
+    {
+        "category": "L",
+        "name": "Elfrida Clagg",
+        "description": "Chef du Conseil des sorciers au 17ème siècle."
+    },
+    {
+        "category": "C",
+        "name": "Cliodna",
+        "description": "Druidesse irlandaise qui découvrit les propriétés de la rosée de lune."
+    },
+    {
+        "category": "C",
+        "name": "Devlin Corneblanche",
+        "description": "Fondateur de la société des Balais de Course Nimbus"
+    },
+    {
+        "category": "C",
+        "name": "Bertie Crochue",
+        "description": "Inventeur de la recette des dragées surprises de Bertie Crochue."
+    },
+    {
+        "category": "C",
+        "name": "Crispin Cronk",
+        "description": "Sorcier ayant fait un séjour à Azkaban pour avoir caché des sphinx dans son potager."
+    },
+    {
+        "category": "C",
+        "name": "Daisy Dodderidge",
+        "description": "Pemière propriétaire du Chaudron Baveur."
+    },
+    {
+        "category": "C",
+        "name": "Norbert Dragonneau",
+        "description": "Auteur de Vie et habitat des animaux fantastiques."
+    },
+    {
+        "category": "C",
+        "name": "Wilfrid Elphick",
+        "description": "Premier sorcier à avoir saigné à mort par un Eruptif."
+    },
+    {
+        "category": "C",
+        "name": "Perpetua Fancourt",
+        "description": "Inventrice du Lunascope."
+    },
+    {
+        "category": "C",
+        "name": "Miranda Fauconnette",
+        "description": "Auteur de la collection des livres des sorts et enchantements"
+    },
+    {
+        "category": "C",
+        "name": "Dymphna Furmage",
+        "description": "Victime d'un enlèvement par des lutins lors de ses vacances en Cornouailles et a vécu dans la terreur depuis, tenta en vain de persuader le ministère de la Magie de tuer les lutins avec douceur."
+    },
+    {
+        "category": "R",
+        "name": "Gunhilda de Gorsemoor",
+        "description": "Sorsière bossue et borgne qui trouva un remède à la Dragoncelle."
+    },
+    {
+        "category": "C",
+        "name": "Greta Grandamour",
+        "description": "Auteur de Comment ensorceler votre fromage."
+    },
+    {
+        "category": "C",
+        "name": "Gregory le Hautain",
+        "description": "Inventeur de la pommade pommadante Grégoire, aurait infiltré la cour du roi Arthur."
+    },
+    {
+        "category": "L",
+        "name": "Godric Gryffondor",
+        "description": "Cofondateur de Poudlard, donna son nom à l'une des maisons de l'école."
+    },
+    {
+        "category": "C",
+        "name": "Alberic Grunnion",
+        "description": "Inventeur de la Bombabouse."
+    },
+    {
+        "category": "C",
+        "name": "Gwendoline la Fantasque",
+        "description": "Aimait tant monter sur le bûcher qu'elle se fit capturer quarante-sept fois sous divers déguisements. "
+    },
+    {
+        "category": "C",
+        "name": "Herpo l'Infâme",
+        "description": "Créateur du premier Basilic de l'histoire."
+    },
+    {
+        "category": "C",
+        "name": "Glover Hipworth",
+        "description": "Inventeur de la Pimentine."
+    },
+    {
+        "category": "C",
+        "name": "Gwenog Jones",
+        "description": "Capitaine et batteuse de la première équipe exclusivement féminine de Quidditch, les Harpies de Holyhead."
+    },
+    {
+        "category": "C",
+        "name": "Elladora Ketteridge",
+        "description": "Découvrit l'utilité de la Branchiflore lorsqu'elle faillit s'étouffer en l'avalant et ne fut soulagée qu'en plongeant la tête dans un seau d'eau."
+    },
+    {
+        "category": "C",
+        "name": "Montague Knightley",
+        "description": "Célébre champion de jeu d'échecs version sorcier."
+    },
+    {
+        "category": "C",
+        "name": "Félix Labeille",
+        "description": "Inventeur du sortilège d'Allégresse."
+    },
+    {
+        "category": "C",
+        "name": "Adalbert Lasornette",
+        "description": "Célèbre théorisien de la magie."
+    },
+    {
+        "category": "C",
+        "name": "Fulbert Latrouille",
+        "description": "Si peureux qu'il ne sorte jamais de sa maison, mourut lorsqu'un de ses charmes Défensif se retourna contre lui et fit s'écrouler son toit."
+    },
+    {
+        "category": "C",
+        "name": "Artemisia Lufkin",
+        "description": "Première sorcière à être devenue ministre de la Magie."
+    },
+    {
+        "category": "C",
+        "name": "Reine Maëva",
+        "description": "Sorcière légendaire ayant formé de nombreux jeunes sorciers en Irlande avant la fondation du collège Poudlard."
+    },
+    {
+        "category": "C",
+        "name": "Beaumont Marjoribanks",
+        "description": "Pionnier de la botanique et collectionneur de plantes rares qui a découvert la Branchiflore."
+    },
+    {
+        "category": "L",
+        "name": "Merlin",
+        "description": "Plus célèbre sorcier de tous les temps, aussi connu sous le nom de Prince des Enchanteurs, oeuvrait à la cour du roi Arthur."
+    },
+    {
+        "category": "C",
+        "name": "Merwyn le Malicieux",
+        "description": "Lui est attribuée l'invention de nombreux maléfices et sortilèges."
+    },
+    {
+        "category": "C",
+        "name": "Célestina Moldubec",
+        "description": "Célèbre chanteuse populaire chez les sorciers."
+    },
+    {
+        "category": "C",
+        "name": "Laverne de Montmorency",
+        "description": "Inventrice de nombreux philtres d'amour."
+    },
+    {
+        "category": "C",
+        "name": "Mopsus",
+        "description": "Devin des temps anciens, a vaincu Calchas lors d'un concours d'augures."
+    },
+    {
+        "category": "L",
+        "name": "Morgane",
+        "description": "Demi-soeur du roi Arthur, sorcière férue de magie noire et ennemie jurée de Merlin."
+    },
+    {
+        "category": "C",
+        "name": "Burdock Muldoon",
+        "description": "Chef du Conseil des sorciers de 1448 à 1450."
+    },
+    {
+        "category": "C",
+        "name": "Honoria Nutcombe",
+        "description": "Fondatrice de la Société pour la réforme des sorcières."
+    },
+    {
+        "category": "C",
+        "name": "Dunbar Oglethorpe",
+        "description": "Chef de la Fédération pour la gestion et la promotion de la Ligue britannique de Quidditch."
+    },
+    {
+        "category": "C",
+        "name": "Chauncey Oldridge",
+        "description": "Première victime connue de la Dragoncelle."
+    },
+    {
+        "category": "C",
+        "name": "Gondoline Oliphant",
+        "description": "Spécialiste des trolls, assassinée par le modèle qu'elle tentait de dessiner."
+    },
+    {
+        "category": "R",
+        "name": "Gifford Ollerton",
+        "description": "Célèbre pourfendeur de géants et tueur du géant Hengist de Barnton."
+    },
+    {
+        "category": "C",
+        "name": "Paracelse",
+        "description": "Contemporain de Copernic et de Léonard de Vinci, médecin génial dont les théories audacieuses contestaient la pensée médiévale et auquel la découverte du Fourchelang est attribuée."
+    },
+    {
+        "category": "C",
+        "name": "Glanmore Peakes",
+        "description": "Tueur du serpent de mer de Cromer"
+    },
+    {
+        "category": "C",
+        "name": "Justus Pilliwickle",
+        "description": "Célèbre directeur du Département de la justice magique."
+    },
+    {
+        "category": "C",
+        "name": "Carlotta Pinkstone",
+        "description": "Fit campagne pour abolir le Code d'utilisation des baguettes magiques et révéler aux Moldus l'existence des sorciers, fut emprisonnée à plusieurs reprises pour utilisation délibérée de la magie dans des lieux publics."
+    },
+    {
+        "category": "C",
+        "name": "Yardley Platt",
+        "description": "Tueur de gobelins en série."
+    },
+    {
+        "category": "R",
+        "name": "Roderick Plumpton",
+        "description": "Attrapeur de l'équipe nationale de Quidditch d'Angleterre, détient le record britannique d'attrapage du Vif d'or, en trois secondes et demi."
+    },
+    {
+        "category": "C",
+        "name": "Mirabella Plunkett",
+        "description": "Connue pour être tombée amoureuse d'un triton au Loch Lomond alors qu'elle était en vacances, lorsque ses parents lui interdirent de se marier elle se transforma en aiglefin et ne réapparut jamais."
+    },
+    {
+        "category": "C",
+        "name": "Quong Po",
+        "description": "Sorcier chinois qui découvrit les usages des oeufs de Boutefeu en poudre."
+    },
+    {
+        "category": "C",
+        "name": "Gulliver Pokeby",
+        "description": "Expert des oiseaux magiques, premier à avoir compris la signification du chant de l'Augurey."
+    },
+    {
+        "category": "L",
+        "name": "Helga Poufsouffle",
+        "description": "Cofondatrice de Poudlard, donna son nom à l'une des maisons de l'école."
+    },
+    {
+        "category": "C",
+        "name": "Xavier Rastrick",
+        "description": "Célèbre sorcier animateur qui disparut brusquement à tout jamais au beau milieu d'un numéro de claquettes au milieu d'une foule de trois cent personnes à Painswick."
+    },
+    {
+        "category": "C",
+        "name": "Almerick Sawbridge",
+        "description": "Pourfendeur du troll des rivières qui terrorisait ceux qui traversaient la Wye, le troll en question aurait été l'un des plus imposants de la Grande-Bretagne avec un poids de près d'une tonne."
+    },
+    {
+        "category": "L",
+        "name": "Rowena Serdaigle",
+        "description": "Cofondatrice de Poudlard, donna son nom à l'une des maisons de l'école."
+    },
+    {
+        "category": "L",
+        "name": "Salazar Serpentard",
+        "description": "Cofondateur de Poudlard, donna son nom à l'une des maisons de l'école."
+    },
+    {
+        "category": "C",
+        "name": "Derwent Shimpling",
+        "description": "Mangea une tentacula vénéneuse suite à un pari, il survécut mais resta violet."
+    },
+    {
+        "category": "C",
+        "name": "Gaspard Shingleton",
+        "description": "Inventeur du chaudron à touillage automatique."
+    },
+    {
+        "category": "C",
+        "name": "Léopoldine Smethwyck",
+        "description": "Première sorcière britannique à arbitrer un match de Quidditch"
+    },
+    {
+        "category": "C",
+        "name": "Blenheim Stalk",
+        "description": "Spécialiste des Moldus qui écrivit Témoins moldus."
+    },
+    {
+        "category": "C",
+        "name": "Hesper Starkey",
+        "description": "Étudia l'influence des phases de la lune sur la fabrication des potions."
+    },
+    {
+        "category": "C",
+        "name": "Edgar Stroulger",
+        "description": "Ministre de la Magie très populaire, nommé en 1811."
+    },
+    {
+        "category": "C",
+        "name": "Havelock Sweeting",
+        "description": "Spécialiste des licornes, créateur de nombreuses réserves de licornes en Grande-Bretagne."
+    },
+    {
+        "category": "R",
+        "name": "Jocunda Sykes",
+        "description": "Première personne à traverse l'Atlantique sur un balai."
+    },
+    {
+        "category": "C",
+        "name": "Thadée Thurkell",
+        "description": "Eu sept fils Cracmols et, de dégoût, les transforma en hérissons."
+    },
+    {
+        "category": "C",
+        "name": "Tilly Toke",
+        "description": "A obtenu l'Ordre de Merlin, première classe pour avoir sauvé de nombreux Moldus en 1932 lorsqu'un dragon fonça sur une foule de baigneurs."
+    },
+    {
+        "category": "C",
+        "name": "Roland Tonneau",
+        "description": "Président de l'équipe de Bavboules d'Angleterre."
+    },
+    {
+        "category": "R",
+        "name": "Alberta Toothill",
+        "description": "Remporta la compétition anglaise des duels de sorciers en 1430 face au favori Samson Wiblin en utilisant un maléfice explosif."
+    },
+    {
+        "category": "C",
+        "name": "Ethelred Toujourprêt",
+        "description": "Célèbre pour se vexer pour un rien et pour maudire d'innocents passants, mourut en prison."
+    },
+    {
+        "category": "C",
+        "name": "Sacharissa Tugwood",
+        "description": "Pionnière des potions de beauté, découvrit les propriétés curatives des pustules de Bubobulbs."
+    },
+    {
+        "category": "R",
+        "name": "Norvel Twonk",
+        "description": "Mourut en essayant de sauver un enfant Moldu d'une Manticore, fut nommé Commandeur du Grand-Ordre de Merlin à titre posthume."
+    },
+    {
+        "category": "C",
+        "name": "Ulric le Follingue",
+        "description": "Sorcier excentrique connu pour la méduse qu'il portait comme chapeau."
+    },
+    {
+        "category": "C",
+        "name": "Cassandra Vablatsky",
+        "description": "Voyante célèbre, auteur de Lever le voile du futur."
+    },
+    {
+        "category": "C",
+        "name": "Jocelyn Wadcock",
+        "description": "Poursuiveuse du Club de Flaquemare, détient le record du plus grand nombre de buts inscrits en une saison en Grande-Bretagne au 20ème siècle (contre les ChauvesSouris de Fichucastel en 1931)."
+    },
+    {
+        "category": "C",
+        "name": "Sean Wagtail",
+        "description": "Chanteur des Lepre-Sean."
+    },
+    {
+        "category": "C",
+        "name": "Brigitte Wenlock",
+        "description": "Première arithmancienne à démontrer les propriétés magiques du chiffre sept."
+    },
+    {
+        "category": "C",
+        "name": "Ignatia Wildsmith",
+        "description": "Inventrice de la poudre de cheminette."
+    },
+    {
+        "category": "C",
+        "name": "Stoddard Withers",
+        "description": "Éleveur de chevaux ailés."
+    },
+    {
+        "category": "C",
+        "name": "Hengist de Woodcroft",
+        "description": "Après avoir été chassé de sa demeure par des Moldus, s'installa en Ecosse pour fonderle village de Pré-au-Lard et aurait par la suite vécu aux Trois Balais."
+    },
+    {
+        "category": "R",
+        "name": "Bowman Wright",
+        "description": "Célèbre ensorceleur de métaux, inventeur du Vif d'or."
+    },
+    {
+        "category": "C",
+        "name": "Dzou Yen",
+        "description": "Alchimiste chinois pendant l'antiquité."
+    },
+    {
+        "category": "C",
+        "name": "Cyprien Youdle",
+        "description": "Seul arbitre de Quidditch ayant trouvé la mort au cours d'un match, le lanceur du sortilège ne fut jamais pris mais la rumeur veut qu'il fît partie du public."
+    },
+    {
+        "category": "R",
+        "name": "Blodwyn Bludd",
+        "description": "Connu comme le Vampire des vallées, chantait pour ses victimes avec une voix de baryton avant de les mordre dans le cou."
+    },
+    {
+        "category": "L",
+        "name": "Vlad Dracula",
+        "description": "Inspira la fiction du Comte Dracula de Bram Stoker, père de Vlad l'empaleur."
+    },
+    {
+        "category": "R",
+        "name": "Amarillo Lestoat",
+        "description": "Vampire américain extravaguant, auteur de Monologue avec un vampire."
+    },
+    {
+        "category": "L",
+        "name": "Carmilla Sanguina",
+        "description": "Se baignait dans le sang de ses victimes afin de conserver sa beauté juvénile."
+    },
+    {
+        "category": "R",
+        "name": "Herbert Varney",
+        "description": "Vampire victorien qui s'attaquait aux femmes londiennes dans les années 1880, fut capturé et tué par une équipe spéciale du Département de contrôle et de régulation des créatures magiques."
+    },
+    {
+        "category": "C",
+        "name": "Alguff le Fétide",
+        "description": "Fléau gobelin nauséabond, a tenté de vendre des fioles de sa sueur à un fabricant de Bombabouses."
+    },
+    {
+        "category": "R",
+        "name": "Eargit l'Affreux",
+        "description": "Porte-parole des gobelins au Conseil des sorciers du 14ème siècle."
+    },
+    {
+        "category": "L",
+        "name": "Gringott",
+        "description": "Fondateur de Gringotts, la banque des sorciers."
+    },
+    {
+        "category": "R",
+        "name": "Ug le Pafiable",
+        "description": "Grand escroc gobelin, organisa le tristement célèbre Demiguise Derby et s'enfuit avec la recette."
+    },
+    {
+        "category": "R",
+        "name": "Urg le Malpropre",
+        "description": "Chef des rebelles lors de la révolte des gobelins du 18ème siècle."
+    },
+    {
+        "category": "L",
+        "name": "Babayaga",
+        "description": "Harpie russe qui habitait dans une hutte posée sur des pattes de poulet géantes et qui se nourrissait d'enfants."
+    },
+    {
+        "category": "R",
+        "name": "Malodora Grymm",
+        "description": "Grâce à une potion de beauté qui masquait son physique de harpie, épousa un roi et utilisa un miroir ensorcelé pour renforcer son image. Jalouse de la plus belle fille du pays, elle lui fit manger une pomme empoisonnée pour s'en débarrasser."
+    },
+    {
+        "category": "R",
+        "name": "Grand-maman Hubbard",
+        "description": "Attirait des animaux errants dans sa demeure et les faisait mourir de faim."
+    },
+    {
+        "category": "L",
+        "name": "Cordelia Misericordia",
+        "description": "Porte-parole des harpies au Conseil des sorciers du 14ème siècle."
+    },
+    {
+        "category": "R",
+        "name": "Leticia Somnolens",
+        "description": "Harpie malveillante était jalouse de la fille du roi et força la jeune fille à se piquer le doigt avec un fuseau imbibé de Goutte du Mort vivant, un jeune sorcier qui avait trempé ses lèvres dans une potion Wiggenweld embrassa la princesse qui reprit alors connaissance."
+    },
+    {
+        "category": "R",
+        "name": "Hengist de Barnton",
+        "description": "Célèbre géant tué par le pourfendeur de géants Gifford Ollerton."
+    },
+    {
+        "category": "R",
+        "name": "Bran l'Ogre",
+        "description": "Vivait dans un château au sommet d'un haricot magique, très friand de tartines d'os arrosées du sang d'un anglais, fut tué par un garçon nommé Jack."
+    },
+    {
+        "category": "R",
+        "name": "Cyclope",
+        "description": "Géant à un seul œil qui vivait dans une grotte au pied de l'Etna, fut tué par le héros grec Ulysse qui se fit aider par un troupeau de moutons."
+    },
+    {
+        "category": "R",
+        "name": "Goliath",
+        "description": "Géant mercenaire utilisé par les Philistins dans leur guerre contre les Hébreux, fut tué à la fronde par un jeune garçon."
+    },
+    {
+        "category": "R",
+        "name": "Morholt",
+        "description": "Gigantesque frère du roi d'Irlande, blessa le héros celte Tristan avec son épieu empoisonné lorsque ce dernier tenta de le tuer."
     }
 ]
