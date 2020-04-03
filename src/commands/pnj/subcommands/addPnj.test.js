@@ -16,7 +16,7 @@ describe("!pnj add command", () => {
   });
 
   it("should fail when the pnj already exists", async () => {
-    discord.mockMessage({ content: "!pnj add Test[House.A+5] test" });
+    discord.mockMessage({ content: "!pnj add AnotherTest[House.A+5] test" });
     discord.message.attachments = [];
     discord.message.member = { roles: { array: () => [{ name: "MJ" }] } };
 
@@ -28,7 +28,7 @@ describe("!pnj add command", () => {
   });
 
   it("should add a pnj", async () => {
-    discord.mockMessage({ content: "!pnj add AnotherTest[House.A+5] test" });
+    discord.mockMessage({ content: "!pnj add Test[House.A+5] test" });
     discord.message.attachments = [];
     discord.message.member = { roles: { array: () => [{ name: "MJ" }] } };
     mockingoose(Pnj).toReturn(null, "findOne");
@@ -39,6 +39,6 @@ describe("!pnj add command", () => {
 
     expect(add).toBeCalled();
     expect(discord.replies.length).toBe(1);
-    expect(discord.replies[0].toBe("Pnj créée!"));
+    expect(discord.replies[0]).toBe("Pnj créée!");
   });
 });

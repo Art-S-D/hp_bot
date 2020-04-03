@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const { Player, connection } = require("./models");
+const { Player, connection } = require("mongo");
 const isAuthorized = require("./utils/isAuthorized");
 
 const commands = require("./commands");
@@ -19,17 +19,21 @@ client.on("message", async (msg) => {
   const command = Object.keys(commands).find((x) =>
     msg.content.substring(1).startsWith(x)
   );
-  if (command)
+  if (command) {
+    if (process.argv.includes("log")) console.log(msg.content);
+
     try {
       if (commands[command].critical && !isAuthorized(msg))
         msg.reply("Unauthorized");
       else {
         const player = await Player.getPlayerFromRole(msg);
-        commands[command](msg, player);
+        await commands[command](msg, player);
       }
     } catch (e) {
+      msg.reply(e.message || e);
       console.error(e);
     }
+  }
 });
 
 client.login("NjY4NDI3NDg1MzY4NjgwNDUw.XiRH2Q.GCVmxJ9K8ash5GXox8TMX70zfEg");

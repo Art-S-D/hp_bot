@@ -6,11 +6,11 @@ const fakePnj = require("tests/fakePnj");
 
 const pnj = require("..");
 
-describe("!pnj add command", () => {
+describe("!pnj remove command", () => {
   let discord = new MockDiscord();
   mockingoose(Player).toReturn(fakePlayer, "findOne");
   mockingoose(Pnj).toReturn(fakePnj, "findOne");
-  mockingoose(Pnj).toReturn(true, "remove");
+  mockingoose(Pnj).toReturn(fakePnj, "findOneAndDelete");
 
   beforeEach(() => {
     discord = new MockDiscord();
@@ -33,12 +33,9 @@ describe("!pnj add command", () => {
     discord.message.attachments = [];
     discord.message.member = { roles: { array: () => [{ name: "MJ" }] } };
 
-    const rm = jest.fn();
-    mockingoose(Pnj).toReturn(rm, "remove");
     await pnj(discord.message);
 
-    expect(rm).toBeCalled();
     expect(discord.replies.length).toBe(1);
-    expect(discord.replies[0].toBe("Pnj supprimé!"));
+    expect(discord.replies[0]).toBe("Pnj supprimé!");
   });
 });

@@ -13,7 +13,6 @@ async function addPnj(msg, ast) {
 
   await pnj.save();
   msg.reply("Pnj créée!");
-  console.log("Pnj added!");
 }
 
 addPnj.mjRequired = true;

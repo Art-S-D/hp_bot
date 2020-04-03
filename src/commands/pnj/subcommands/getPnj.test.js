@@ -6,7 +6,7 @@ const fakePnj = require("tests/fakePnj");
 
 const pnj = require("..");
 
-describe("!pnj add command", () => {
+describe("!pnj get command", () => {
   let discord = new MockDiscord();
   mockingoose(Player).toReturn(fakePlayer, "findOne");
   mockingoose(Pnj).toReturn(fakePnj, "findOne");
