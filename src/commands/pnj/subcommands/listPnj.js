@@ -1,4 +1,4 @@
-const { Pnj } = require("../../../models");
+const { Pnj } = require("mongo");
 const printPnj = require("./printPnj");
 
 async function listPnj(msg, ast) {

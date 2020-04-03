@@ -1,4 +1,4 @@
-const { Player } = require("../models/Player");
+const { Player } = require("mongo");
 
 function print_grimoire(player) {
   const { nom, ..._player } = player;

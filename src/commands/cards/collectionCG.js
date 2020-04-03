@@ -1,4 +1,4 @@
-const { Card } = require("../../models");
+const { Card } = require("mongo");
 
 async function collectionCG(msg, player) {
   if (

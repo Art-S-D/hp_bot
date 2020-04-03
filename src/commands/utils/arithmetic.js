@@ -1,4 +1,4 @@
-const { Player } = require("../../models");
+const { Player } = require("mongo");
 
 function arithmetic(ast, player) {
   if (!ast) throw "Erreur ast vide :)";

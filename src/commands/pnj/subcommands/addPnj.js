@@ -1,4 +1,4 @@
-const { Pnj } = require("../../../models");
+const { Pnj } = require("mongo");
 
 async function addPnj(msg, ast) {
   const test = await Pnj.findOne(ast.pnj);

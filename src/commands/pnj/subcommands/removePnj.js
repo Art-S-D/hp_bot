@@ -1,4 +1,4 @@
-const { Pnj } = require("../../../models");
+const { Pnj } = require("mongo");
 
 async function removePnj(msg, ast) {
   const removed = await Pnj.findOneAndDelete(ast.pnj);

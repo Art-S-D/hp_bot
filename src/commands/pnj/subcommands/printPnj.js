@@ -1,5 +1,5 @@
 const { Attachment } = require("discord.js");
-const { Pnj } = require("../../../models");
+const { Pnj } = require("mongo");
 
 function printPnj(msg, pnj) {
   const ageDesc =

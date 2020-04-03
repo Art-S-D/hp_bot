@@ -1,7 +1,7 @@
-const { Player } = require("../../models");
+const { Player } = require("mongo");
 const mockingoose = require("mockingoose").default;
-const MockDiscord = require("../../tests/MockDiscord");
-const fakePlayer = require("../../tests/fakePlayer");
+const MockDiscord = require("tests/MockDiscord");
+const fakePlayer = require("tests/fakePlayer");
 
 const roll = require("./index");
 
@@ -29,7 +29,7 @@ describe("!roll command", () => {
 
   it("should roll normally", async () => {
     discord.mockMessage({
-      content: "!roll b bluff + rumeur + 500 r dcfm * 10 o 5 f 6"
+      content: "!roll b bluff + rumeur + 500 r dcfm * 10 o 5 f 6",
     });
     roll(discord.message, fakePlayer);
     expect(discord.replies.length).toBe(2);
@@ -41,7 +41,7 @@ describe("!roll command", () => {
 
   it("should reroll", async () => {
     discord.mockMessage({
-      content: "!roll f 1 r 1"
+      content: "!roll f 1 r 1",
     });
     roll(discord.message, fakePlayer);
     expect(discord.replies.length).toBe(4);

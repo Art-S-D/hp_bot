@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "HP_Bot.js",
+  "private": true,
+  "workspaces": [
+    "src/*"
+  ],
   "scripts": {
     "start": "node HP_Bot.js",
     "test": "jest --detectOpenHandles",
