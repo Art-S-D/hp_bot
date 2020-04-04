@@ -25,6 +25,6 @@ describe("!chocogrenouilles commands", () => {
     const HCard = Card.hydrate(fakeCard);
 
     expect(discord.replies.length).toBe(1);
-    expect(discord.replies[0]).toBe(`${HCard.asString}\n${HCard.asString}`);
+    expect(discord.replies[0]).toBe(`\n${HCard.asString}\n${HCard.asString}`);
   });
 });
