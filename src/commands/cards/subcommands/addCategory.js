@@ -1,7 +1,7 @@
 const addCard = require("./addCard");
 const { Card } = require("mongo");
 
-async function addRandomCard(msg, player, category) {
+async function addCategory(msg, player, category) {
   if (category !== "C" && category !== "R" && category !== "L")
     throw `wrong category ${category}`;
   const count = await Card.find({ category }).countDocuments();
@@ -14,4 +14,4 @@ async function addRandomCard(msg, player, category) {
   await addCard(msg, player, card);
 }
 
-module.exports = addRandomCard;
+module.exports = addCategory;
