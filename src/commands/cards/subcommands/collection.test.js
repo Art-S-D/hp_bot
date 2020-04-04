@@ -4,9 +4,9 @@ const MockDiscord = require("tests/MockDiscord");
 const fakePlayer = require("tests/fakePlayer");
 const fakeCards = require("tests/fakeCards");
 
-const collectionCG = require("./collectionCG");
+const collection = require("./collection");
 
-describe("!collectionCG commands", () => {
+describe("!collection commands", () => {
   let discord = new MockDiscord();
   fakePlayer.cards = [fakeCards[0]._id];
   fakeCards[0].asString = "TEST_STRING";
@@ -22,8 +22,8 @@ describe("!collectionCG commands", () => {
   });
 
   it("should work", async () => {
-    discord.mockMessage({ content: "!collectionCG" });
-    await collectionCG(discord.message, fakePlayer);
+    discord.mockMessage({ content: "!carte collection" });
+    await collection(discord.message, fakePlayer);
 
     expect(discord.replies.length).toBe(1);
     expect(discord.replies[0]).toBe(`\n${HCards[0].asString}`);
@@ -31,11 +31,11 @@ describe("!collectionCG commands", () => {
 
   it("should be sorted", async () => {
     fakePlayer.cards = fakeCards.map((c) => c._id);
-    discord.mockMessage({ content: "!collectionCG" });
+    discord.mockMessage({ content: "!carte collection" });
     mockingoose(Card).toReturn((query) => {
       return HCards.find((c) => c._id.toString() === query.getQuery()._id);
     }, "findOne");
-    await collectionCG(discord.message, fakePlayer);
+    await collection(discord.message, fakePlayer);
 
     expect(discord.replies.length).toBe(1);
     expect(discord.replies[0]).toBe(
@@ -51,11 +51,11 @@ describe("!collectionCG commands", () => {
       fakeCards[1]._id,
       fakeCards[2]._id,
     ];
-    discord.mockMessage({ content: "!collectionCG" });
+    discord.mockMessage({ content: "!carte collection" });
     mockingoose(Card).toReturn((query) => {
       return HCards.find((c) => c._id.toString() === query.getQuery()._id);
     }, "findOne");
-    await collectionCG(discord.message, fakePlayer);
+    await collection(discord.message, fakePlayer);
 
     expect(discord.replies.length).toBe(1);
     expect(discord.replies[0]).toBe(

@@ -1,5 +1,5 @@
 const { Card } = require("mongo");
-const { replyLongMessage } = require("../utils");
+const { replyLongMessage } = require("../../utils");
 
 /*
  * returns a list of pairs [cardId, amount]
@@ -18,12 +18,16 @@ function cardToString(card, amount) {
   return `${card.asString}\tx${amount}`;
 }
 
-async function collectionCG(msg, player) {
+async function collection(msg, player) {
   let com = "";
   let rare = "";
   let leg = "";
   for (const [c, amount] of countSimilarCards(player.cards)) {
     const card = await Card.findById(c);
+    if (!card) {
+      console.error(`missing card ${c}`);
+      continue;
+    }
     if (card.category === "C") com = `${com}\n${cardToString(card, amount)}`;
     if (card.category === "R") rare = `${rare}\n${cardToString(card, amount)}`;
     if (card.category === "L") leg = `${leg}\n${cardToString(card, amount)}`;
@@ -31,5 +35,4 @@ async function collectionCG(msg, player) {
   replyLongMessage(msg, `${com}${rare}${leg}`);
 }
 
-collectionCG.critical = true;
-module.exports = collectionCG;
+module.exports = collection;

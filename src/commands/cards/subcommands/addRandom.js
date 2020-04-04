@@ -1,16 +1,7 @@
+const addCard = require("./addCard");
 const { Card } = require("mongo");
 
-async function addCard(msg, player, card) {
-  msg.reply(card.asString);
-
-  if (!player.cards) player.cards = [];
-  player.cards.push(card._id);
-  player.markModified();
-  player.markModified("cards");
-  await player.save();
-}
-
-async function chocogrenouilles(msg, player) {
+async function addRandomCard(msg, player) {
   let getQuery = null;
 
   let rand = Math.random();
@@ -24,5 +15,4 @@ async function chocogrenouilles(msg, player) {
   await addCard(msg, player, card);
 }
 
-chocogrenouilles.critical = true;
-module.exports = chocogrenouilles;
+module.exports = addRandomCard;

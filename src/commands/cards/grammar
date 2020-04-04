@@ -1,0 +1,32 @@
+{
+  function makeInteger(o) {
+    return parseInt(o.join(""), 10);
+  }
+  function merge_objects(array){
+  	return array.reduce((accum, current) => {return{...accum, ...current}}, {})
+  }
+  const cardType={
+    random:0,
+    name: 1,
+    category: 2,
+    collection: 3,
+    remove: 4
+  }
+}
+
+card = "!carte" " "+ res:(random / name / category / collection / remove) " "*
+	{return res}
+
+number = sign:("+"/"-"/"") nb:[0-9]+ {let i = makeInteger(nb); return sign==="-"?-i:i}
+word= w:([a-zA-Z]+) {return w.join("")}
+phrase = p:(.)* {return p.join("").replace(/-/g,"\n")}
+
+random = "random"
+	{return {type: cardType.random}}
+name = "nom" " "+ p:phrase
+	{return {type: cardType.name, name:p}}
+category = ("categorie"/"catégorie") " "+ cat:("R" / "C" / "L")
+	{return {type:cardType.category, category: cat}}
+collection = "collection" {return {type:cardType.collection}}
+remove = "supprime" " "+ p:phrase
+	{return {type:cardType.remove, name:p}}

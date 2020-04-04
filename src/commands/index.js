@@ -5,7 +5,7 @@ const not_cool = require("./not_cool.js");
 const help = require("./help.js");
 const no = require("./no");
 const pnj = require("./pnj");
-const { chocogrenouilles, collectionCG } = require("./cards");
+const carte = require("./cards");
 
 module.exports = {
   roll,
@@ -15,6 +15,5 @@ module.exports = {
   help,
   no,
   pnj,
-  chocogrenouilles,
-  collectionCG,
+  carte,
 };
