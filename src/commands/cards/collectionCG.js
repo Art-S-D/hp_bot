@@ -1,4 +1,5 @@
 const { Card } = require("mongo");
+const { replyLongMessage } = require("../utils");
 
 /*
  * returns a list of pairs [cardId, amount]
@@ -27,7 +28,7 @@ async function collectionCG(msg, player) {
     if (card.category === "R") rare = `${rare}\n${cardToString(card, amount)}`;
     if (card.category === "L") leg = `${leg}\n${cardToString(card, amount)}`;
   }
-  msg.reply(`${com}${rare}${leg}`);
+  replyLongMessage(msg, `${com}${rare}${leg}`);
 }
 
 collectionCG.critical = true;

@@ -6,7 +6,7 @@ const fakeCards = require("tests/fakeCards");
 
 const collectionCG = require("./collectionCG");
 
-describe("!chocogrenouilles commands", () => {
+describe("!collectionCG commands", () => {
   let discord = new MockDiscord();
   fakePlayer.cards = [fakeCards[0]._id];
   fakeCards[0].asString = "TEST_STRING";
