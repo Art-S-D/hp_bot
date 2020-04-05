@@ -28,7 +28,6 @@ async function pnj(msg) {
     }
     await pnjActions[pnjAst.type - 1](msg, pnjAst);
   } catch (e) {
-    msg.reply(e.message || e);
     throw e;
   }
 }
