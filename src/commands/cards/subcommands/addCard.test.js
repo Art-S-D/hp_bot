@@ -3,7 +3,7 @@ const mockingoose = require("mockingoose").default;
 const fakePlayer = require("tests/fakePlayer");
 const fakeCards = require("tests/fakeCards");
 
-const addCard = require("./addCard");
+const { addCard } = require("./addCard");
 
 describe("add card function", () => {
   fakePlayer.cards = [fakeCards[0]._id];

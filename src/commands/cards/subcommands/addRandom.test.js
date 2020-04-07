@@ -17,11 +17,12 @@ describe("random card commands", () => {
     discord = new MockDiscord();
     fakePlayer.markModified = jest.fn();
     fakePlayer.save = jest.fn();
+    fakePlayer.cards = [fakeCards[0]._id];
   });
 
   it("should work", async () => {
-    discord.mockMessage({ content: "!carte random" });
-    await addRandom(discord.message, fakePlayer);
+    discord.mockMessage({ content: "!card random" });
+    await addRandom(discord.message, fakePlayer, 1);
 
     expect(fakePlayer.markModified).toBeCalled();
     expect(fakePlayer.save).toBeCalled();
@@ -31,6 +32,13 @@ describe("random card commands", () => {
     expect(fakePlayer.cards[1].toString()).toBe(fakeCards[0]._id);
 
     expect(discord.replies.length).toBe(1);
-    expect(discord.replies[0]).toBe(Card.hydrate(fakeCards[0]).asString);
+    expect(discord.replies[0]).toBe("\n" + Card.hydrate(fakeCards[0]).asString);
+  });
+
+  it("should add multiple cards when a multiplier is specified", async () => {
+    discord.mockMessage({ content: "!card x10 random" });
+    await addRandom(discord.message, fakePlayer, 10);
+
+    expect(fakePlayer.cards.length).toBe(11);
   });
 });

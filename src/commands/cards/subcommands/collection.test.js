@@ -51,7 +51,7 @@ describe("!collection commands", () => {
       fakeCards[1]._id,
       fakeCards[2]._id,
     ];
-    discord.mockMessage({ content: "!carte collection" });
+    discord.mockMessage({ content: "!card collection" });
     mockingoose(Card).toReturn((query) => {
       return HCards.find((c) => c._id.toString() === query.getQuery()._id);
     }, "findOne");
