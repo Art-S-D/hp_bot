@@ -46,8 +46,11 @@ client.on("message", async (msg) => {
 client.on("error", (e) => {
   if (e.error.code === "EAI_AGAIN") {
     console.error(e, "connection error, reconnecting");
-    client.connect();
+    login();
   }
 });
 
-client.login("NjY4NDI3NDg1MzY4NjgwNDUw.XiRH2Q.GCVmxJ9K8ash5GXox8TMX70zfEg");
+function login() {
+  client.login("NjY4NDI3NDg1MzY4NjgwNDUw.XiRH2Q.GCVmxJ9K8ash5GXox8TMX70zfEg");
+}
+login();
