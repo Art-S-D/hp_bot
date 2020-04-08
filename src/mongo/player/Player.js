@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const InventoryCategory = require("./InventoryCategory");
+const Card = require("./Card");
 
 const statType = {
   type: Number,
-  required: true
+  required: true,
 };
 
 const Player = new Schema({
@@ -12,7 +14,7 @@ const Player = new Schema({
     esprit: statType,
     coeur: statType,
     corps: statType,
-    magie: statType
+    magie: statType,
   },
   competences: {
     bluff: statType,
@@ -26,7 +28,7 @@ const Player = new Schema({
     decorum: statType,
     discretion: statType,
     persuasion: statType,
-    romance: statType
+    romance: statType,
   },
   matieres: {
     astronomie: statType,
@@ -36,23 +38,34 @@ const Player = new Schema({
     histoire: statType,
     metamorphose: statType,
     potions: statType,
-    vol: statType
+    vol: statType,
   },
-  cards: [{ type: "ObjectId", ref: "Card" }]
+  inventory: [InventoryCategory],
+  privateChannel: String,
 });
 
-Player.static("getStat", function(player, stat) {
+Player.static("getStat", function (player, stat) {
   if (player.stats[stat] !== undefined) return player.stats[stat];
   if (player.competences[stat] !== undefined) return player.competences[stat];
   if (player.matieres[stat] !== undefined) return player.matieres[stat];
 });
 
-Player.static("getPlayerFromRole", async function(msg) {
+Player.static("getPlayerFromRole", async function (msg) {
   for (const r of msg.member.roles.array()) {
     const p = await this.findOne({ nom: r.name });
     if (p) return p;
   }
   return null;
+});
+
+Player.virtual("inventoryToString").get(async function () {
+  const tmp = this.inventory.map(async (x) => x.asString);
+  const res = await Promise.all(tmp);
+  return res.join("\n");
+});
+
+Player.virtual("cards").get(function () {
+  return this.inventory.find((x) => x.__t === "cards");
 });
 
 module.exports = mongoose.model("Player", Player);

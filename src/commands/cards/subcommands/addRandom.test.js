@@ -17,7 +17,7 @@ describe("random card commands", () => {
     discord = new MockDiscord();
     fakePlayer.markModified = jest.fn();
     fakePlayer.save = jest.fn();
-    fakePlayer.cards = [fakeCards[0]._id];
+    fakePlayer.cards.items = [fakeCards[0]._id];
   });
 
   it("should work", async () => {
@@ -27,9 +27,9 @@ describe("random card commands", () => {
     expect(fakePlayer.markModified).toBeCalled();
     expect(fakePlayer.save).toBeCalled();
 
-    expect(fakePlayer.cards.length).toBe(2);
-    expect(fakePlayer.cards[0]).toBe(fakeCards[0]._id);
-    expect(fakePlayer.cards[1].toString()).toBe(fakeCards[0]._id);
+    expect(fakePlayer.cards.items.length).toBe(2);
+    expect(fakePlayer.cards.items[0]).toBe(fakeCards[0]._id);
+    expect(fakePlayer.cards.items[1].toString()).toBe(fakeCards[0]._id);
 
     expect(discord.replies.length).toBe(1);
     expect(discord.replies[0]).toBe("\n" + Card.hydrate(fakeCards[0]).asString);
@@ -39,6 +39,6 @@ describe("random card commands", () => {
     discord.mockMessage({ content: "!card x10 random" });
     await addRandom(discord.message, fakePlayer, 10);
 
-    expect(fakePlayer.cards.length).toBe(11);
+    expect(fakePlayer.cards.items.length).toBe(11);
   });
 });

@@ -1,5 +1,3 @@
-const { replyLongMessage } = require("../../utils");
-
 async function addCard(msg, player, card) {
   msg.reply(card.asString);
 
@@ -11,13 +9,15 @@ async function addCard(msg, player, card) {
 }
 
 async function addCards(msg, player, cards) {
-  const reply = cards.map((c) => c.asString).join("\n");
-  replyLongMessage(msg, reply);
+  if (!player.cards) throw "Ce joueur n'a pas d'inventaire de cartes";
 
-  if (!player.cards) player.cards = [];
-  player.cards = player.cards.concat(cards.map((c) => c._id));
+  const reply = cards.map((c) => c.asString).join("\n");
+  msg.reply("\n" + reply, { split: true });
+
+  if (!player.cards.items) player.cards.items = [];
+  player.cards.items = player.cards.items.concat(cards.map((c) => c._id));
   player.markModified();
-  player.markModified("cards");
+  player.markModified("inventory");
   await player.save();
 }
 

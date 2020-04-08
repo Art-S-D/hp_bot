@@ -30,5 +30,11 @@
         "potions": 1,
         "vol": 1
     },
-    "cards": []
+    "inventory": [
+        {
+            "name": "cards",
+            "items": [],
+            "__t": "cards"
+        }
+    ]
 }

@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "start": "node src/HP_Bot.js",
+    "dev": "node src/HP_Bot.js unsafe ignorePrivateChannels",
     "test": "jest --detectOpenHandles",
     "migrate-up": "yarn migrate-mongo up",
     "migrate-down": "yarn migrate-mongo down",
