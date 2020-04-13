@@ -190,7 +190,7 @@ function peg$parse(input, options) {
       peg$c46 = function() {return {type:cardType.collection}},
       peg$c47 = "remove",
       peg$c48 = peg$literalExpectation("remove", false),
-      peg$c49 = function(p) {return {type:cardType.remove, name:p, multiplier: mult}},
+      peg$c49 = function(p) {return {type:cardType.remove, name:p}},
 
       peg$currPos          = 0,
       peg$savedPos         = 0,
