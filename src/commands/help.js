@@ -26,12 +26,15 @@ function help(msg) {
             *mettre la description à la fin sinon ça bug :)*
 
     cartes:
-        !carte random pour tirer une carte aléatoire et l'ajouter à sa collection
-        !carte nom <nom de carte> pour ajouter la carte en question à sa collection
-        !carte categorie <catégorie> pour ajouter une carte commune / rare / légendaire
+        !carte x<nombre> random pour tirer une carte aléatoire et l'ajouter à sa collection
+        !carte x<nombre> nom <nom de carte> pour ajouter la carte en question à sa collection
+        !carte x<nombre> categorie <catégorie> pour ajouter une carte commune / rare / légendaire
             à sa collection
         !carte supprime <nom de carte> pour enlever la carte en question de sa collection
         !carte collection pour lister sa collection
+
+    !inventory
+        affiche votre inventaire dans votre channel privé
 
     faut pas oublier de dire stp et merci au bot :)`);
 }
