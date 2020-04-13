@@ -43,14 +43,16 @@ client.on("message", async (msg) => {
   await runCommand(msg);
 });
 
-client.on("error", (e) => {
+client.on("error", async (e) => {
   if (e.error.code === "EAI_AGAIN") {
     console.error(e, "connection error, reconnecting");
-    login();
+    await login();
   }
 });
 
-function login() {
-  client.login("NjY4NDI3NDg1MzY4NjgwNDUw.XiRH2Q.GCVmxJ9K8ash5GXox8TMX70zfEg");
+async function login() {
+  await client
+    .login("NjY4NDI3NDg1MzY4NjgwNDUw.XiRH2Q.GCVmxJ9K8ash5GXox8TMX70zfEg")
+    .catch((e) => login());
 }
 login();
