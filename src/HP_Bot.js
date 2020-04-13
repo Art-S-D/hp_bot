@@ -44,10 +44,8 @@ client.on("message", async (msg) => {
 });
 
 client.on("error", async (e) => {
-  if (e.error.code === "EAI_AGAIN") {
-    console.error(e, "connection error, reconnecting");
-    await login();
-  }
+  console.error(e, "connection error, reconnecting");
+  await login();
 });
 
 async function login() {
