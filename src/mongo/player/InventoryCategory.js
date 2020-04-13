@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Card = require("./Card");
 
-const InventoryCategory = new Schema({
-  name: String,
-  items: [String],
-  __t: { type: String, default: "InventoryCategory" },
-});
+const InventoryCategory = new Schema(
+  {
+    name: String,
+    items: [String],
+    __t: { type: String, default: "InventoryCategory" },
+  },
+  { _id: false }
+);
 
 async function cardsToString(category) {
   function countSimilarCards(cards) {
