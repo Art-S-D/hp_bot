@@ -34,4 +34,4 @@ category = mult:optionalMultiplier ("categorie"/"catégorie"/"category") " "+ ca
 	{return {type:cardType.category, category: cat, multiplier: mult}}
 collection = "collection" {return {type:cardType.collection}}
 remove = "remove" " "+ p:phrase
-	{return {type:cardType.remove, name:p, multiplier: mult}}
+	{return {type:cardType.remove, name:p}}
