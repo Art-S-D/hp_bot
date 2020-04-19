@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/share/yarn/bin/yarn.js install
+  /usr/local/bin/node /usr/share/yarn/bin/yarn.js
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files (x86)/Intel/iCLS Client/:/mnt/c/Program Files/Intel/iCLS Client/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files (x86)/ATI Technologies/ATI.ACE/Core-Static:/mnt/c/Program Files/TortoiseGit/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/dotnet/:/mnt/c/Strawberry/c/bin:/mnt/c/Strawberry/perl/site/bin:/mnt/c/Strawberry/perl/bin:/mnt/c/Users/Shark/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Shark/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Shark/AppData/Local/Programs/MiKTeX 2.9/miktex/bin/x64/:/snap/bin
@@ -14,34 +14,26 @@ Platform:
   linux x64
 
 Trace: 
-  TypeError: Invalid Version: 1.0
-      at new SemVer (/usr/share/yarn/lib/cli.js:3508:11)
-      at Range.module.exports.Range.test (/usr/share/yarn/lib/cli.js:4315:15)
-      at Function.satisfies (/usr/share/yarn/lib/cli.js:4364:16)
-      at WorkspaceLayout.getManifestByPattern (/usr/share/yarn/lib/cli.js:32262:31)
-      at Function.isWorkspace (/usr/share/yarn/lib/cli.js:98155:51)
-      at PackageRequest.<anonymous> (/usr/share/yarn/lib/cli.js:36629:76)
+  SyntaxError: /mnt/c/Users/Shark/Desktop/random projects/HP_Bot/discord/package.json: Unexpected token } in JSON at position 297
+      at JSON.parse (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
       at step (/usr/share/yarn/lib/cli.js:310:30)
-      at /usr/share/yarn/lib/cli.js:328:14
-      at new Promise (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {
     "name": "hp_bot",
     "version": "1.0.0",
     "description": "",
-    "main": "HP_Bot.js",
     "private": true,
     "workspaces": [
-      "src/*"
+      "discord_src/*"
     ],
     "scripts": {
-      "start": "node src/HP_Bot.js",
+      "start": "node discord_src/HP_Bot.js",
+      "dev": "node discord_src/HP_Bot.js unsafe ignorePrivateChannels",
       "test": "jest --detectOpenHandles",
-      "migrate-up": "yarn migrate-mongo up",
-      "migrate-down": "yarn migrate-mongo down",
-      "remigrate": "yarn migrate-mongo down; migrate-mongo up"
     },
     "author": "",
     "license": "ISC",
@@ -2729,6 +2721,11 @@ Lockfile:
     version "1.0.6"
     resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
     integrity sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw==
+  
+  pegjs@^0.10.0:
+    version "0.10.0"
+    resolved "https://registry.yarnpkg.com/pegjs/-/pegjs-0.10.0.tgz#cf8bafae6eddff4b5a7efb185269eaaf4610ddbd"
+    integrity sha1-z4uvrm7d/0tafvsYUmnqr0YQ3b0=
   
   performance-now@^2.1.0:
     version "2.1.0"

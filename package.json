@@ -2,7 +2,6 @@
   "name": "hp_bot",
   "version": "1.0.0",
   "description": "",
-  "main": "HP_Bot.js",
   "private": true,
   "workspaces": [
     "src/*"
@@ -10,16 +9,13 @@
   "scripts": {
     "start": "node src/HP_Bot.js",
     "dev": "node src/HP_Bot.js unsafe ignorePrivateChannels",
-    "test": "jest --detectOpenHandles",
-    "migrate-up": "yarn migrate-mongo up",
-    "migrate-down": "yarn migrate-mongo down",
-    "remigrate": "yarn migrate-mongo down; migrate-mongo up"
+    "test": "jest --detectOpenHandles"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11",
-    "jest": "^25.2.4",
+    "jest": "^24.9.0",
     "migrate-mongo": "^7.1.0",
     "mockingoose": "^2.13.2",
     "mongoose": "^5.9.6"
