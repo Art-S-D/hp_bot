@@ -6,7 +6,7 @@ const zango = require("./zango.json");
 const players = { frank, nircosia, zango };
 
 function get_player(name) {
-  return Object.values(players).find(x => x.nom.includes(name));
+  return Object.values(players).find((x) => x.name.includes(name));
 }
 
 function getPlayerFromRole(msg) {
@@ -25,5 +25,5 @@ module.exports = {
   players,
   get_player,
   get_stat,
-  getPlayerFromRole
+  getPlayerFromRole,
 };

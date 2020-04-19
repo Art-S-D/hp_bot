@@ -9,7 +9,8 @@ const statType = {
 };
 
 const Player = new Schema({
-  nom: { type: String, required: true, index: true, unique: true },
+  password: String,
+  name: { type: String, required: true, index: true, unique: true },
   stats: {
     esprit: statType,
     coeur: statType,
@@ -52,7 +53,7 @@ Player.static("getStat", function (player, stat) {
 
 Player.static("getPlayerFromRole", async function (msg) {
   for (const r of msg.member.roles.array()) {
-    const p = await this.findOne({ nom: r.name });
+    const p = await this.findOne({ name: r.name });
     if (p) return p;
   }
   return null;
