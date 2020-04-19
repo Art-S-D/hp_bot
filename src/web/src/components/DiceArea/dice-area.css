@@ -1,0 +1,18 @@
+#dice-area {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+#dice-table {
+  height: 75%;
+  width: 100%;
+}
+
+.dice-tr {
+  width: 33%;
+}
+
+.dice-tr > td {
+  width: 50%;
+}

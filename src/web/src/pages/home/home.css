@@ -1,4 +1,11 @@
 #home {
+  height: 100%;
+}
+
+#home-dice-area {
+  width: 50%;
+  height: 90%;
+  border: solid;
 }
 
 #home-magic-circle {

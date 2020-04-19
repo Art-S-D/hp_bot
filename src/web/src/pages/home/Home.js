@@ -1,13 +1,17 @@
 import React from "react";
 import "./home.css";
 import MagicCircle from "../../components/magic-circle";
+import DiceArea from "../../components/DiceArea";
 
 function Home({ player, ...props }) {
   return (
     <div id="home">
-      <span id="home-magic-circle">
+      <div id="home-magic-circle">
         <MagicCircle player={player} />
-      </span>
+      </div>
+      <div id="home-dice-area">
+        <DiceArea />
+      </div>
     </div>
   );
 }
