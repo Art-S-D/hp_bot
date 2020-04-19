@@ -22,6 +22,7 @@ app.post(
   "/login",
   function (req, res, next) {
     console.log(`login atempt <${req.body.username}> <${req.body.password}>`);
+    next();
   },
   passport.authenticate("local", {
     successRedirect: `${env.WEBSITE_URL}/success`,
