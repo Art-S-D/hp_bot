@@ -6,7 +6,8 @@ app.get("/latest", async function (req, res) {
   /*const tmp = req.param.date
     ? rolls.filter((x) => x.date.getTime() > req.body.date)
     : rolls;*/
-  res.status(200).send(rolls);
+  const tmp = rolls.sort((a, b) => a.date - b.date);
+  res.status(200).send(tmp.slice(-10));
 });
 
 app.post("/new", async function (req, res) {
