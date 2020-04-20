@@ -96,21 +96,33 @@ function DiceFrame(props) {
   );
 }
 
-function Die({ value }) {
-  const [rotationX, setRotationX] = useState(0);
-  const [rotationY, setRotationY] = useState(0);
-  const [rotationZ, setRotationZ] = useState(0);
+const SPEED = 1;
+const MIN_DIST = 5;
+function isClose(a, b) {
+  return (
+    Math.abs(a.x - b.x) < MIN_DIST &&
+    Math.abs(a.y - b.y) < MIN_DIST &&
+    Math.abs(a.z - b.z) < MIN_DIST
+  );
+}
+function nextValue(from, to) {
+  if (Math.abs(from - to) < MIN_DIST) return to;
+  return from + (from < to ? SPEED : -SPEED);
+}
 
-  function rotate(x, y, z) {
-    setRotationX(x);
-    setRotationY(y);
-    setRotationZ(z);
-  }
+function Die({ value }) {
+  const [rotation, setRotation] = useState(sides[19]);
 
   function setValue(v) {
     const side = sides[v - 1];
     if (side) {
-      rotate(side.x, side.y, side.z);
+      if (isClose(rotation, side)) setRotation(side);
+      else
+        setRotation({
+          x: nextValue(rotation.x, side.x),
+          y: nextValue(rotation.y, side.y),
+          z: nextValue(rotation.z, side.z),
+        });
     }
   }
 
@@ -119,14 +131,16 @@ function Die({ value }) {
   }*/
 
   useEffect(() => {
-    setValue(value);
+    setTimeout(() => {
+      setValue(value);
+    }, 5);
   });
 
   return (
     <DiceFrame
       onClick={() => {} /*handleClick*/}
       style={{
-        transform: `rotateX(${rotationX}deg) rotateY(${rotationY}deg) rotateZ(${rotationZ}deg)`,
+        transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) rotateZ(${rotation.z}deg)`,
       }}
     />
   );
