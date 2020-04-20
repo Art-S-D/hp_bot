@@ -31,6 +31,16 @@ function App() {
           <Link className="nav-link" to="/stats">
             Stats
           </Link>
+          <Link
+            onClick={() =>
+              fetch("/logout").then(() => document.location.reload(true))
+            }
+            className="nav-link"
+            id="logout"
+            to="/"
+          >
+            Disconnect
+          </Link>
         </div>
         <div id="page-content">
           {player && (

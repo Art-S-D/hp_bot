@@ -31,6 +31,11 @@ app.post(
   })
 );
 
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/");
+});
+
 app.use(function (req, res, next) {
   if (req.user) next();
   else res.status(401).end();

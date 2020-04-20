@@ -84,3 +84,8 @@ body {
   background-color: lightgray;
   padding: 5px;
 }
+
+#logout {
+  left: 50%;
+  position: absolute;
+}
