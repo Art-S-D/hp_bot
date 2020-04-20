@@ -7,7 +7,6 @@ passport.use(
     const user = await Player.findOne({ name: username }).catch((e) => done(e));
     if (!user) return done(null, false, { message: "Incorrect username." });
     if (user.password !== password) {
-      console.log(`actual password: ${password}`);
       return done(null, false, { message: "Incorrect password." });
     }
     return done(null, user);
