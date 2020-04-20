@@ -144,21 +144,6 @@ function Home({ player, ...props }) {
     return tmp && tmp.date;
   }
 
-  function getFrankValue() {}
-
-  function getNicoValue() {
-    let r = rolls
-      .filter((x) => x.name === "Nircosia Verpey")
-      .sort((a, b) => a.date - b.date);
-    return r[r.length - 1];
-  }
-  function getZangoValue() {
-    let r = rolls
-      .filter((x) => x.name === "Zango le Deuzo")
-      .sort((a, b) => a.date - b.date);
-    return r[r.length - 1];
-  }
-
   function update(rolls) {
     setRolls(rolls);
     let f = rolls
@@ -176,21 +161,25 @@ function Home({ player, ...props }) {
     setZango(z[z.length - 1] || 20);
   }
 
-  function handleRoll(e) {
-    fetch("/rolls/new", { method: "POST" });
+  function fetchAndUpdate() {
+    const d = mostRecentRoll();
+    fetch(d ? "/rolls/latest?date=" + d : "/rolls/latest", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }).then((x) => x.status === 200 && x.json().then((r) => update(r)));
   }
 
   useEffect(() => {
     setInterval(() => {
-      const d = mostRecentRoll();
-      fetch(d ? "/rolls/latest?date=" + d : "/rolls/latest", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }).then((x) => x.status === 200 && x.json().then((r) => update(r)));
-    }, 2000);
+      fetchAndUpdate();
+    }, 1000);
   }, []);
+
+  function handleRoll(e) {
+    fetch("/rolls/new", { method: "POST" }).then(() => fetchAndUpdate());
+  }
 
   return (
     <div id="dice-area">
@@ -222,11 +211,16 @@ function Home({ player, ...props }) {
           </tr>
         </tbody>
       </table>
-      <button onClick={handleRoll}>Roll</button>
-      <div id="text-resume">
-        {rolls.map((x) => (
-          <div className="text-resume-item">{`${x.name} a obtenu un ${x.value}`}</div>
-        ))}
+      <div id="actions">
+        <button onClick={handleRoll}>Roll</button>
+        <div id="text-resume">
+          {rolls
+            .slice(0)
+            .reverse()
+            .map((x) => (
+              <div className="text-resume-item">{`${x.name} a obtenu un ${x.value}`}</div>
+            ))}
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 #dice-area {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
 }
 
 #dice-table {
@@ -15,4 +14,14 @@
 
 .dice-tr > td {
   width: 50%;
+}
+
+#actions {
+  height: 20%;
+}
+#text-resume {
+  overflow-y: scroll;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
 }
