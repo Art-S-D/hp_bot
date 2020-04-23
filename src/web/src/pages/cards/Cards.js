@@ -33,7 +33,6 @@ function Cards({ player, ...props }) {
         (x) => x.status === 200 && x.json().then((c) => setCards(c))
       );
   });
-  console.log(cards);
   return (
     cards && (
       <div id="card-wrapper">

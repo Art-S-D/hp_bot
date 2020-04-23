@@ -18,7 +18,8 @@ function Inventory({ player, ...props }) {
   return (
     <div>
       {player.inventory.map(
-        (i) => !i.name.match(/.*CARTES.*/) && <Category category={i} />
+        (i) =>
+          !i.name.match(/.*CARTES.*/) && <Category key={i.name} category={i} />
       )}
     </div>
   );
