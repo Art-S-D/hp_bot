@@ -96,67 +96,116 @@ function DiceFrame(props) {
   );
 }
 
-const SPEED = 1;
-const MIN_DIST = 5;
-function isClose(a, b) {
-  return (
-    Math.abs(a.x - b.x) < MIN_DIST &&
-    Math.abs(a.y - b.y) < MIN_DIST &&
-    Math.abs(a.z - b.z) < MIN_DIST
-  );
-}
-function nextValue(from, to) {
-  if (Math.abs(from - to) < MIN_DIST) return to;
-  return from + (from < to ? SPEED : -SPEED);
+const ANIMATION_SPEED = 0.08;
+
+function valueSlider(from, to, progress) {
+  return from + (to - from) * progress;
 }
 
-function Die({ value }) {
-  const [rotation, setRotation] = useState(sides[19]);
+function rotEquals(a, b) {
+  if (a === undefined || b === undefined) return true;
+  return a.x === b.x && a.y === b.y && a.z === b.z;
+}
+function randRotationsFrom(from, to, nb) {
+  let res = [from];
+  const tmp = Math.random() * 2 * Math.PI;
+  const speed = 100;
+  const dx = Math.cos(tmp) * speed;
+  const dy = Math.sin(tmp) * speed;
+  for (let i = 0; i < nb - 3; i++) {
+    const cur = res[res.length - 1];
+    res.push({
+      x: cur.x + dx,
+      y: cur.y + dy,
+      z: from.z,
+    });
+  }
+  res.push({
+    x: (res[res.length - 1].x + to.x) / 2,
+    y: (res[res.length - 1].y + to.y) / 2,
+    z: (res[res.length - 1].z + to.z) / 2,
+  });
+  res.push(to);
+  return res;
+}
 
-  function setValue(v) {
-    const side = sides[v - 1];
-    if (side) {
-      if (isClose(rotation, side)) setRotation(side);
-      else
-        setRotation({
-          x: nextValue(rotation.x, side.x),
-          y: nextValue(rotation.y, side.y),
-          z: nextValue(rotation.z, side.z),
-        });
+function Die({ roll: { value, time } = { value: 20, time: 0 } }) {
+  const [state, setState] = useState({
+    animationProgress: 0,
+    rotations: [sides[19]],
+    scales: [1],
+  });
+  const { animationProgress, rotations, scales } = state;
+
+  function nextRotation() {
+    if (rotations.length > 1) {
+      const rot = rotations[0];
+      const target = rotations[1];
+      return {
+        x: valueSlider(rot.x, target.x, animationProgress),
+        y: valueSlider(rot.y, target.y, animationProgress),
+        z: valueSlider(rot.z, target.z, animationProgress),
+      };
+    } else if (rotations.length === 1) return rotations[0];
+    else console.log(rotations);
+  }
+
+  function nextScale() {
+    if (scales.length > 1) {
+      return valueSlider(scales[0], scales[1], animationProgress);
     }
   }
 
-  /*function handleClick() {
-    rotate(Math.random() * 360, Math.random() * 360, Math.random() * 360);
-  }*/
-
+  //when value is modified
   useEffect(() => {
-    setTimeout(() => {
-      setValue(value);
-    }, 5);
-  });
+    setState({
+      rotations:
+        rotations.length > 0
+          ? randRotationsFrom(rotations[0], sides[value - 1], 6)
+          : [sides[value - 1]],
+      scales: [1, 1.1, 1.3, 1.2, 1.1, 1],
+      animationProgress: 0,
+    });
+  }, [value, time]);
 
+  const [updateTimeout, setUpdateTimeout] = useState(null);
+  useEffect(() => {
+    clearTimeout(updateTimeout);
+    const ut = setTimeout(() => {
+      if (animationProgress < 1.0) {
+        setState({
+          ...state,
+          animationProgress: animationProgress + ANIMATION_SPEED,
+        });
+      } else {
+        setState({
+          ...state,
+          rotations: rotations.length > 1 ? rotations.slice(1) : rotations,
+          scales: scales.length > 1 ? scales.slice(1) : scales,
+          animationProgress: 0,
+        });
+      }
+    }, 10);
+    setUpdateTimeout(ut);
+  }, [animationProgress]);
+
+  const { x, y, z } = nextRotation();
+  const scale = nextScale();
   return (
     <DiceFrame
-      onClick={() => {} /*handleClick*/}
       style={{
-        transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) rotateZ(${rotation.z}deg)`,
+        transform: `rotateX(${x}deg) rotateY(${y}deg) rotateZ(${z}deg) scale3d(${scale},${scale},${scale})`,
       }}
     />
   );
 }
 
-function Home({ player, ...props }) {
+function DiceArea({ player, ...props }) {
   const [rolls, setRolls] = useState([]);
 
-  const [frank, setFrank] = useState(20);
-  const [zango, setZango] = useState(20);
-  const [nico, setNico] = useState(20);
-
-  function mostRecentRoll() {
-    const tmp = rolls.sort((a, b) => a - b)[rolls.length - 1];
-    return tmp && tmp.date;
-  }
+  const [frank, setFrank] = useState();
+  const [zango, setZango] = useState();
+  const [nico, setNico] = useState();
 
   function update(rolls) {
     setRolls(rolls);
@@ -170,14 +219,13 @@ function Home({ player, ...props }) {
       .filter((x) => x.name === "Zango le Deuzo")
       .sort((a, b) => a.date - b.date);
 
-    setFrank(f[f.length - 1] || 20);
-    setNico(n[n.length - 1] || 20);
-    setZango(z[z.length - 1] || 20);
+    setFrank(f[f.length - 1] && f[f.length - 1]);
+    setNico(n[n.length - 1] && n[n.length - 1]);
+    setZango(z[z.length - 1] && z[z.length - 1]);
   }
 
   function fetchAndUpdate() {
-    const d = mostRecentRoll();
-    fetch(d ? "/rolls/latest?date=" + d : "/rolls/latest", {
+    fetch("/rolls/latest", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -204,7 +252,7 @@ function Home({ player, ...props }) {
               <label>Frank</label>
             </td>
             <td>
-              <Die value={frank.value} />
+              <Die roll={frank} />
             </td>
           </tr>
           <tr className="dice-tr">
@@ -212,7 +260,7 @@ function Home({ player, ...props }) {
               <label>Nico</label>
             </td>
             <td>
-              <Die value={nico.value} />
+              <Die roll={nico} />
             </td>
           </tr>
           <tr className="dice-tr">
@@ -220,7 +268,7 @@ function Home({ player, ...props }) {
               <label>Zango</label>
             </td>
             <td>
-              <Die value={zango.value} />
+              <Die roll={zango} />
             </td>
           </tr>
         </tbody>
@@ -232,7 +280,10 @@ function Home({ player, ...props }) {
             .slice(0)
             .reverse()
             .map((x) => (
-              <div className="text-resume-item">{`${x.name} a obtenu un ${x.value}`}</div>
+              <div
+                className="text-resume-item"
+                key={x.time}
+              >{`${x.name} a obtenu un ${x.value}`}</div>
             ))}
         </div>
       </div>
@@ -240,4 +291,4 @@ function Home({ player, ...props }) {
   );
 }
 
-export default Home;
+export default DiceArea;
