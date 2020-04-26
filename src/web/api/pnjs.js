@@ -20,7 +20,7 @@ app.post("/new", async function (req, res) {
     (x) => x.name !== p.name || x.house !== p.house || x.year !== p.year
   );
   pnjs.unshift(p);
-  pnjs = pnjs.slice(-STORE_AMOUNT);
+  pnjs = pnjs.slice(STORE_AMOUNT);
 
   res.status(200).redirect("/pnjs/success");
 });

@@ -13,7 +13,7 @@ function Pnjs({ isAdmin }) {
       tmp();
     }, 2000);
     return () => clearInterval(i);
-  });
+  }, []);
   return (
     <div id="pnjs">
       <ul id="pnj-list">
