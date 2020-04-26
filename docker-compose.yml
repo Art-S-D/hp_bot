@@ -1,0 +1,15 @@
+version: 1
+services:
+  jdr_ui: #should be ran with -it option (interactive mode)
+    context: ./src/web/src
+    ports: 80:80
+  jdr_api:
+    context: ./src/web/api
+    ports: 8080:8080
+  #   discord_bot:
+  #     context: "./src/commands"
+  admin_mongo:
+    context: https://github.com/mrvautin/adminMongo
+    environnement:
+      PORT: 27018
+      PASSWORD: JdrAPoudlard
