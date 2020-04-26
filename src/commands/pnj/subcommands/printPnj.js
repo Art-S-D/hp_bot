@@ -2,13 +2,7 @@ const { Attachment } = require("discord.js");
 const { Pnj } = require("mongo");
 
 function printPnj(msg, pnj) {
-  const ageDesc =
-    pnj.year === 0
-      ? "il a votre âge"
-      : `il a ${Math.abs(pnj.year)} ans de ${
-          pnj.year >= 0 ? "plus" : "moins"
-        } que vous`;
-  const reply = `${pnj.description}\n${ageDesc}.`;
+  const reply = `${pnj.description}`;
 
   if (pnj.picture) {
     const pic = new Attachment(pnj.picture);
