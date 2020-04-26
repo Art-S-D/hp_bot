@@ -4,10 +4,13 @@ import "./pnjs.css";
 function Pnjs({ isAdmin }) {
   const [pnjList, setPnjList] = useState([]);
   useEffect(() => {
-    const i = setInterval(() => {
+    const tmp = () =>
       fetch("/pnjs/latest").then(
         (x) => x.status === 200 && x.json().then((p) => setPnjList(p))
       );
+    tmp();
+    const i = setInterval(() => {
+      tmp();
     }, 2000);
     return () => clearInterval(i);
   });
