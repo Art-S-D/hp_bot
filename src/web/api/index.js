@@ -20,10 +20,6 @@ app.use(passport.session());
 
 app.post(
   "/login",
-  function (req, res, next) {
-    console.log(`login atempt <${req.body.username}> <${req.body.password}>`);
-    next();
-  },
   passport.authenticate("local", {
     successRedirect: `${env.WEBSITE_URL}/success`,
     failureRedirect: `${env.WEBSITE_URL}/error`,
@@ -41,12 +37,29 @@ app.use(function (req, res, next) {
   else res.status(401).end();
 });
 
-app.get("/player", async function (req, res) {
-  res.status(200).json(req.user);
+app.get("/user", async function (req, res) {
+  if (req.user.isAdmin) {
+    if (req.query.player) {
+      const player = await Player.findOne(
+        { name: req.query.player },
+        "-password"
+      );
+      req.user.player = player;
+      req.login(req.user, function (err) {
+        if (err) console.error(err);
+        res.status(200).json({ isAdmin: true, player });
+      });
+    } else res.status(200).send({ isAdmin: true, player: req.user.player });
+  } else res.status(200).json({ isAdmin: false, player: req.user.player });
+});
+
+app.use(function (req, res, next) {
+  if (!req.user.player) return res.status(400).send("No player selected");
+  else next();
 });
 
 app.get("/cards", async function (req, res) {
-  let cards = req.user.cards.items;
+  let cards = req.user.player.cards.items;
 
   for (let i = 0; i < cards.length; i++) {
     cards[i] = await Card.findById(cards[i]);
@@ -87,9 +100,9 @@ app.post("/add-card", async function (req, res) {
     }
   }
   console.log(`adding cards ${cards} to player ${req.user.name}`);
-  req.user.cards.items = req.user.cards.items.concat(cards);
-  req.user.markModified("inventory");
-  await req.user.save();
+  req.user.player.cards.items = req.user.player.cards.items.concat(cards);
+  req.user.player.markModified("inventory");
+  await req.user.player.save();
   res.status(200).redirect("/cards");
 });
 
@@ -98,7 +111,7 @@ app.post("/remove-card", async function (req, res) {
     return res.status(400).send("missing request body");
 
   let removed = false;
-  req.user.cards.items = req.user.cards.items.filter((x) => {
+  req.user.player.cards.items = req.user.player.cards.items.filter((x) => {
     if (!removed && x === req.body.card) {
       removed = true;
       return false;
@@ -106,13 +119,14 @@ app.post("/remove-card", async function (req, res) {
     return true;
   });
   if (!removed) return res.status(400).send("you don't possess this card");
-  req.user.markModified("cards");
-  await req.user.save();
+  req.user.player.markModified("cards");
+  await req.user.player.save();
 
-  console.log(`${req.user.name} removed a card`);
+  console.log(`${req.user.player.name} removed a card`);
   return res.status(200).end();
 });
 
 app.use("/rolls", require("./roll"));
+app.use("/pnjs", require("./pnjs"));
 
 app.listen(8080);

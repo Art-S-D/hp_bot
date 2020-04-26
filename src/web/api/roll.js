@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express.Router();
 
-const STORE_LAST = 10;
+const STORE_LAST = 20;
 let rolls = [];
 
 app.get("/latest", async function (req, res) {
@@ -15,7 +15,7 @@ app.get("/latest", async function (req, res) {
 app.post("/new", async function (req, res) {
   rolls.push({
     time: Date.now(),
-    name: req.user.name,
+    name: req.user.player.name,
     value: Math.ceil(Math.random() * 20),
   });
   rolls = rolls.slice(-STORE_LAST);

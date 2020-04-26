@@ -1,0 +1,23 @@
+{
+  function makeInteger(o) {
+    return parseInt(o.join(""), 10);
+  }
+  function merge_objects(array){
+  	return array.reduce((accum, current) => {return{...accum, ...current}}, {})
+  }
+  const pnjAction={
+    get:1,
+    update:2,
+    remove:3,
+    add:4,
+    list:5,
+  }
+}
+
+pnj = name:word "[" house:word "." y:year "]" {return {name, house, year:y}}
+
+number = sign:("+"/"-"/"") nb:[0-9]+ {let i = makeInteger(nb); return sign==="-"?-i:i}
+word= w:([a-zA-Z]+) {return w.join("")}
+phrase = p:(.)* {return p.join("").replace(/-/g,"\n")}
+
+year = ("A" nb:number{return nb}) / ("A"{return 0})

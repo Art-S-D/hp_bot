@@ -169,6 +169,7 @@ function Die({ roll: { value, time } = { value: 20, time: 0 } }) {
   }, [value, time]);
 
   const [updateTimeout, setUpdateTimeout] = useState(null);
+  useEffect(() => () => clearTimeout(updateTimeout), []);
   useEffect(() => {
     clearTimeout(updateTimeout);
     const ut = setTimeout(() => {
@@ -234,9 +235,10 @@ function DiceArea({ player, ...props }) {
   }
 
   useEffect(() => {
-    setInterval(() => {
+    const i = setInterval(() => {
       fetchAndUpdate();
-    }, 1000);
+    }, 2000);
+    return () => clearInterval(i);
   }, []);
 
   function handleRoll(e) {
@@ -257,18 +259,18 @@ function DiceArea({ player, ...props }) {
           </tr>
           <tr className="dice-tr">
             <td>
-              <label>Nico</label>
-            </td>
-            <td>
-              <Die roll={nico} />
-            </td>
-          </tr>
-          <tr className="dice-tr">
-            <td>
               <label>Zango</label>
             </td>
             <td>
               <Die roll={zango} />
+            </td>
+          </tr>
+          <tr className="dice-tr">
+            <td>
+              <label>Nico</label>
+            </td>
+            <td>
+              <Die roll={nico} />
             </td>
           </tr>
         </tbody>

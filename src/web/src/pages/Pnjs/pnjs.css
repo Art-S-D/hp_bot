@@ -1,0 +1,27 @@
+#pnj-list {
+  list-style-type: none;
+  width: 70%;
+}
+
+.pnj-item {
+  border: solid;
+  display: flex;
+}
+.pnj-image {
+  width: 50%;
+  float: left;
+}
+.pnj-text {
+  width: 40%;
+  float: right;
+}
+
+#add-pnj {
+  left: 75%;
+  top: 10%;
+  position: absolute;
+}
+
+#input-pnj {
+  font-family: sans-serif;
+}

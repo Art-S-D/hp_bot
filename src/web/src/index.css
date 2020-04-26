@@ -78,7 +78,19 @@ body {
   left: 42%;
   position: relative;
 }
-.nav-link {
+
+#admin-menu {
+  position: absolute;
+  left: -10%;
+  top: 10%;
+  list-style-type: none;
+}
+.admin-list-item {
+  margin: 0px;
+  padding: 0px;
+}
+.nav-link,
+.admin-button {
   border: solid;
   color: black;
   background-color: lightgray;
