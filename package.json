@@ -6,11 +6,6 @@
   "workspaces": [
     "src/*"
   ],
-  "scripts": {
-    "start": "node src/HP_Bot.js",
-    "dev": "node src/HP_Bot.js unsafe ignorePrivateChannels",
-    "test": "jest --detectOpenHandles"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./dice-area.css";
 import "./die.css";
+import env from "../../env";
 
 const sides = [
   { x: 130, y: 75, z: 0 }, //1
@@ -226,7 +227,7 @@ function DiceArea({ player, ...props }) {
   }
 
   function fetchAndUpdate() {
-    fetch("/rolls/latest", {
+    fetch(`/api/rolls/latest`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -242,7 +243,7 @@ function DiceArea({ player, ...props }) {
   }, []);
 
   function handleRoll(e) {
-    fetch("/rolls/new", { method: "POST" }).then(() => fetchAndUpdate());
+    fetch(`/api/rolls/new`, { method: "POST" }).then(() => fetchAndUpdate());
   }
 
   return (

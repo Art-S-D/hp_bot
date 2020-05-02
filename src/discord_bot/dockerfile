@@ -5,15 +5,10 @@ WORKDIR /usr/app
 RUN apk add git
 
 COPY package.json ./
-COPY src/web ./src/web
+COPY src/discord_bot ./src/discord_bot
 COPY src/mongo ./src/mongo
 RUN yarn install
-RUN yarn workspace web build
-
-EXPOSE 80
 
 ENV MONGO_URL="mongodb://host.docker.internal:27017/dev"
-# ENV API_URL='host.docker.internal:8080'
-# ENV WEBSITE_URL='host.docker.internal:3000'
 
-CMD yarn workspace web start-api
+CMD yarn workspace discord_bot start

@@ -25,7 +25,7 @@ function MainPage({ player, isAdmin }) {
         </Link>
         <Link
           onClick={() =>
-            fetch("/logout").then(() => document.location.reload(true))
+            fetch(`/api/logout`).then(() => document.location.reload(true))
           }
           className="nav-link"
           id="logout"
@@ -66,7 +66,7 @@ function App() {
   useEffect(() => {
     document.title = "Jdr";
 
-    fetch(`/user${requiredUser ? `?player=${requiredUser}` : ""}`, {
+    fetch(`/api/user${requiredUser ? `?player=${requiredUser}` : ""}`, {
       method: "GET",
     })
       .catch((e) => console.error(e))

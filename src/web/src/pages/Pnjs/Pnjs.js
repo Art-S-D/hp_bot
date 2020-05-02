@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./pnjs.css";
+import env from "../../env";
 
 function Pnjs({ isAdmin }) {
   const [pnjList, setPnjList] = useState([]);
   useEffect(() => {
     const tmp = () =>
-      fetch("/pnjs/latest").then(
+      fetch(`/api/pnjs/latest`).then(
         (x) => x.status === 200 && x.json().then((p) => setPnjList(p))
       );
     tmp();

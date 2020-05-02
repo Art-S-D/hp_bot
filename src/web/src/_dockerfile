@@ -10,6 +10,7 @@ COPY src/web/public ./src/web/public
 COPY src/web/package.json ./src/web/package.json
 COPY src/web/webpack.config.js src/web/webpack.config.js
 COPY src/mongo ./src/mongo
+RUN yarn install
 RUN yarn workspace web build
 
 EXPOSE 3000

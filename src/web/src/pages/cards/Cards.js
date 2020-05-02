@@ -5,7 +5,7 @@ const env = require("../../env");
 
 function Card({ card }) {
   function handleRemove(e) {
-    fetch("/remove-card", {
+    fetch(`/api/remove-card`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -29,7 +29,7 @@ function Cards({ player, ...props }) {
   const [cards, setCards] = useState(null);
   useEffect(() => {
     if (!cards)
-      fetch(`/cards`).then(
+      fetch(`/api/cards`).then(
         (x) => x.status === 200 && x.json().then((c) => setCards(c))
       );
   });

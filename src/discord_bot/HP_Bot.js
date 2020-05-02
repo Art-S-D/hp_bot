@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const { Player, connection } = require("mongo");
 const isAuthorized = require("./utils/isAuthorized");
 
-const commands = require("./commands");
+const commands = require(".");
 
 function runResponses(msg) {
   if (msg.content.toLowerCase().includes("nircosia"))

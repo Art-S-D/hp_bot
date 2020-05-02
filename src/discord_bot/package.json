@@ -1,0 +1,16 @@
+{
+    "name": "discord_bot",
+    "version": "1.0.0",
+    "private": true,
+    "workspaces": [
+        "tests/*"
+    ],
+    "dependencies": {
+        "pegjs": "^0.10.0"
+    },
+    "scripts": {
+        "dev": "node HP_Bot.js unsafe ignorePrivateChannels",
+        "start": "node HP_Bot.js",
+        "test": "yarn jest --detectOpenHandles"
+    }
+}

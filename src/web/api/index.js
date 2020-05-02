@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const { Player, Card } = require("mongo");
 const env = require("./env");
 const passport = require("passport");
+const path = require("path");
 require("./passport");
 
 const app = express();
@@ -17,6 +18,10 @@ app.use(cookieParser("poudlard"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+const BUILD_PATH = path.join(__dirname, "..", "build");
+//https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
+app.use(express.static(BUILD_PATH));
 
 app.post(
   "/login",
@@ -37,7 +42,7 @@ app.use(function (req, res, next) {
   else res.status(401).end();
 });
 
-app.get("/user", async function (req, res) {
+app.get("/api/user", async function (req, res) {
   if (req.user.isAdmin) {
     if (req.query.player) {
       const player = await Player.findOne(
@@ -53,12 +58,12 @@ app.get("/user", async function (req, res) {
   } else res.status(200).json({ isAdmin: false, player: req.user.player });
 });
 
-app.use(function (req, res, next) {
+app.all("/api", function (req, res, next) {
   if (!req.user.player) return res.status(400).send("No player selected");
   else next();
 });
 
-app.get("/cards", async function (req, res) {
+app.get("/api/cards", async function (req, res) {
   let cards = req.user.player.cards.items;
 
   for (let i = 0; i < cards.length; i++) {
@@ -67,7 +72,7 @@ app.get("/cards", async function (req, res) {
   res.status(200).json(cards);
 });
 
-app.post("/add-card", async function (req, res) {
+app.post("/api/add-card", async function (req, res) {
   if (!req.body || (!req.body.name && !req.body.category))
     return res.status(400).end();
   const quantity = req.body.quantity || 1;
@@ -106,7 +111,7 @@ app.post("/add-card", async function (req, res) {
   res.status(200).redirect("/cards");
 });
 
-app.post("/remove-card", async function (req, res) {
+app.post("/api/remove-card", async function (req, res) {
   if (!req.body || !req.body.card)
     return res.status(400).send("missing request body");
 
@@ -126,7 +131,12 @@ app.post("/remove-card", async function (req, res) {
   return res.status(200).end();
 });
 
-app.use("/rolls", require("./roll"));
-app.use("/pnjs", require("./pnjs"));
+app.use("/api/rolls", require("./roll"));
+app.use("/api/pnjs", require("./pnjs"));
 
-app.listen(8080);
+//https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(BUILD_PATH, "index.html"));
+});
+
+app.listen(80);
