@@ -1,0 +1,7 @@
+{
+    "app": {
+        "password": "JdrAPoudlard",
+        "port": "27018",
+        "host": "0.0.0.0"
+    }
+}

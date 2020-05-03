@@ -1,0 +1,8 @@
+{
+    "connections": {
+        "local": {
+            "connection_string": "mongodb://MJ:JdrAPoudlard@localhost:27017/dev",
+            "connection_options": {}
+        }
+    }
+}
