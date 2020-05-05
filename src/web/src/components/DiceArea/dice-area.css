@@ -4,24 +4,49 @@
 }
 
 #dice-table {
-  height: 75%;
+  height: 30%;
   width: 100%;
+  position: relative;
 }
 
-.dice-tr {
-  width: 33%;
+.dice-span {
+  position: relative;
 }
-
-.dice-tr > td {
-  width: 50%;
+.dice-span > .d20 {
+  top: 200%;
 }
 
 #actions {
-  height: 20%;
+  height: 70%;
 }
 #text-resume {
+  border-top: solid;
   overflow-y: scroll;
-  height: 100%;
+  height: 92%;
   display: flex;
   flex-direction: column-reverse;
+}
+
+#roll-resume {
+  display: inline;
+  padding-left: 2px;
+}
+
+.rollstr-top {
+  display: flex;
+  flex-direction: column;
+}
+.roll-player-name,
+.result-strong {
+  display: contents;
+}
+
+.rollstr-bottom {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10%;
+  font-size: small;
+  /*color: dimgray;*/
+  top: -15%;
 }

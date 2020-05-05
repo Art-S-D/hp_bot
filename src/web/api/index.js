@@ -24,17 +24,17 @@ const BUILD_PATH = path.join(__dirname, "..", "build");
 app.use(express.static(BUILD_PATH));
 
 app.post(
-  "/login",
+  "/api/login",
   passport.authenticate("local", {
-    successRedirect: `${env.WEBSITE_URL}/success`,
-    failureRedirect: `${env.WEBSITE_URL}/error`,
+    successRedirect: `${env.WEBSITE_URL}`,
+    failureRedirect: `${env.WEBSITE_URL}`,
     failureFlash: false,
   })
 );
 
-app.get("/logout", function (req, res) {
+app.post("/api/logout", function (req, res) {
   req.logout();
-  res.redirect("/");
+  res.sendStatus(200);
 });
 
 app.use(function (req, res, next) {
@@ -139,4 +139,4 @@ app.get("/*", function (req, res) {
   res.sendFile(path.join(BUILD_PATH, "index.html"));
 });
 
-app.listen(80);
+app.listen(8080);

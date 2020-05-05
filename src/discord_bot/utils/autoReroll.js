@@ -11,7 +11,7 @@ const perks = [
   "decorum",
   "discretion",
   "persuasion",
-  "romance"
+  "romance",
 ];
 
 const opposite = {
@@ -24,7 +24,7 @@ const opposite = {
     bagarre: "corps",
     endurance: "corps",
     perception: "corps",
-    precision: "corps"
+    precision: "corps",
   },
   coeur: {
     bluff: "esprit",
@@ -35,7 +35,7 @@ const opposite = {
     decorum: "corps",
     discretion: "corps",
     persuasion: "corps",
-    romance: "corps"
+    romance: "corps",
   },
   corps: {
     decorum: "coeur",
@@ -46,9 +46,13 @@ const opposite = {
     bagarre: "esprit",
     endurance: "esprit",
     perception: "esprit",
-    precision: "esprit"
-  }
+    precision: "esprit",
+  },
 };
+
+function getAutoReroll(stat, competence) {
+  return opposite[stat] && opposite[stat][competence];
+}
 
 function matchAutoReroll(ast) {
   if (!(ast && ast["+"] && ast["+"].left.word && ast["+"].right.word))
@@ -67,4 +71,4 @@ function autoReroll(ast) {
   return opposite[stat][perk];
 }
 
-module.exports = { autoReroll, matchAutoReroll };
+module.exports = { autoReroll, matchAutoReroll, getAutoReroll };

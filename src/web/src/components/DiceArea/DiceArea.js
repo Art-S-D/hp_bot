@@ -26,6 +26,12 @@ const sides = [
   { x: -57, y: 75, z: 0 }, //20
 ];
 
+const player_colors = {
+  "Frank Fizeman": "#ffe34a",
+  "Zango le Deuzo": "SaddleBrown",
+  "Nircosia Verpey": "DarkBlue",
+};
+
 function DiceFrame(props) {
   return (
     <div className="d20" {...props}>
@@ -130,7 +136,7 @@ function randRotationsFrom(from, to, nb) {
   return res;
 }
 
-function Die({ roll: { value, time } = { value: 20, time: 0 } }) {
+function Die({ roll: { result, time } = { result: 20, time: 0 } }) {
   const [state, setState] = useState({
     animationProgress: 0,
     rotations: [sides[19]],
@@ -162,12 +168,12 @@ function Die({ roll: { value, time } = { value: 20, time: 0 } }) {
     setState({
       rotations:
         rotations.length > 0
-          ? randRotationsFrom(rotations[0], sides[value - 1], 6)
-          : [sides[value - 1]],
+          ? randRotationsFrom(rotations[0], sides[result - 1], 6)
+          : [sides[result - 1]],
       scales: [1, 1.1, 1.3, 1.2, 1.1, 1],
       animationProgress: 0,
     });
-  }, [value, time]);
+  }, [result, time]);
 
   const [updateTimeout, setUpdateTimeout] = useState(null);
   useEffect(() => () => clearTimeout(updateTimeout), []);
@@ -202,7 +208,53 @@ function Die({ roll: { value, time } = { value: 20, time: 0 } }) {
   );
 }
 
-function DiceArea({ player, ...props }) {
+function RollToString({ roll }) {
+  const result = ` a obtenu ${roll.result}
+  ${
+    roll.bonuses.bonusStat.name
+      ? ` + ${roll.bonuses.bonusStat.name}(${roll.bonuses.bonusStat.value})`
+      : ""
+  }
+  ${
+    roll.bonuses.bonusCompetence.name
+      ? ` + ${roll.bonuses.bonusCompetence.name}(${roll.bonuses.bonusCompetence.value})`
+      : ""
+  } = `;
+
+  const reroll = `
+   ${
+     roll.bonuses.reroll.name
+       ? ` relance en ${roll.bonuses.reroll.name}(${roll.bonuses.reroll.value})`
+       : ""
+   }
+  ${
+    roll.hasReroll ? ` après avoir obtenu un ${roll.result_before_reroll}` : ""
+  }`;
+  return (
+    <>
+      <div className="rollstr-top">
+        <strong
+          className="roll-player-name"
+          style={{
+            color: player_colors[roll.name] || "black",
+          }}
+        >
+          {roll.name}
+        </strong>
+        {result} <strong className="result-strong">{roll.resultValue}</strong>
+      </div>
+      <div className="rollstr-bottom">{reroll}</div>
+    </>
+  );
+}
+
+function DiceArea({
+  player,
+  statSelection,
+  competenceSelection,
+  reroll,
+  ...props
+}) {
   const [rolls, setRolls] = useState([]);
 
   const [frank, setFrank] = useState();
@@ -243,50 +295,52 @@ function DiceArea({ player, ...props }) {
   }, []);
 
   function handleRoll(e) {
-    fetch(`/api/rolls/new`, { method: "POST" }).then(() => fetchAndUpdate());
+    fetch(`/api/rolls/new`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        bonusStat: statSelection,
+        bonusCompetence: competenceSelection,
+        reroll,
+      }),
+    }).then(() => fetchAndUpdate());
   }
 
   return (
     <div id="dice-area">
-      <table id="dice-table">
-        <tbody>
-          <tr className="dice-tr">
-            <td>
-              <label>Frank</label>
-            </td>
-            <td>
-              <Die roll={frank} />
-            </td>
-          </tr>
-          <tr className="dice-tr">
-            <td>
-              <label>Zango</label>
-            </td>
-            <td>
-              <Die roll={zango} />
-            </td>
-          </tr>
-          <tr className="dice-tr">
-            <td>
-              <label>Nico</label>
-            </td>
-            <td>
-              <Die roll={nico} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div id="dice-table">
+        <span className="dice-span" style={{ left: "10%" }}>
+          <label>Frank</label>
+          <Die roll={frank} />
+        </span>
+        <span className="dice-span" style={{ left: "43%" }}>
+          <label>Zango</label>
+          <Die roll={zango} />
+        </span>
+        <span className="dice-span" style={{ left: "76%" }}>
+          <label>Nico</label>
+          <Die roll={nico} />
+        </span>
+      </div>
       <div id="actions">
         <button onClick={handleRoll}>Roll</button>
+        <p id="roll-resume">
+          {statSelection &&
+            competenceSelection &&
+            `bonus ${statSelection} + ${competenceSelection}`}{" "}
+          {reroll && ` relance ${reroll}`}
+        </p>
         <div id="text-resume">
           {rolls
             .slice(0)
             .reverse()
             .map((x) => (
-              <div
-                className="text-resume-item"
-                key={x.time}
-              >{`${x.name} a obtenu un ${x.value}`}</div>
+              <div className="text-resume-item" key={x.time}>
+                <RollToString roll={x} />
+              </div>
             ))}
         </div>
       </div>

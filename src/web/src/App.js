@@ -25,7 +25,9 @@ function MainPage({ player, isAdmin }) {
         </Link>
         <Link
           onClick={() =>
-            fetch(`/api/logout`).then(() => document.location.reload(true))
+            fetch(`/api/logout`, {
+              method: "POST",
+            }).then(window.location.reload())
           }
           className="nav-link"
           id="logout"
