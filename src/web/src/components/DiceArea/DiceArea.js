@@ -211,13 +211,13 @@ function Die({ roll: { result, time } = { result: 20, time: 0 } }) {
 function RollToString({ roll }) {
   const result = ` a obtenu ${roll.result}
   ${
-    roll.bonuses.bonusStat.name
-      ? ` + ${roll.bonuses.bonusStat.name}(${roll.bonuses.bonusStat.value})`
+    roll.bonuses.bonus1.name
+      ? ` + ${roll.bonuses.bonus1.name}(${roll.bonuses.bonus1.value})`
       : ""
   }
   ${
-    roll.bonuses.bonusCompetence.name
-      ? ` + ${roll.bonuses.bonusCompetence.name}(${roll.bonuses.bonusCompetence.value})`
+    roll.bonuses.bonus2.name
+      ? ` + ${roll.bonuses.bonus2.name}(${roll.bonuses.bonus2.value})`
       : ""
   } = `;
 
@@ -250,9 +250,10 @@ function RollToString({ roll }) {
 
 function DiceArea({
   player,
-  statSelection,
-  competenceSelection,
+  bonus1,
+  bonus2,
   reroll,
+  setBonusSelection,
   ...props
 }) {
   const [rolls, setRolls] = useState([]);
@@ -302,9 +303,9 @@ function DiceArea({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        bonusStat: statSelection,
-        bonusCompetence: competenceSelection,
-        reroll,
+        bonus1: bonus1,
+        bonus2: bonus2,
+        reroll: reroll,
       }),
     }).then(() => fetchAndUpdate());
   }
@@ -328,10 +329,26 @@ function DiceArea({
       <div id="actions">
         <button onClick={handleRoll}>Roll</button>
         <p id="roll-resume">
-          {statSelection &&
-            competenceSelection &&
-            `bonus ${statSelection} + ${competenceSelection}`}{" "}
-          {reroll && ` relance ${reroll}`}
+          <button
+            className="set-bonus-selection"
+            onClick={() => setBonusSelection("bonus1")}
+          >
+            bonus1: {bonus1 || "aucun"}
+          </button>{" "}
+          +{" "}
+          <button
+            className="set-bonus-selection"
+            onClick={() => setBonusSelection("bonus2")}
+          >
+            bonus2: {bonus2 || "aucun"}
+          </button>{" "}
+          ;{" "}
+          <button
+            className="set-bonus-selection"
+            onClick={() => setBonusSelection("reroll")}
+          >
+            reroll: {reroll || "aucun"}
+          </button>
         </p>
         <div id="text-resume">
           {rolls

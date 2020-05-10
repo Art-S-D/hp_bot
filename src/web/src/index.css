@@ -37,6 +37,10 @@ code {
     monospace;
 }
 
+button {
+  cursor: pointer;
+}
+
 html,
 body {
   height: 100%;

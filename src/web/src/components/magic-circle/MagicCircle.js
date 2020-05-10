@@ -21,34 +21,49 @@ const stats_positions = {
   romance: { left: 57, top: 92, type: "competence" },
 };
 
-function MagicCircle({ player, setStateSelection, setCompetenceSelection }) {
+const matieres = [
+  "astronomie",
+  "botanique",
+  "dcfm",
+  "enchantement",
+  "histoire",
+  "metamorphose",
+  "potions",
+  "vol",
+];
+
+function MagicCircle({ player, setBonus }) {
   return (
     <div id="magic-circle">
       <img src="/magic-circle.png" alt="magic circle" id="magic-circle-img" />
-      {Object.keys(stats_positions)
-        .sort((a, b) => stats_positions[a].top - stats_positions[b].top)
-        .map((k) => (
-          <div
-            key={k}
-            className={`player-statistic magic-${stats_positions[k].type}`}
-            style={{
-              //transform: `translate(${stats_positions[k].left}%, ${stats_positions[k].top}%)`,
-              left: `${stats_positions[k].left}%`,
-              top: `${stats_positions[k].top}%`,
-            }}
-          >
-            <button
-              className="stat-button"
-              onClick={() => {
-                stats_positions[k].type === "stat"
-                  ? setStateSelection(k)
-                  : setCompetenceSelection(k);
+      <div id="player-stats">
+        {Object.keys(stats_positions)
+          .sort((a, b) => stats_positions[a].top - stats_positions[b].top)
+          .map((k) => (
+            <div
+              key={k}
+              className={`player-statistic magic-${stats_positions[k].type}`}
+              style={{
+                left: `${stats_positions[k].left}%`,
+                top: `${stats_positions[k].top}%`,
               }}
             >
-              {player.stats[k] || player.competences[k]}
+              <button className="stat-button" onClick={() => setBonus(k)}>
+                {player.stats[k] || player.competences[k]}
+              </button>
+            </div>
+          ))}
+      </div>
+      <div id="matieres">
+        {matieres.map((m) => (
+          <div className="player-matiere">
+            {m}{" "}
+            <button className="stat-button" onClick={() => setBonus(m)}>
+              {player.matieres[m]}
             </button>
           </div>
         ))}
+      </div>
     </div>
   );
 }

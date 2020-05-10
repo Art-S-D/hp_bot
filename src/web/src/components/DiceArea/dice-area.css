@@ -27,6 +27,11 @@
   flex-direction: column-reverse;
 }
 
+.set-bonus-selection {
+  border: none;
+  background: none;
+}
+
 #roll-resume {
   display: inline;
   padding-left: 2px;

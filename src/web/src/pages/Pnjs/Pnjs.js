@@ -35,7 +35,7 @@ function Pnjs({ isAdmin }) {
         ))}
       </ul>
       {/*isAdmin && (*/}
-      <form id="add-pnj" action="/pnjs/new" method="POST">
+      <form id="add-pnj" action="/api/pnjs/new" method="POST">
         <input type="text" name="name" id="input-pnj" />{" "}
         <input type="submit" value="ajouter un pnj" />
       </form>

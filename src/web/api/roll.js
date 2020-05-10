@@ -12,14 +12,18 @@ app.get("/latest", async function (req, res) {
   res.status(200).send(tmp);
 });
 
+function getBonus(player, bonus) {
+  return (
+    player.stats[bonus] || player.competences[bonus] || player.matieres[bonus]
+  );
+}
 app.post("/new", async function (req, res) {
-  const { bonusStat, bonusCompetence, reroll } = req.body;
+  const { bonus1, bonus2, reroll } = req.body;
 
-  const bonusStatValue = req.user.player.stats[bonusStat] || 0;
-  const bonusCompetenceValue =
-    req.user.player.competences[bonusCompetence] || 0;
-  const rerollValue = req.user.player.stats[reroll] || -1;
-  const bonusesValues = (bonusCompetenceValue || 0) + (bonusStatValue || 0);
+  const bonus1Value = getBonus(req.user.player, bonus1) || 0;
+  const bonus2Value = getBonus(req.user.player, bonus2) || 0;
+  const rerollValue = getBonus(req.user.player, reroll) || -1;
+  const bonusesValues = bonus1Value + bonus2Value;
 
   let result1 = Math.ceil(Math.random() * 20);
   let result2 = Math.ceil(Math.random() * 20);
@@ -31,14 +35,14 @@ app.post("/new", async function (req, res) {
     result: hasReroll ? result1 : result2,
     resultValue: hasReroll ? result1 + bonusesValues : result2 + bonusesValues,
     bonuses: {
-      bonusStat: { name: bonusStat, value: bonusStatValue },
-      bonusCompetence: { name: bonusCompetence, value: bonusCompetenceValue },
+      bonus1: { name: bonus1, value: bonus1Value },
+      bonus2: { name: bonus2, value: bonus2Value },
       reroll: { name: reroll, value: rerollValue },
     },
     hasReroll,
     result_before_reroll: hasReroll && result1,
   });
   rolls = rolls.slice(-STORE_LAST);
-  res.status(200).end();
+  res.sendStatus(200);
 });
 module.exports = app;
