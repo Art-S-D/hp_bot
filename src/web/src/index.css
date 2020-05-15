@@ -52,7 +52,7 @@ body {
 
 #scroll {
   position: absolute;
-  width: 100%;
+  width: 1920px;
   /*height: 100%;*/
   overflow: hidden;
 }
