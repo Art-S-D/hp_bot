@@ -7,6 +7,7 @@ const no = require("./no");
 const pnj = require("./pnj");
 const card = require("./cards");
 const inventory = require("./inventory");
+const d20 = require("./d20");
 
 module.exports = {
   roll,
@@ -18,4 +19,5 @@ module.exports = {
   pnj,
   card,
   inventory,
+  d20,
 };
