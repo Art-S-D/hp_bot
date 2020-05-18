@@ -4,11 +4,11 @@ const { Player } = require("mongo");
 function reply_roll(msg, score, b1, b2) {
   let res = `${score}`;
   let value = score;
-  if (b1 !== undefined) {
+  if (b1 !== undefined && b1 !== null) {
     res = `${res} + ${b1}`;
     value += b1;
   }
-  if (b2 != undefined) {
+  if (b2 != undefined && b2 !== null) {
     res = `${res} + ${b2}`;
     value += b2;
   }
