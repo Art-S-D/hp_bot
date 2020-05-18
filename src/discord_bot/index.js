@@ -19,5 +19,5 @@ module.exports = {
   pnj,
   card,
   inventory,
-  d20,
+  d: d20,
 };

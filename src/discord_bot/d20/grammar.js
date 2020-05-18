@@ -141,8 +141,8 @@ function peg$parse(input, options) {
       peg$startRuleFunctions = { d20: peg$parsed20 },
       peg$startRuleFunction  = peg$parsed20,
 
-      peg$c0 = "!d20",
-      peg$c1 = peg$literalExpectation("!d20", false),
+      peg$c0 = "!d",
+      peg$c1 = peg$literalExpectation("!d", false),
       peg$c2 = "+",
       peg$c3 = peg$literalExpectation("+", false),
       peg$c4 = function(bonus1) {return bonus1},
@@ -302,9 +302,9 @@ function peg$parse(input, options) {
     var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10;
 
     s0 = peg$currPos;
-    if (input.substr(peg$currPos, 4) === peg$c0) {
+    if (input.substr(peg$currPos, 2) === peg$c0) {
       s1 = peg$c0;
-      peg$currPos += 4;
+      peg$currPos += 2;
     } else {
       s1 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c1); }
