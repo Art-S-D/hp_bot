@@ -32,7 +32,7 @@ function d20(msg, player) {
   let res = Math.ceil(Math.random() * 20);
   reply_roll(msg, res, bonus1, bonus2);
 
-  if (reroll && res < reroll) {
+  if (reroll && res <= reroll) {
     res = Math.ceil(Math.random() * 20);
     reply_roll(msg, res, bonus1, bonus2);
   }
