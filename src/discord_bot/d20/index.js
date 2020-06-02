@@ -28,6 +28,11 @@ function d20(msg, player) {
     if (tmp === undefined) throw `stat inconnue ${bonus2}`;
     bonus2 = tmp;
   }
+  if (typeof reroll === "string") {
+    let tmp = Player.getStat(player, reroll);
+    if (tmp === undefined) throw `stat inconnue ${reroll}`;
+    reroll = tmp;
+  }
 
   let res = Math.ceil(Math.random() * 20);
   reply_roll(msg, res, bonus1, bonus2);
