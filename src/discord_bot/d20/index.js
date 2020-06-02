@@ -1,7 +1,7 @@
 const grammar = require("./grammar.js");
 const { Player } = require("mongo");
 
-function reply_roll(msg, score, b1, b2) {
+function reply_roll(msg, score, b1, b2, d) {
   let res = `${score}`;
   let value = score;
   if (b1 !== undefined && b1 !== null) {
@@ -12,35 +12,38 @@ function reply_roll(msg, score, b1, b2) {
     res = `${res} + ${b2}`;
     value += b2;
   }
-  msg.reply(`${res} = ${value}`);
+  res = `${res} = ${value}`;
+  if (d) {
+    const mark = value > d ? ":white_check_mark:" : ":x:";
+    res = `${res}\t <@293149809387241472>${mark}`;
+  }
+  msg.reply(res);
 }
 
 function d20(msg, player) {
-  let { bonus1, bonus2, reroll } = grammar.parse(msg.content);
+  let { bonus1, bonus2, reroll, diff } = grammar.parse(msg.content);
 
-  if (typeof bonus1 === "string") {
-    let tmp = Player.getStat(player, bonus1);
-    if (tmp === undefined) throw `stat inconnue ${bonus1}`;
-    bonus1 = tmp;
+  function cast(x) {
+    if (typeof x === "string") {
+      let tmp = Player.getStat(player, x);
+      if (tmp === undefined) throw `stat inconnue ${x}`;
+      return tmp;
+    }
+    return x;
   }
-  if (typeof bonus2 === "string") {
-    let tmp = Player.getStat(player, bonus2);
-    if (tmp === undefined) throw `stat inconnue ${bonus2}`;
-    bonus2 = tmp;
-  }
-  if (typeof reroll === "string") {
-    let tmp = Player.getStat(player, reroll);
-    if (tmp === undefined) throw `stat inconnue ${reroll}`;
-    reroll = tmp;
-  }
+
+  bonus1 = cast(bonus1);
+  bonus2 = cast(bonus2);
+  reroll = cast(reroll);
+  diff = cast(diff) || 15;
 
   let res = Math.ceil(Math.random() * 20);
-  reply_roll(msg, res, bonus1, bonus2);
 
   if (reroll && res <= reroll) {
+    reply_roll(msg, res, bonus1, bonus2, null);
     res = Math.ceil(Math.random() * 20);
-    reply_roll(msg, res, bonus1, bonus2);
-  }
+    reply_roll(msg, res, bonus1, bonus2, diff);
+  } else reply_roll(msg, res, bonus1, bonus2, diff);
 }
 
 module.exports = d20;

@@ -8,8 +8,9 @@ d20 = "!d" optionalSpace
     bonus1:(optionalSpace "+"? optionalSpace bonus1:value optionalSpace {return bonus1})?
     bonus2:(optionalSpace "+" optionalSpace bonus2:value optionalSpace {return bonus2})?
     reroll:(optionalSpace "/" optionalSpace reroll:value optionalSpace {return reroll})?
+    diff:(optionalSpace "|" optionalSpace diff:value optionalSpace {return diff})?
     optionalSpace
-    {return {bonus1, bonus2, reroll}}
+    {return {bonus1, bonus2, reroll, diff}}
 
 optionalSpace = " "* {return null;}
 requiredSpace = " "+ {return null;}
