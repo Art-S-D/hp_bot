@@ -5,7 +5,7 @@
 }
 
 d20 = "!d" optionalSpace
-    bonus1:(optionalSpace "+" optionalSpace bonus1:value optionalSpace {return bonus1})?
+    bonus1:(optionalSpace "+"? optionalSpace bonus1:value optionalSpace {return bonus1})?
     bonus2:(optionalSpace "+" optionalSpace bonus2:value optionalSpace {return bonus2})?
     reroll:(optionalSpace "/" optionalSpace reroll:value optionalSpace {return reroll})?
     optionalSpace

@@ -322,6 +322,9 @@ function peg$parse(input, options) {
             s5 = peg$FAILED;
             if (peg$silentFails === 0) { peg$fail(peg$c3); }
           }
+          if (s5 === peg$FAILED) {
+            s5 = null;
+          }
           if (s5 !== peg$FAILED) {
             s6 = peg$parseoptionalSpace();
             if (s6 !== peg$FAILED) {
