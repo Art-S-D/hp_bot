@@ -6,7 +6,10 @@
         "tests/*"
     ],
     "dependencies": {
-        "pegjs": "^0.10.0"
+        "pegjs": "^0.10.0",
+        "discord.js": "^11",
+        "jest": "^24.9.0",
+        "mockingoose": "^2.13.2"
     },
     "scripts": {
         "dev": "node HP_Bot.js unsafe ignorePrivateChannels",

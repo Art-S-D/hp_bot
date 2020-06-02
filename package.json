@@ -7,12 +7,5 @@
     "src/*"
   ],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "discord.js": "^11",
-    "jest": "^24.9.0",
-    "migrate-mongo": "^7.1.0",
-    "mockingoose": "^2.13.2",
-    "mongoose": "^5.9.6"
-  }
+  "license": "ISC"
 }
