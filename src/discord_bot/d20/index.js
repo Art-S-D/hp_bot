@@ -14,7 +14,7 @@ function reply_roll(msg, score, b1, b2, d) {
   }
   res = `${res} = ${value}`;
   if (d) {
-    const mark = value > d ? ":white_check_mark:" : ":x:";
+    const mark = value >= d ? ":white_check_mark:" : ":x:";
     res = `${res}\t <@293149809387241472>${mark}`;
   }
   msg.reply(res);
