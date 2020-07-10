@@ -10,10 +10,13 @@ d20 = "!d" optionalSpace
     reroll:(optionalSpace "/" optionalSpace reroll:value optionalSpace {return reroll})?
     diff:(optionalSpace "|" optionalSpace diff:value optionalSpace {return diff})?
     optionalSpace
+    optionalComment?
     {return {bonus1, bonus2, reroll, diff}}
 
 optionalSpace = " "* {return null;}
 requiredSpace = " "+ {return null;}
+
+optionalComment = "#" .*
 
 value = res:(word / number) {return res;}
 number = nb:[0-9]+ {return makeInteger(nb)}
