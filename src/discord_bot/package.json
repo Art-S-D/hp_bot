@@ -14,7 +14,7 @@
     },
     "scripts": {
         "dev": "nodemon HP_Bot.js unsafe ignorePrivateChannels",
-        "start": "nodemon HP_Bot.js",
+        "start": "node HP_Bot.js",
         "test": "yarn jest --detectOpenHandles"
     }
 }
