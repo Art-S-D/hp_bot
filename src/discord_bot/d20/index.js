@@ -1,6 +1,16 @@
 const grammar = require("./grammar.js");
 const { Player } = require("mongo");
 
+async function shazam(msg) {
+  await msg.react("🇸");
+  await msg.react("🇭");
+  await msg.react("🇦");
+  await msg.react("🇿");
+  await msg.react("🅰️");
+  await msg.react("🇲");
+  // await msg.reply("⚡");
+}
+
 function reply_roll(msg, score, b1, b2, d) {
   let res = `${score}`;
   let value = score;
@@ -17,6 +27,7 @@ function reply_roll(msg, score, b1, b2, d) {
     const mark = value >= d ? ":white_check_mark:" : ":x:";
     res = `${res}\t <@293149809387241472>${mark}`;
   }
+  if (score === 20) shazam(msg);
   msg.reply(res);
 }
 
