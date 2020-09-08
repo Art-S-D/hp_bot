@@ -27,8 +27,7 @@ function reply_roll(msg, score, b1, b2, d) {
     const mark = value >= d ? ":white_check_mark:" : ":x:";
     res = `${res}\t <@293149809387241472>${mark}`;
   }
-  if (value >= 20) shazam(msg);
-  msg.reply(res);
+  msg.reply(res).then((reply) => value >= 20 && shazam(reply));
 }
 
 function d20(msg, player) {
