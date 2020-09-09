@@ -1,11 +1,15 @@
 {
   "name": "hp_bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "private": true,
   "workspaces": [
-    "src/*"
+    "packages/*"
   ],
-  "author": "",
-  "license": "ISC"
+  "author": "arthur saint-denis",
+  "license": "ISC",
+  "scripts": {
+    "dev": "yarn workspace discord_bot dev",
+    "start": "yarn workspace discord_bot start"
+  }
 }

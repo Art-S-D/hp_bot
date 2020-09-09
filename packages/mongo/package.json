@@ -1,0 +1,8 @@
+{
+    "name": "mongo",
+    "version": "2.0.0",
+    "dependencies": {
+        "migrate-mongo": "^7.1.0",
+        "mongoose": "^5.9.6"
+    }
+}

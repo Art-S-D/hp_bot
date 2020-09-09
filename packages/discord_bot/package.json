@@ -1,0 +1,24 @@
+{
+    "name": "discord_bot",
+    "version": "2.0.0",
+    "private": true,
+    "workspaces": [
+        "tests/*"
+    ],
+    "dependencies": {
+        "discord.js": "^11",
+        "jest": "^24.9.0",
+        "mockingoose": "^2.13.2",
+        "nodemon": "^2.0.4",
+        "pegjs": "^0.10.0",
+        "ts-node": "^9.0.0"
+    },
+    "devDependencies": {
+        "ts-node-dev": "^1.0.0-pre.62"
+    },
+    "scripts": {
+        "dev": "ts-node-dev HP_Bot.js unsafe ignorePrivateChannels",
+        "start": "ts-node HP_Bot.js",
+        "test": "yarn jest --detectOpenHandles"
+    }
+}
