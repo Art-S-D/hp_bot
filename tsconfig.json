@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    // "paths": {
+    //   "@mongo": ["packages/mongo"],
+    //   "@discord_bot": ["packages/discord_bot"]
+    // },
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": false
+  },
+  "include": ["packages/**/*"],
+  "exclude": ["node_modules"]
+}

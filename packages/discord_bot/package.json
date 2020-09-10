@@ -6,19 +6,21 @@
         "tests/*"
     ],
     "dependencies": {
-        "discord.js": "^11",
+        "mongo": "*",
+        "discord.js": "12.3.1",
         "jest": "^24.9.0",
         "mockingoose": "^2.13.2",
         "nodemon": "^2.0.4",
         "pegjs": "^0.10.0",
-        "ts-node": "^9.0.0"
+        "ts-node": "^9.0.0",
+        "typescript": "^4.0.2"
     },
     "devDependencies": {
         "ts-node-dev": "^1.0.0-pre.62"
     },
     "scripts": {
-        "dev": "ts-node-dev HP_Bot.js unsafe ignorePrivateChannels",
-        "start": "ts-node HP_Bot.js",
+        "dev": "ts-node-dev HP_Bot.ts log unsafe ignorePrivateChannels",
+        "start": "ts-node HP_Bot.ts",
         "test": "yarn jest --detectOpenHandles"
     }
 }
