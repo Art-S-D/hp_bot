@@ -20,7 +20,7 @@ async function reply_roll(
   bonus1: number | undefined,
   bonus2: number | undefined,
   diff: number
-): Promise<[Message, number]> {
+): Promise<[Message, number, boolean]> {
   let res: string = `${score}`; // message to reply with
   let value: number = score; // value of the roll
 
@@ -39,7 +39,7 @@ async function reply_roll(
 
   const response = await msg.reply(res);
   if (score >= 20) await shazam(response);
-  return [response, value];
+  return [response, value, value >= diff];
 }
 
 type bonus = number | string;
@@ -55,7 +55,7 @@ export async function d20(
   msg: Message,
   player: IPlayer | null,
   die: d20grammar
-): Promise<[Message, number]> {
+): Promise<[Message, number, boolean]> {
   let { bonus1, bonus2, reroll, diff }: d20grammar = die;
 
   // if x is a number, returns x, otherwise returns the stat of the player that x represents
@@ -81,8 +81,8 @@ export async function d20(
 
 export async function d(msg: Message, player: IPlayer | null) {
   const die: d20grammar = grammar.parse(msg.content) as d20grammar;
-  const [response] = await d20(msg, player, die);
+  const [response, _val, success] = await d20(msg, player, die);
 
-  if (isLearningRoll(die) && player != null)
+  if (!success && isLearningRoll(die) && player != null)
     await addEnduranceRerollReactions(response, player as IPlayer, msg);
 }

@@ -53,5 +53,5 @@ export async function addEnduranceRerollReactions(
     if (diff == 10 && rollResult < 10)
       msg.reply("Oh non, vous être trop fatigué 😴");
   }
-  await msg.reactions.removeAll();
+  // await msg.reactions.removeAll();
 }
