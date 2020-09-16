@@ -26,7 +26,7 @@ export async function pnj(msg: Message) {
     const pnjAst = parser.parse(msg.content);
     const action: IAction = pnjActions[pnjAst.type - 1];
 
-    if (action.mjRequired && !hasRole(msg, "Esprit de Poudlard")) {
+    if (action.mjRequired && !hasRole(msg, "MJ")) {
       msg.reply("Vous devez être MJ pour effectuer cette action.");
       return;
     }
