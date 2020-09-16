@@ -48,8 +48,8 @@ interface d20grammar {
   diff: bonus;
 }
 
-export function d(msg: Message, player: IPlayer | null) {
-  let { bonus1, bonus2, reroll, diff }: d20grammar = grammar.parse(msg.content);
+export function d20(msg: Message, player: IPlayer, die: d20grammar) {
+  let { bonus1, bonus2, reroll, diff }: d20grammar = die;
 
   // if x is a number, returns x, otherwise returns the stat of the player that x represents
   function cast(x?: bonus): number | undefined {
@@ -70,4 +70,9 @@ export function d(msg: Message, player: IPlayer | null) {
     score = Math.ceil(Math.random() * 20);
     reply_roll(msg, score, _bonus1, _bonus2, _diff);
   } else reply_roll(msg, score, _bonus1, _bonus2, _diff);
+}
+
+export function d(msg: Message, player: IPlayer | null) {
+  const die: d20grammar = grammar.parse(msg.content);
+  d20(msg, player, die);
 }
