@@ -1,6 +1,8 @@
 import { Message } from "discord.js";
 import grammar = require("./grammar.js");
-import { Player, IPlayer } from "mongo";
+import { IPlayer } from "mongo";
+
+import { addEnduranceRerollReactions, isLearningRoll } from "./enduranceDie";
 
 async function shazam(msg: Message) {
   await msg.react("🇸");
@@ -12,13 +14,13 @@ async function shazam(msg: Message) {
   // await msg.react("⚡");
 }
 
-function reply_roll(
+async function reply_roll(
   msg: Message,
   score: number,
   bonus1: number | undefined,
   bonus2: number | undefined,
   diff: number
-) {
+): Promise<Message> {
   let res: string = `${score}`; // message to reply with
   let value: number = score; // value of the roll
 
@@ -35,9 +37,9 @@ function reply_roll(
   const mark = value >= diff ? ":white_check_mark:" : ":x:";
   res = `${res}\t <@293149809387241472>${mark}`;
 
-  msg.reply(res).then((reply: Message) => {
-    if (score >= 20) shazam(reply);
-  });
+  const response = await msg.reply(res);
+  if (score >= 20) await shazam(response);
+  return response;
 }
 
 type bonus = number | string;
@@ -48,7 +50,11 @@ interface d20grammar {
   diff: bonus;
 }
 
-export function d20(msg: Message, player: IPlayer, die: d20grammar) {
+export async function d20(
+  msg: Message,
+  player: IPlayer | null,
+  die: d20grammar
+): Promise<Message> {
   let { bonus1, bonus2, reroll, diff }: d20grammar = die;
 
   // if x is a number, returns x, otherwise returns the stat of the player that x represents
@@ -68,11 +74,14 @@ export function d20(msg: Message, player: IPlayer, die: d20grammar) {
   if (score <= _reroll) {
     reply_roll(msg, score, _bonus1, _bonus2, _diff);
     score = Math.ceil(Math.random() * 20);
-    reply_roll(msg, score, _bonus1, _bonus2, _diff);
-  } else reply_roll(msg, score, _bonus1, _bonus2, _diff);
+    return reply_roll(msg, score, _bonus1, _bonus2, _diff);
+  } else return reply_roll(msg, score, _bonus1, _bonus2, _diff);
 }
 
-export function d(msg: Message, player: IPlayer | null) {
+export async function d(msg: Message, player: IPlayer | null) {
   const die: d20grammar = grammar.parse(msg.content);
-  d20(msg, player, die);
+  const response = await d20(msg, player, die);
+
+  if (isLearningRoll(die) && player != null)
+    await addEnduranceRerollReactions(response, player as IPlayer, msg);
 }
