@@ -1,10 +1,10 @@
-import { Message, Client } from "discord.js";
+import { Message } from "discord.js";
 import { Player, IPlayer } from "mongo";
 import { ICommand } from "./commands";
 import commands = require("./commands");
 import isAuthorized from "./utils/isAuthorized";
 
-const client = new Client();
+import client from "./client";
 
 // not commands but more like jokes for when the message contains a certain word
 function runResponses(msg: Message) {

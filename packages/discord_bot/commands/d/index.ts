@@ -36,7 +36,7 @@ function reply_roll(
   res = `${res}\t <@293149809387241472>${mark}`;
 
   msg.reply(res).then((reply: Message) => {
-    if (value >= 20) shazam(reply);
+    if (score >= 20) shazam(reply);
   });
 }
 
