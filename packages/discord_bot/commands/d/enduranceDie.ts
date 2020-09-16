@@ -8,9 +8,9 @@ const enduranceRollEmojis = ["d20", "d15", "d10"];
 
 export function isLearningRoll({ bonus1, bonus2, reroll }: Id20): boolean {
   return (
-    ((bonus1 === "esprit" && bonus2 === "endurance") ||
-      (bonus1 === "endurance" && bonus2 === "esprit")) &&
-    reroll === "corps"
+    ((bonus1 === "esprit" && bonus2 === "magie") ||
+      (bonus1 === "magie" && bonus2 === "esprit")) &&
+    reroll === "enchantement"
   );
 }
 
@@ -46,8 +46,8 @@ export async function addEnduranceRerollReactions(
     );
     const [_response, rollResult] = await d20(originalMessage, player, {
       bonus1: "endurance",
-      bonus2: "magie",
-      reroll: "esprit",
+      bonus2: "esprit",
+      reroll: "corps",
       diff,
     });
     if (diff == 10 && rollResult < 10)
