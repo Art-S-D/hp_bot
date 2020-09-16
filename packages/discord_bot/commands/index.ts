@@ -1,4 +1,4 @@
-export * from "./d";
+export { d } from "./d";
 export * from "./pnj";
 export * from "./grimoire";
 export * from "./help";
