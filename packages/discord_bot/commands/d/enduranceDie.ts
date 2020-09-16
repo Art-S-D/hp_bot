@@ -3,7 +3,6 @@ import { IPlayer } from "mongo";
 
 import { d20 } from "./index";
 import { Id20 } from "./types";
-import client from "../../client";
 
 const enduranceRollEmojis = ["d20", "d15", "d10"];
 
@@ -45,34 +44,14 @@ export async function addEnduranceRerollReactions(
     originalMessage.reply(
       `jet d'endurance! \t (!d + endurance + magie / esprit | ${diff})`
     );
-    d20(originalMessage, player, {
+    const [_response, rollResult] = await d20(originalMessage, player, {
       bonus1: "endurance",
       bonus2: "magie",
       reroll: "esprit",
       diff,
     });
+    if (diff == 10 && rollResult < 10)
+      msg.reply("Oh non, vous être trop fatigué 😴");
   }
   await msg.reactions.removeAll();
 }
-
-// function getStored(msg: Message): Message | undefined {
-//   return storedLearningRolls.find((message: Message) => msg.id === message.id);
-// }
-
-// function removeMsgFromStorage(msg: Message) {
-//   storedLearningRolls = storedLearningRolls.filter((m) => m.id !== msg.id);
-// }
-
-// client.on("messageReactionAdd", function (
-//   reaction: MessageReaction,
-//   user: User | PartialUser
-// ) {
-//   const _msg = getStored(reaction.message);
-//   if (!_msg) return;
-//   const msg = _msg as Message;
-//   if (msg.author.id !== user.id) return;
-
-//   if (enduranceRollEmojis.includes(reaction.emoji.identifier)) {
-//     removeMsgFromStorage(reaction.message);
-//   }
-// });
