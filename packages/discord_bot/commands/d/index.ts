@@ -19,7 +19,8 @@ async function reply_roll(
   score: number,
   bonus1: number | undefined,
   bonus2: number | undefined,
-  diff: number
+  diff: number,
+  tagMJ: boolean = true
 ): Promise<[Message, number, boolean]> {
   let res: string = `${score}`; // message to reply with
   let value: number = score; // value of the roll
@@ -34,8 +35,10 @@ async function reply_roll(
   }
   res = `${res} = ${value}`;
 
-  const mark = value >= diff ? ":white_check_mark:" : ":x:";
-  res = `${res}\t <@293149809387241472>${mark}`;
+  if (tagMJ) {
+    const mark = value >= diff ? ":white_check_mark:" : ":x:";
+    res = `${res}\t <@293149809387241472>${mark}`;
+  }
 
   const response = await msg.reply(res);
   if (score >= 20) await shazam(response);
@@ -73,7 +76,7 @@ export async function d20(
   let score: number = Math.ceil(Math.random() * 20);
 
   if (score <= _reroll) {
-    reply_roll(msg, score, _bonus1, _bonus2, _diff);
+    reply_roll(msg, score, _bonus1, _bonus2, _diff, false);
     score = Math.ceil(Math.random() * 20);
     return reply_roll(msg, score, _bonus1, _bonus2, _diff);
   } else return reply_roll(msg, score, _bonus1, _bonus2, _diff);
