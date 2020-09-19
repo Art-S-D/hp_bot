@@ -1,5 +1,7 @@
 {
-    "files.exclude": {
-        "**/node_modules": true
-    }
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "prettier.printWidth": 120,
+  "editor.rulers": [120]
 }

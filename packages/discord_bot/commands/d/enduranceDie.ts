@@ -1,5 +1,6 @@
 import { Message, User, EmojiResolvable } from "discord.js";
 import { IPlayer } from "mongo";
+import { messageButton } from "../../utils/messageButton";
 
 import { d20 } from "./index";
 import { Id20 } from "./types";
@@ -18,27 +19,16 @@ export async function addEnduranceRerollReactions(
   player: IPlayer,
   originalMessage: Message
 ) {
-  for (const emoji of enduranceRollEmojis) {
-    await msg.react(
-      msg.guild?.emojis.cache.find((e) => e.name === emoji) as EmojiResolvable
-    );
-  }
-  const reaction = await msg
-    .awaitReactions(
-      (reaction, user) =>
-        user.id === originalMessage.author.id &&
-        enduranceRollEmojis.includes(reaction.emoji.name),
-      { time: 1000 * 60 * 10, max: 1 }
-    )
-    .catch((e) => {
-      console.warn(e);
-      return undefined;
-    });
+  const reaction = await messageButton(msg, enduranceRollEmojis, [
+    originalMessage.author.id,
+  ]);
 
   let diff = 0;
-  if (reaction?.first()?.emoji?.name === "d20") diff = 20;
-  else if (reaction?.first()?.emoji?.name === "d15") diff = 15;
-  else if (reaction?.first()?.emoji?.name === "d10") diff = 10;
+  if (reaction === "d20") diff = 20;
+  else if (reaction === "d15") diff = 15;
+  else if (reaction === "d10") diff = 10;
+  else return;
+
   if (diff) {
     originalMessage.reply(
       `jet d'endurance! \t (!d + endurance + magie / esprit | ${diff})`

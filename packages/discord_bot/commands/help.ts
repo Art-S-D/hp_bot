@@ -22,5 +22,8 @@ export function help(msg: Message) {
     !d:
         !d + stat1 + stat2 / relance | difficulté
 
+    !jeux:
+        rien de plus, le reste se fait avec des boutons
+
     faut pas oublier de dire stp et merci au bot :)`);
 }

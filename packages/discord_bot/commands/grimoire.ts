@@ -15,7 +15,7 @@ function printGrimoire(player: IPlayer) {
 
 export async function grimoire(msg: Message, player: IPlayer | null) {
   if (!player) throw "joueur inconnu";
-  msg.reply(printGrimoire(<IPlayer>player), { split: true });
+  msg.reply(printGrimoire(<IPlayer>player.toJSON()), { split: true });
 }
 
 grimoire.critical = true;
