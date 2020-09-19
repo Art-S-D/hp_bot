@@ -108,7 +108,7 @@ Quel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
     );
 
     this.enemyLevel = await this.button<IEnemyType>(EnemyTypes);
-    this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} contre un adversaire ${this.enemyLevel.name}`;
+    this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name}${this.gameType.emoji} contre un adversaire ${this.enemyLevel.name}${this.enemyLevel.emoji}`;
     this.gameMessage.edit(this.gameDescription);
 
     this.startActions();
@@ -120,6 +120,7 @@ Quel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
     if (this.gameType.name === "echecs") return this.player.competences.tactique;
     if (this.gameType.name === "bavboules") return this.player.competences.precision;
     if (this.gameType.name === "cartes") return this.player.competences.bluff;
+    console.warn("unknown bonus ", this.gameType.name);
     return 0;
   }
 
@@ -127,11 +128,20 @@ Quel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
     return this.enemyLevel.bonus + this.getPlayerBonus() + Math.floor(Math.random() * 5) - 2;
   }
 
-  resolveAction(playerStrat: ActionStrategy, pnjStrat: ActionStrategy): ActionWinner {
-    const playerBonus = this.getPlayerBonus() + ((playerStrat + 1) % 3 === pnjStrat ? 3 : 0);
-    const pnjBonus = this.getPnjBonus() + ((pnjStrat + 1) % 3 === playerStrat ? 3 : 0);
-    if (playerBonus >= pnjBonus) return ActionWinner.PJ;
-    else return ActionWinner.PNJ;
+  resolveAction(playerStrat: ActionStrategy, pnjStrat: ActionStrategy): [ActionWinner, string] {
+    const _playerBonus = this.getPlayerBonus();
+    const _pnjBonus = this.getPnjBonus();
+    const playerBonus = _playerBonus + ((pnjStrat + 1) % 3 === playerStrat ? 3 : 0);
+    const pnjBonus = _pnjBonus + ((playerStrat + 1) % 3 === pnjStrat ? 3 : 0);
+
+    const combatDescription = `[${_playerBonus}(stats)+${
+      (pnjStrat + 1) % 3 === playerStrat ? 3 : 0
+    }(strat)=${playerBonus}; ${this.enemyLevel.bonus}(niveau)+${_pnjBonus - this.enemyLevel.bonus}(random)+${
+      (playerStrat + 1) % 3 === pnjStrat ? 3 : 0
+    }(strat)=${pnjBonus}]`;
+
+    if (playerBonus >= pnjBonus) return [ActionWinner.PJ, combatDescription];
+    else return [ActionWinner.PNJ, combatDescription];
   }
 
   getResults(): string {
@@ -155,13 +165,15 @@ Quel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
     ) as ActionStrategy;
     const pnjStrat: ActionStrategy = Math.floor(Math.random() * 3) as ActionStrategy;
 
-    const winner: ActionWinner = this.resolveAction(playerStrat, pnjStrat);
+    const [winner, combatResult]: [ActionWinner, string] = this.resolveAction(playerStrat, pnjStrat);
     this.results[actionNumber] = winner;
 
     this.gameDescription = `${this.gameDescription}\n\nVous choisissez ${this.gameType.actions[playerStrat].name}${
       this.gameType.actions[playerStrat].emoji
-    } et votre adversaire choisit ${this.gameType.actions[pnjStrat].name}${this.gameType.actions[pnjStrat].emoji}
-${winner === ActionWinner.PJ ? "Vous gagnez!:v:" : "vous perdez :disappointed_relieved:"}\n${this.getResults()}`;
+    } et votre adversaire choisit ${this.gameType.actions[pnjStrat].name}${
+      this.gameType.actions[pnjStrat].emoji
+    }\t${combatResult}
+${winner === ActionWinner.PJ ? "Vous gagnez!:v:" : "Vous perdez :disappointed_relieved:"}\n${this.getResults()}`;
   }
 
   async startActions() {
