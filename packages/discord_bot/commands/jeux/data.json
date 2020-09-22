@@ -8,6 +8,7 @@
         {
             "name": "echecs",
             "emoji": "echecsorcier",
+            "snowflake": "756797362265128980",
             "actions": [
                 {
                     "name": "Attaque",

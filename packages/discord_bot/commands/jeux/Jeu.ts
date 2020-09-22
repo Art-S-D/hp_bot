@@ -53,8 +53,6 @@ export class Jeu {
 
     gameType: IGameType = GameTypes[0];
 
-    cardBet: string = "";
-
     enemyLevel: IEnemyType = EnemyTypes[0];
     enemyBonus: number = 0;
 
@@ -103,8 +101,8 @@ export class Jeu {
         {
             //enemy
             this.gameMessage.edit(
-                `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name}${
-                    this.cardBet !== "Rien" && ` pour une ${this.cardBet}`
+                `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${
+                    this.gameType.emoji
                 }\n\nQuel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
             );
             this.enemyLevel = await this.button<IEnemyType>(EnemyTypes);
@@ -112,11 +110,11 @@ export class Jeu {
 
         {
             // edit description
-            this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name}${
+            this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${
                 this.gameType.emoji
-            } ${this.cardBet !== "Rien" && ` pour une ${this.cardBet}`} contre un adversaire ${this.enemyLevel.name}${
-                this.enemyLevel.emoji
-            }\n${EnemyBonusDescription[this.gameType.name][this.enemyBonus]}`;
+            } contre un adversaire ${this.enemyLevel.name}${this.enemyLevel.emoji}\n${
+                EnemyBonusDescription[this.gameType.name][this.enemyBonus]
+            }`;
             this.gameMessage.edit(this.gameDescription);
         }
 
