@@ -174,13 +174,19 @@ export class Jeu {
 
         {
             //set description
-            this.gameDescription = `${this.gameDescription}\n\nVous choisissez ${
-                this.gameType.actions[playerStrat].name
-            }${this.gameType.actions[playerStrat].emoji} et votre adversaire choisit ${
-                this.gameType.actions[pnjStrat].name
-            }${this.gameType.actions[pnjStrat].emoji} ${combatResult}\n${
-                ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]
-            }\n${Progression[this.getResults()]} ${winner === ActionWinner.PJ ? ":smile:" : ":disappointed_relieved:"}`;
+            // this.gameDescription = `${this.gameDescription}\n\nVous choisissez ${
+            //     this.gameType.actions[playerStrat].name
+            // }${this.gameType.actions[playerStrat].emoji} et votre adversaire choisit ${
+            //     this.gameType.actions[pnjStrat].name
+            // }${this.gameType.actions[pnjStrat].emoji} ${combatResult}\n${
+            //     ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]
+            // }\n${Progression[this.getResults()]} ${winner === ActionWinner.PJ ? ":smile:" : ":disappointed_relieved:"}`;
+
+            this.gameDescription = `${this.gameDescription}\n\n${this.gameType.actions[playerStrat].emoji}vs${
+                this.gameType.actions[pnjStrat].emoji
+            }\n${ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]}\n${
+                Progression[this.getResults()]
+            } ${winner === ActionWinner.PJ ? ":smile:" : ":disappointed_relieved:"}`;
         }
     }
 
@@ -189,8 +195,8 @@ export class Jeu {
         await this.action(1);
         await this.action(2);
 
-        const playerWins = this.results.filter((x) => x === ActionWinner.PJ);
-        const pnjWins = this.results.filter((x) => x === ActionWinner.PNJ);
+        const playerWins = this.results.filter((x) => x === ActionWinner.PJ).length;
+        const pnjWins = this.results.filter((x) => x === ActionWinner.PNJ).length;
 
         if (playerWins > pnjWins) {
             this.gameMessage?.edit(`${this.gameDescription}\n\n:v:Victoire!:v:`);
