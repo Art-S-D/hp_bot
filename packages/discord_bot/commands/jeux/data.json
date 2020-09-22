@@ -168,16 +168,16 @@
     "ChoiceDescription": {
         "Attaque": {
             "Yolo": "Vos attaques structurées arrivent à bout de la stratégie brouillon de votre adversaire",
-            "Défence": "Votre attaque ne parvient pas à percer la défense de votre adversaire",
+            "Défense": "Votre attaque ne parvient pas à percer la défense de votre adversaire",
             "Attaque": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
         },
-        "Défence": {
+        "Défense": {
             "Attaque": "Votre stratégie défensive part habilement les attaques de votre adversaire",
             "Yolo": "Votre défense ne peut rien contre l’étrange technique de votre adversaire qui vous perturbe grandement",
-            "Défence": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+            "Défense": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
         },
         "Yolo": {
-            "Défence": "Votre tentative de perturber votre adversaire marche et vous permet de prendre l’avantage",
+            "Défense": "Votre tentative de perturber votre adversaire marche et vous permet de prendre l’avantage",
             "Attaque": "Votre tentative d’embrouiller votre adversaire se solde par un échec quand son attaque vous prend de court",
             "Yolo": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
         },
