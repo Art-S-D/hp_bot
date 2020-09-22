@@ -186,7 +186,7 @@ export class Jeu {
                 this.gameType.actions[pnjStrat].emoji
             }\n${ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]}\n${
                 Progression[this.getResults()]
-            } ${winner === ActionWinner.PJ ? ":smile:" : ":disappointed_relieved:"}`;
+            } ${winner === ActionWinner.PJ ? ":v:" : ":disappointed_relieved:"}`;
         }
     }
 
