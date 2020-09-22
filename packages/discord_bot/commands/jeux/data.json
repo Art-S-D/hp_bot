@@ -11,15 +11,15 @@
             "actions": [
                 {
                     "name": "Attaque",
-                    "emoji": "🧱"
+                    "emoji": "⚔️"
                 },
                 {
                     "name": "Défense",
-                    "emoji": "✂️"
+                    "emoji": "🛡️"
                 },
                 {
                     "name": "Yolo",
-                    "emoji": "📜"
+                    "emoji": "🦯"
                 }
             ],
             "enemyCompetence": {
@@ -36,15 +36,15 @@
             "actions": [
                 {
                     "name": "Distraction",
-                    "emoji": "🧱"
+                    "emoji": "🤡"
                 },
                 {
                     "name": "Concentration",
-                    "emoji": "✂️"
+                    "emoji": "😐"
                 },
                 {
                     "name": "Temporisation",
-                    "emoji": "📜"
+                    "emoji": "🤔"
                 }
             ],
             "enemyCompetence": {
@@ -61,15 +61,15 @@
             "actions": [
                 {
                     "name": "Acharnement",
-                    "emoji": "🧱"
+                    "emoji": "🧨"
                 },
                 {
                     "name": "Maîtrise",
-                    "emoji": "✂️"
+                    "emoji": "🧿"
                 },
                 {
                     "name": "Risque",
-                    "emoji": "📜"
+                    "emoji": "🗜️"
                 }
             ],
             "enemyCompetence": {
