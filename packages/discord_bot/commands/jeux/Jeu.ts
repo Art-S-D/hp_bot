@@ -134,7 +134,6 @@ export class Jeu {
     }
 
     resolveAction(playerStrat: ActionStrategy, pnjStrat: ActionStrategy): [ActionWinner, string] {
-        console.log(playerStrat, pnjStrat);
         const _playerBonus = this.getPlayerBonus();
         const playerBonus = _playerBonus + ((playerStrat + 1) % 3 === pnjStrat ? 3 : 0);
         const pnjBonus = this.enemyBonus + ((pnjStrat + 1) % 3 === playerStrat ? 3 : 0);
