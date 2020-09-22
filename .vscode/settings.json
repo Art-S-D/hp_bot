@@ -3,5 +3,8 @@
     "**/node_modules": true
   },
   "prettier.printWidth": 120,
-  "editor.rulers": [120]
+  "editor.rulers": [
+    120
+  ],
+  "prettier.tabWidth": 4
 }

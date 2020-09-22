@@ -3,191 +3,200 @@ import { IPlayer } from "mongo";
 import { messageButton } from "../../utils/messageButton";
 
 enum ActionWinner {
-  PJ,
-  PNJ,
-  NA,
+    PJ,
+    PNJ,
+    NA,
 }
 type ActionStrategy = 0 | 1 | 2; // rock paper scissors
-const ActionTitles = [
-  "Action 1 --- Avec quelle stratégie commencez-vous ?",
-  "Action 2 --- Avec quelle stratégie continuez-vous ?",
-  "Action 3 --- Avec quelle stratégie terminez-vous ?",
-];
 
 interface IEmoji {
-  name: string;
-  emoji: string;
+    name: string;
+    emoji: string;
 }
 
 interface IGameType extends IEmoji {
-  actions: IEmoji[];
+    actions: IEmoji[];
+    enemyCompetence: object;
 }
-const GameTypes: IGameType[] = [
-  {
-    name: "echecs",
-    emoji: "echecsorcier",
-    actions: [
-      { name: "Attaque", emoji: "🧱" },
-      { name: "Défense", emoji: "📜" },
-      { name: "Yolo", emoji: "✂️" },
-    ],
-  },
-  {
-    name: "bavboules",
-    emoji: "🏀",
-    actions: [
-      { name: "Distraction", emoji: "🧱" },
-      { name: "Concentration", emoji: "📜" },
-      { name: "Temporisation", emoji: "✂️" },
-    ],
-  },
-  {
-    name: "cartes",
-    emoji: "🃏",
-    actions: [
-      { name: "Acharnement", emoji: "🧱" },
-      { name: "Maîtrise", emoji: "📜" },
-      { name: "Risque", emoji: "✂️" },
-    ],
-  },
-];
-
 interface IEnemyType extends IEmoji {
-  bonus: number;
+    bonus: number;
 }
-const EnemyTypes: IEnemyType[] = [
-  { name: "nul", emoji: "🇳", bonus: -2 },
-  { name: "moyen", emoji: "🇲", bonus: 0 },
-  { name: "bon", emoji: "🇧", bonus: 2 },
-  { name: "excellent", emoji: "🇪", bonus: 4 },
-  { name: "génie", emoji: "🇬", bonus: 6 },
-];
+
+import data = require("./data.json");
+const {
+    ActionTitles,
+    GameTypes,
+    EnemyTypes,
+    Bets,
+    EnemyBonusDescription,
+    Progression,
+    ChoiceDescription,
+}: {
+    ActionTitles: string[];
+    GameTypes: IGameType[];
+    EnemyTypes: IEnemyType[];
+    Bets: IEmoji[];
+    EnemyBonusDescription: object;
+    Progression: object;
+    ChoiceDescription: object;
+} = data;
 
 export class Jeu {
-  message: Message;
-  player: IPlayer;
+    message: Message;
+    player: IPlayer;
 
-  // it is a reply to this.message
-  gameMessage: Message | null = null;
-  // just a description of the type of game/enemy
-  gameDescription: string = "";
+    // it is a reply to this.message
+    gameMessage: Message | null = null;
 
-  gameType: IGameType = GameTypes[0];
-  enemyLevel: IEnemyType = EnemyTypes[0];
+    // just a description of the type of game/enemy
+    gameDescription: string = "";
 
-  results: ActionWinner[] = [ActionWinner.NA, ActionWinner.NA, ActionWinner.NA];
+    gameType: IGameType = GameTypes[0];
 
-  constructor(msg: Message, player: IPlayer) {
-    this.message = msg;
-    this.player = player;
-  }
+    cardBet: string = "";
 
-  async button<T extends IEmoji>(emojis: T[]): Promise<T> {
-    const emo = await messageButton(
-      this.gameMessage as Message,
-      emojis.map((x) => x.emoji),
-      [this.message.author.id],
-      true
-    );
-    if (!emo) throw new Error("jeux: missing answer");
-    const res = emojis.find((x) => x.emoji === emo);
-    if (!res) throw new Error(`jeux: wrong emoji ${emo}`);
-    return res as T;
-  }
+    enemyLevel: IEnemyType = EnemyTypes[0];
+    enemyBonus: number = 0;
 
-  // [GAME START]
+    results: ActionWinner[] = [ActionWinner.NA, ActionWinner.NA, ActionWinner.NA];
 
-  async start() {
-    this.gameMessage = await this.message.reply(
-      `A quel jeu jouez vous ?\n(${Object.values(GameTypes).map((x) => x.name)})`
-    );
-    this.gameType = await this.button<IGameType>(GameTypes);
-    this.gameMessage.edit(
-      `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name}\n
-Quel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
-    );
-
-    this.enemyLevel = await this.button<IEnemyType>(EnemyTypes);
-    this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name}${this.gameType.emoji} contre un adversaire ${this.enemyLevel.name}${this.enemyLevel.emoji}`;
-    this.gameMessage.edit(this.gameDescription);
-
-    this.startActions();
-  }
-
-  // [ACTIONS]
-
-  getPlayerBonus(): number {
-    if (this.gameType.name === "echecs") return this.player.competences.tactique;
-    if (this.gameType.name === "bavboules") return this.player.competences.precision;
-    if (this.gameType.name === "cartes") return this.player.competences.bluff;
-    console.warn("unknown bonus ", this.gameType.name);
-    return 0;
-  }
-
-  getPnjBonus(): number {
-    return this.enemyLevel.bonus + this.getPlayerBonus() + Math.floor(Math.random() * 5) - 2;
-  }
-
-  resolveAction(playerStrat: ActionStrategy, pnjStrat: ActionStrategy): [ActionWinner, string] {
-    const _playerBonus = this.getPlayerBonus();
-    const _pnjBonus = this.getPnjBonus();
-    const playerBonus = _playerBonus + ((pnjStrat + 1) % 3 === playerStrat ? 3 : 0);
-    const pnjBonus = _pnjBonus + ((playerStrat + 1) % 3 === pnjStrat ? 3 : 0);
-
-    const combatDescription = `[${_playerBonus}(stats)+${
-      (pnjStrat + 1) % 3 === playerStrat ? 3 : 0
-    }(strat)=${playerBonus}; ${this.enemyLevel.bonus}(niveau)+${_pnjBonus - this.enemyLevel.bonus}(random)+${
-      (playerStrat + 1) % 3 === pnjStrat ? 3 : 0
-    }(strat)=${pnjBonus}]`;
-
-    if (playerBonus >= pnjBonus) return [ActionWinner.PJ, combatDescription];
-    else return [ActionWinner.PNJ, combatDescription];
-  }
-
-  getResults(): string {
-    return this.results
-      .map((res) => {
-        if (res === ActionWinner.PJ) return "o";
-        else if (res === ActionWinner.PNJ) return "x";
-        else return "-";
-      })
-      .join("");
-  }
-
-  async action(actionNumber: number) {
-    this.gameMessage?.edit(
-      `${this.gameDescription}\n\n${ActionTitles[actionNumber]}\n(${this.gameType.actions.map((a) => a.name)})`
-    );
-
-    const playerEmoji: IEmoji = await this.button(this.gameType.actions);
-    const playerStrat: ActionStrategy = this.gameType.actions.findIndex(
-      (x) => x.emoji === playerEmoji.emoji
-    ) as ActionStrategy;
-    const pnjStrat: ActionStrategy = Math.floor(Math.random() * 3) as ActionStrategy;
-
-    const [winner, combatResult]: [ActionWinner, string] = this.resolveAction(playerStrat, pnjStrat);
-    this.results[actionNumber] = winner;
-
-    this.gameDescription = `${this.gameDescription}\n\nVous choisissez ${this.gameType.actions[playerStrat].name}${
-      this.gameType.actions[playerStrat].emoji
-    } et votre adversaire choisit ${this.gameType.actions[pnjStrat].name}${
-      this.gameType.actions[pnjStrat].emoji
-    }\t${combatResult}
-${winner === ActionWinner.PJ ? "Vous gagnez!:v:" : "Vous perdez :disappointed_relieved:"}\n${this.getResults()}`;
-  }
-
-  async startActions() {
-    await this.action(0);
-    await this.action(1);
-    if (this.results[0] !== this.results[1]) await this.action(2);
-
-    const playerWins = this.results.filter((x) => x === ActionWinner.PJ);
-    const pnjWins = this.results.filter((x) => x === ActionWinner.PNJ);
-
-    if (playerWins > pnjWins) {
-      this.gameMessage?.edit(`${this.gameDescription}\n\n:v:Victoire!:v:`);
-    } else {
-      this.gameMessage?.edit(`${this.gameDescription}\n\n:disappointed_relieved:Défaite:disappointed_relieved:`);
+    constructor(msg: Message, player: IPlayer) {
+        this.message = msg;
+        this.player = player;
+        this.enemyBonus = Math.floor(Math.random() * 5) - 2;
     }
-  }
+
+    async button<T extends IEmoji>(emojis: T[]): Promise<T> {
+        const emo = await messageButton(
+            this.gameMessage as Message,
+            emojis.map((x) => x.emoji),
+            [this.message.author.id],
+            true
+        );
+        if (!emo) throw new Error("jeux: missing answer");
+        const res = emojis.find((x) => x.emoji === emo);
+        if (!res) throw new Error(`jeux: wrong emoji ${emo}`);
+        return res as T;
+    }
+
+    // [GAME START]
+
+    async start() {
+        {
+            // game
+            this.gameMessage = await this.message.reply(
+                `A quel jeu jouez vous ?\n(${Object.values(GameTypes).map((x) => x.name)})`
+            );
+            this.gameType = await this.button<IGameType>(GameTypes);
+        }
+
+        // {
+        //     //bet
+        //     this.gameMessage.edit(
+        //         `<@${this.message.author.id}> Vous jouez aux ${
+        //             this.gameType.name
+        //         }\n\nQue voulez vous parier ?\n(${Bets.map((x) => x.name)})`
+        //     );
+        //     this.cardBet = (await this.button<IEmoji>(Bets)).name;
+        // }
+
+        {
+            //enemy
+            this.gameMessage.edit(
+                `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name}${
+                    this.cardBet !== "Rien" && ` pour une ${this.cardBet}`
+                }\n\nQuel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
+            );
+            this.enemyLevel = await this.button<IEnemyType>(EnemyTypes);
+        }
+
+        {
+            // edit description
+            this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name}${
+                this.gameType.emoji
+            } ${this.cardBet !== "Rien" && ` pour une ${this.cardBet}`} contre un adversaire ${this.enemyLevel.name}${
+                this.enemyLevel.emoji
+            }\n${EnemyBonusDescription[this.gameType.name][this.enemyBonus]}`;
+            this.gameMessage.edit(this.gameDescription);
+        }
+
+        this.startActions();
+    }
+
+    // [ACTIONS]
+
+    getPlayerBonus(): number {
+        if (this.gameType.name === "echecs") return this.player.competences.tactique + this.player.jeux.echecs;
+        if (this.gameType.name === "bavboules") return this.player.competences.precision + this.player.jeux.bavboules;
+        if (this.gameType.name === "cartes") return this.player.competences.bluff + this.player.jeux.cartes;
+        console.warn("unknown bonus ", this.gameType.name);
+        return 0;
+    }
+
+    resolveAction(playerStrat: ActionStrategy, pnjStrat: ActionStrategy): [ActionWinner, string] {
+        console.log(playerStrat, pnjStrat);
+        const _playerBonus = this.getPlayerBonus();
+        const playerBonus = _playerBonus + ((playerStrat + 1) % 3 === pnjStrat ? 3 : 0);
+        const pnjBonus = this.enemyBonus + ((pnjStrat + 1) % 3 === playerStrat ? 3 : 0);
+
+        const combatDescription = `[${_playerBonus}(stats)+${
+            (playerStrat + 1) % 3 === pnjStrat ? 3 : 0
+        }(strat)=${playerBonus}; ${this.enemyLevel.bonus}(niveau)+${this.enemyBonus - this.enemyLevel.bonus}(random)+${
+            (pnjStrat + 1) % 3 === playerStrat ? 3 : 0
+        }(strat)=${pnjBonus}]`;
+
+        if (playerBonus >= pnjBonus) return [ActionWinner.PJ, combatDescription];
+        else return [ActionWinner.PNJ, combatDescription];
+    }
+
+    getResults(): string {
+        return this.results
+            .map((res) => {
+                if (res === ActionWinner.PJ) return "o";
+                else if (res === ActionWinner.PNJ) return "x";
+                else return "-";
+            })
+            .join("");
+    }
+
+    async action(actionNumber: number) {
+        this.gameMessage?.edit(
+            `${this.gameDescription}\n\n${ActionTitles[actionNumber]}\n(${this.gameType.actions.map((a) => a.name)})`
+        );
+
+        const playerEmoji: IEmoji = await this.button(this.gameType.actions);
+        const playerStrat: ActionStrategy = this.gameType.actions.findIndex(
+            (x) => x.emoji === playerEmoji.emoji
+        ) as ActionStrategy;
+        const pnjStrat: ActionStrategy = Math.floor(Math.random() * 3) as ActionStrategy;
+
+        const [winner, combatResult]: [ActionWinner, string] = this.resolveAction(playerStrat, pnjStrat);
+        this.results[actionNumber] = winner;
+
+        {
+            //set description
+            this.gameDescription = `${this.gameDescription}\n\nVous choisissez ${
+                this.gameType.actions[playerStrat].name
+            }${this.gameType.actions[playerStrat].emoji} et votre adversaire choisit ${
+                this.gameType.actions[pnjStrat].name
+            }${this.gameType.actions[pnjStrat].emoji} ${combatResult}\n${
+                ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]
+            }\n${Progression[this.getResults()]} ${winner === ActionWinner.PJ ? ":smile:" : ":disappointed_relieved:"}`;
+        }
+    }
+
+    async startActions() {
+        await this.action(0);
+        await this.action(1);
+        await this.action(2);
+
+        const playerWins = this.results.filter((x) => x === ActionWinner.PJ);
+        const pnjWins = this.results.filter((x) => x === ActionWinner.PNJ);
+
+        if (playerWins > pnjWins) {
+            this.gameMessage?.edit(`${this.gameDescription}\n\n:v:Victoire!:v:`);
+        } else {
+            this.gameMessage?.edit(`${this.gameDescription}\n\n:disappointed_relieved:Défaite:disappointed_relieved:`);
+        }
+    }
 }

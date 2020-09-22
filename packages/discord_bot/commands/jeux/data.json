@@ -1,0 +1,215 @@
+{
+    "ActionTitles": [
+        "Action 1 --- Avec quelle stratégie commencez-vous ?",
+        "Action 2 --- Avec quelle stratégie continuez-vous ?",
+        "Action 3 --- Avec quelle stratégie terminez-vous ?"
+    ],
+    "GameTypes": [
+        {
+            "name": "echecs",
+            "emoji": "echecsorcier",
+            "actions": [
+                {
+                    "name": "Attaque",
+                    "emoji": "🧱"
+                },
+                {
+                    "name": "Défense",
+                    "emoji": "✂️"
+                },
+                {
+                    "name": "Yolo",
+                    "emoji": "📜"
+                }
+            ],
+            "enemyCompetence": {
+                "-2": "Votre adversaire semble bien moins stratège que vous",
+                "-1": "Votre adversaire ne semble pas très à l’aise avec ses tactiques",
+                "0": "Vous avez l’impression d’affronter un aussi bon stratège que vous",
+                "1": "Vous découvrez un adversaire de taille, sa tactique est impressionnante",
+                "2": "Votre adversaire est un fin stratège, bien plus incisif que vous"
+            }
+        },
+        {
+            "name": "bavboules",
+            "emoji": "🏀",
+            "actions": [
+                {
+                    "name": "Distraction",
+                    "emoji": "🧱"
+                },
+                {
+                    "name": "Concentration",
+                    "emoji": "✂️"
+                },
+                {
+                    "name": "Temporisation",
+                    "emoji": "📜"
+                }
+            ],
+            "enemyCompetence": {
+                "-2": "Votre adversaire semble être assez distrait",
+                "-1": "Vous n’avez pas l’impression que votre adversaire est à l’aise avec les bavboules",
+                "0": "Vous êtes rassuré de voir que votre adversaire semble être aussi précis que vous aux bavboules",
+                "1": "Votre adversaire semble très concentré et hermétique à toute perturbation extérieure",
+                "2": "Vous êtes impressionné par l’incroyable précision de votre adversaire"
+            }
+        },
+        {
+            "name": "cartes",
+            "emoji": "🃏",
+            "actions": [
+                {
+                    "name": "Acharnement",
+                    "emoji": "🧱"
+                },
+                {
+                    "name": "Maîtrise",
+                    "emoji": "✂️"
+                },
+                {
+                    "name": "Risque",
+                    "emoji": "📜"
+                }
+            ],
+            "enemyCompetence": {
+                "-2": "Votre adversaire semble peu enclin à bluffer et prêt à croire à chaque piège que vous lui tendez",
+                "-1": "Votre adversaire est un livre ouvert, ses émotions transparaissent sans qu’il ne semble pouvoir les contrôler",
+                "0": "Votre adversaire est aussi familier du bluff que vous, vous sentez que la partie va être équitable.",
+                "1": "Vous avez beaucoup de mal à différencier le mensonge de la vérité dans l’attitude de votre adversaire",
+                "2": "C'est définitif, votre adversaire vous a joué plus d’un tour au cours de cette partie..."
+            }
+        }
+    ],
+    "EnemyTypes": [
+        {
+            "name": "nul",
+            "emoji": "🇳",
+            "bonus": -2
+        },
+        {
+            "name": "moyen",
+            "emoji": "🇲",
+            "bonus": 0
+        },
+        {
+            "name": "bon",
+            "emoji": "🇧",
+            "bonus": 2
+        },
+        {
+            "name": "excellent",
+            "emoji": "🇪",
+            "bonus": 4
+        },
+        {
+            "name": "génie",
+            "emoji": "🇬",
+            "bonus": 6
+        }
+    ],
+    "Bets": [
+        {
+            "name": "Carte commune",
+            "emoji": "🇨"
+        },
+        {
+            "name": "Carte rare",
+            "emoji": "🇷"
+        },
+        {
+            "name": "Carte légendaire",
+            "emoji": "🇱"
+        },
+        {
+            "name": "Rien",
+            "emoji": "✖️"
+        }
+    ],
+    "EnemyBonusDescription": {
+        "echecs": {
+            "-2": "Votre adversaire semble bien moins stratège que vous",
+            "-1": "Votre adversaire ne semble pas très à l’aise avec ses tactiques",
+            "0": "Vous avez l’impression d’affronter un aussi bon stratège que vous",
+            "1": "Vous découvrez un adversaire de taille, sa tactique est impressionnante",
+            "2": "Votre adversaire est un fin stratège, bien plus incisif que vous"
+        },
+        "bavboules": {
+            "-2": "Votre adversaire semble être assez distrait",
+            "-1": "Vous n’avez pas l’impression que votre adversaire est à l’aise avec les bavboules",
+            "0": "Vous êtes rassuré de voir que votre adversaire semble être aussi précis que vous aux bavboules",
+            "1": "Votre adversaire semble très concentré et hermétique à toute perturbation extérieure",
+            "2": "Vous êtes impressionné par l’incroyable précision de votre adversaire"
+        },
+        "cartes": {
+            "-2": "Votre adversaire semble peu enclin à bluffer et prêt à croire à chaque piège que vous lui tendez",
+            "-1": "Votre adversaire est un livre ouvert, ses émotions transparaissent sans qu’il ne semble pouvoir les contrôler",
+            "0": "Votre adversaire est aussi familier du bluff que vous, vous sentez que la partie va être équitable.",
+            "1": "Vous avez beaucoup de mal à différencier le mensonge de la vérité dans l’attitude de votre adversaire",
+            "2": "C'est définitif, votre adversaire vous a joué plus d’un tour au cours de cette partie..."
+        }
+    },
+    "Progression": {
+        "o--": "Votre stratégie a payé, vous prenez habilement l’avantage sur votre adversaire.",
+        "x--": "Malheureusement votre adversaire a été plus habile sur ce coup là, il prend l’avantage.",
+        "oo-": "Décidément, vous ne laissez aucune chance à votre adversaire et votre stratégie semble implacable.",
+        "ox-": "Votre adversaire a changé sa stratégie et commence à vous concurrencer sérieusement.",
+        "xx-": "Votre adversaire enchaîne les coups de maître et semble particulièrement à l’aise avec son jeu, il ne vous laisse que peu de place pour vous distinguer.",
+        "xo-": "Vous rattrapez habilement votre retard en adaptant votre stratégie à celle de votre adversaire, et ça paie !",
+        "ooo": "Vous n’avez laissez aucune chance à votre adversaire, votre stratégie était ingénieusement amenée !",
+        "xxx": "Votre adversaire semble avoir eu une bien meilleure stratégie que la vôtre et ne vous a guère laisser l’opportunité de le battre...",
+        "oox": "Bien que votre adversaire est amélioré sa stratégie, ça n’a pas suffit à surpasser la vôtre.",
+        "xxo": "Vous vous êtes senti plus à l’aise sur la fin de la partie mais ça n’a pas suffit à inverser le rapport de force...",
+        "oxo": "C’était serré, mais votre ultime coup a été payant et vous a offert la victoire !",
+        "xox": "Malgré votre remarquable adaptabilité, votre adversaire a réussi à vous surprendre à la toute fin de la partie et à emporter la victoire.",
+        "oxx": "Votre adversaire a définitivement pris l'avantage sur vous et ne vous a laissé aucune chance de mener à bien la moindre stratégie.",
+        "xoo": "Malgré un départ difficile vous réussissez à reprendre la main sur la partie et vainquez habilement les différentes stratégies misent en plus par votre adversaire !"
+    },
+    "ChoiceDescription": {
+        "Attaque": {
+            "Yolo": "Vos attaques structurées arrivent à bout de la stratégie brouillon de votre adversaire",
+            "Défence": "Votre attaque ne parvient pas à percer la défense de votre adversaire",
+            "Attaque": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Défence": {
+            "Attaque": "Votre stratégie défensive part habilement les attaques de votre adversaire",
+            "Yolo": "Votre défense ne peut rien contre l’étrange technique de votre adversaire qui vous perturbe grandement",
+            "Défence": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Yolo": {
+            "Défence": "Votre tentative de perturber votre adversaire marche et vous permet de prendre l’avantage",
+            "Attaque": "Votre tentative d’embrouiller votre adversaire se solde par un échec quand son attaque vous prend de court",
+            "Yolo": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Distraction": {
+            "Concentration": "Une remarque incisive fait vaciller la concentration de votre adversaire",
+            "Temporisation": "Vous tenter désespérément de distraire votre adversaire sans grande réussite, il semble bien plus intéressé par le jeu",
+            "Distraction": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Concentration": {
+            "Temporisation": "Votre grande concentration vous permet de viser avec plus de précision",
+            "Distraction": "Vous avez beau essayer de vous concentrer, votre adversaire semble décider à vous faire perdre vos moyens",
+            "Concentration": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Temporisation": {
+            "Distraction": "Vous prenez un peu de hauteur sur le jeu alors que votre adversaire semble décidé à vous distraire",
+            "Concentration": "Vous essayez d’analyser le jeu pour trouver une faille dans la stratégie de votre adversaire, mais sa grande concentration lui permet de prendre l’avantage",
+            "Temporisation": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Acharnement": {
+            "Maîtrise": "En ne lâchant pas votre adversaire et en le provoquant continuellement, vous percez sa grande maîtrise",
+            "Risque": "Un habile et risqué mouvement de votre adversaire met à mal votre stratégie d’acharnement",
+            "Acharnement": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Maîtrise": {
+            "Risque": " Alors que votre adversaire tente une stratégie risquée, vous anéantissez ses espoirs avec une technique bien plus efficace ",
+            "Acharnement": "Votre tentative de reprendre la main sur le jeu se solde par une flopée d’échec alors que votre adversaire s’acharne sur vous",
+            "Maîtrise": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        },
+        "Risque": {
+            "Acharnement": "Vous choisissez de contrer l’acharnement manifeste de votre adversaire à l’aide d’une stratégie risquée mais payante",
+            "Maîtrise": "Vous tenter une stratégie risquée qui échoue face à la grande maîtrise de votre adversaire",
+            "Risque": "Votre stratégie est le miroir de celle de votre adversaire et aucun de vous ne parvient réellement à son but"
+        }
+    }
+}
