@@ -1,6 +1,7 @@
 import { Message } from "discord.js";
 import { IPlayer } from "mongo";
 import { messageButton } from "../../utils/messageButton";
+import { emojiFromString } from "../../utils/emoji";
 
 enum ActionWinner {
     PJ,
@@ -77,6 +78,10 @@ export class Jeu {
         return res as T;
     }
 
+    emoji(e: IEmoji) {
+        return emojiFromString(this.message, e.emoji);
+    }
+
     // [GAME START]
 
     async start() {
@@ -101,18 +106,18 @@ export class Jeu {
         {
             //enemy
             this.gameMessage.edit(
-                `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${
+                `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${emoji(
                     this.gameType.emoji
-                }\n\nQuel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
+                )}\n\nQuel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
             );
             this.enemyLevel = await this.button<IEnemyType>(EnemyTypes);
         }
 
         {
             // edit description
-            this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${
-                this.gameType.emoji
-            } contre un adversaire ${this.enemyLevel.name}${this.enemyLevel.emoji}\n${
+            this.gameDescription = `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${this.emoji(
+                this.gameType
+            )} contre un adversaire ${this.enemyLevel.name}${this.emoji(this.enemyLevel)}\n${
                 EnemyBonusDescription[this.gameType.name][this.enemyBonus]
             }`;
             this.gameMessage.edit(this.gameDescription);
@@ -180,11 +185,11 @@ export class Jeu {
             //     ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]
             // }\n${Progression[this.getResults()]} ${winner === ActionWinner.PJ ? ":smile:" : ":disappointed_relieved:"}`;
 
-            this.gameDescription = `${this.gameDescription}\n\n${this.gameType.actions[playerStrat].emoji}vs${
-                this.gameType.actions[pnjStrat].emoji
-            }\n${ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]}\n${
-                Progression[this.getResults()]
-            } ${winner === ActionWinner.PJ ? ":v:" : ":disappointed_relieved:"}`;
+            this.gameDescription = `${this.gameDescription}\n\n${this.emoji(
+                this.gameType.actions[playerStrat]
+            )}vs${this.emoji(this.gameType.actions[pnjStrat])}\n${
+                ChoiceDescription[this.gameType.actions[playerStrat].name][this.gameType.actions[pnjStrat].name]
+            }\n${Progression[this.getResults()]} ${winner === ActionWinner.PJ ? ":v:" : ":disappointed_relieved:"}`;
         }
     }
 
