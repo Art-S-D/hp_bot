@@ -1,6 +1,7 @@
 import { Message } from "discord.js";
 import { Player, IPlayer } from "mongo";
 import { ICommand } from "./commands";
+import {emojiFromString} from "./utils/emoji"
 import commands = require("./commands");
 import isAuthorized from "./utils/isAuthorized";
 
@@ -13,6 +14,8 @@ function runResponses(msg: Message) {
   if (msg.content.toLowerCase().includes("balkany")) msg.reply("balkavoue");
   if (msg.content.toLowerCase().includes("malkany")) msg.reply("malkavoue");
   if ((msg.content.toLowerCase().includes("kate") || msg.content.toLowerCase().includes("kane")) && msg.author.id !== client?.user?.id)msg.reply("attend, on parle de Kate ou de Kane ???");
+  if(msg.content.toLowerCase().includes("jasper"))msg.react(emojiFromString(msg,"onatujasper"));
+  if(msg.content.toLowerCase().includes("scenario")||msg.content.toLowerCase().includes("scénario"))msg.react(emojiFromString(msg,"allons_ruiner_le_scenario"));
 }
 
 async function runCommand(msg: Message) {
