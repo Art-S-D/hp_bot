@@ -106,9 +106,10 @@ export class Jeu {
         {
             //enemy
             this.gameMessage.edit(
-                `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${emoji(
+                `<@${this.message.author.id}> Vous jouez aux ${this.gameType.name} ${
+                    //this.emoji(
                     this.gameType.emoji
-                )}\n\nQuel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
+                }\n\nQuel est le niveau de l'adversaire ?\n(${EnemyTypes.map((x) => x.name)})`
             );
             this.enemyLevel = await this.button<IEnemyType>(EnemyTypes);
         }
