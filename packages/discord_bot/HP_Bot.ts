@@ -12,6 +12,7 @@ function runResponses(msg: Message) {
     msg.reply("son nom c'est nico");
   if (msg.content.toLowerCase().includes("balkany")) msg.reply("balkavoue");
   if (msg.content.toLowerCase().includes("malkany")) msg.reply("malkavoue");
+  if (msg.content.toLowerCase().includes("kate") || msg.content.toLowerCase().includes("kane"))msg.reply("attend, on parle de Kate ou de Kane ???");
 }
 
 async function runCommand(msg: Message) {
