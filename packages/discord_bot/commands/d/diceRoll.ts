@@ -60,15 +60,16 @@ const REROLLS = {
 export default function diceRoll(player: IPlayer, stat: Stat, comp: Competence) {
     const statVal: number = player.getStat(stat) ?? 0;
     const compVal: number = player.getStat(comp) ?? 0;
-    const rerollType: string = REROLLS[stat][comp];
-    const rerollVal: number = player.getStat(rerollType) ?? 0;
+    const rerollType: string | null = REROLLS[stat][comp] || null;
+    const rerollVal: number = (rerollType && player.getStat(rerollType)) ?? 0;
     const score: number = Math.ceil(Math.random() * 20);
     const reroll: number | null = score <= rerollVal ? Math.ceil(Math.random() * 20) : null;
 
-    let msg = `${stat} + ${comp} / ${rerollType}\n`;
-    msg += `${score} + ${statVal} + ${compVal} / ${rerollVal} = ${score}`;
+    let msg = `${stat} + ${comp} / ${rerollType || ""}\n`;
+    msg += `${score} + ${statVal} + ${compVal} ${rerollType && `/ ${rerollVal}`} = ${score}`;
 
-    if (reroll) msg += `\n${score} + ${statVal} + ${compVal} / ${rerollVal} = ${reroll}`;
+    if (rerollType && reroll)
+        msg += `\n${score} + ${statVal} + ${compVal} ${rerollType && `/ ${rerollVal}`} = ${reroll}`;
     msg += `\t <@293149809387241472>${(reroll ?? score) >= 15 ? ":white_check_mark:" : ":x:"} `;
 
     return {

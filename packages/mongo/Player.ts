@@ -92,7 +92,7 @@ const PlayerSchema = new Schema({
 
 PlayerSchema.methods.getStat = function (this: IPlayer, stat: string): number | undefined {
     const res = this.stats[stat] ?? this.competences[stat] ?? this.matieres[stat];
-    if (res == undefined) throw new Error(`stat inconnue inconnue ${stat}`);
+    if (res == undefined) throw new Error(`stat inconnue ${stat}`);
     return res;
 };
 
