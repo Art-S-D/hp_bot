@@ -2,12 +2,9 @@
     "name": "discord_bot",
     "version": "2.0.0",
     "private": true,
-    "workspaces": [
-        "tests/*"
-    ],
     "dependencies": {
         "mongo": "*",
-        "discord.js": "12.3.1",
+        "discord.js": "discordjs/discord.js#b376f31af9881b9cd3f82ac4a42a468947cce482",
         "jest": "^24.9.0",
         "mockingoose": "^2.13.2",
         "nodemon": "^2.0.4",

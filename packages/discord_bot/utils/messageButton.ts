@@ -14,15 +14,18 @@ export async function messageButton(
     options: string[],
     replierIds: string[] = [msg.author.id],
     removeEmojis: boolean = false
-): Promise<string | undefined> {
+): Promise<string | null | undefined> {
     // used to react with the emojis in order without blocking the awaitReaction call
     await addReactions(msg, options);
 
     const reaction = await msg
-        .awaitReactions((reaction, user) => replierIds.includes(user.id) && options.includes(reaction.emoji.name), {
-            time: RESPONSE_TIME,
-            max: 1,
-        })
+        .awaitReactions(
+            (reaction, user) => replierIds.includes(user.id) && options.includes(reaction.emoji.name || ""),
+            {
+                time: RESPONSE_TIME,
+                max: 1,
+            }
+        )
         .catch((e) => {
             console.warn(e);
             return undefined;
@@ -30,5 +33,5 @@ export async function messageButton(
 
     if (removeEmojis) msg.reactions.removeAll();
 
-    return reaction?.first()?.emoji?.name;
+    return reaction?.first?.()?.emoji?.name;
 }

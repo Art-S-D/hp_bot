@@ -1,15 +1,16 @@
 {
-  "name": "hp_bot",
-  "version": "2.0.0",
-  "description": "",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "author": "arthur saint-denis",
-  "license": "ISC",
-  "scripts": {
-    "dev": "yarn workspace discord_bot dev",
-    "start": "yarn workspace discord_bot start"
-  }
+    "name": "hp_bot",
+    "version": "2.0.0",
+    "description": "",
+    "private": true,
+    "type": "module",
+    "workspaces": [
+        "packages/*"
+    ],
+    "author": "arthur saint-denis",
+    "license": "ISC",
+    "scripts": {
+        "dev": "yarn workspace discord_bot dev",
+        "start": "yarn workspace discord_bot start"
+    }
 }
