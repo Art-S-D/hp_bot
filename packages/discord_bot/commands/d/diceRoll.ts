@@ -61,7 +61,7 @@ export default function diceRoll(player: IPlayer, stat: Stat, comp: Competence) 
     const statVal: number = player.getStat(stat) ?? 0;
     const compVal: number = player.getStat(comp) ?? 0;
     const rerollType: string | null = REROLLS[stat][comp] || null;
-    const rerollVal: number = (rerollType && player.getStat(rerollType)) ?? 0;
+    const rerollVal: number = (!!rerollType && player.getStat(rerollType)) || 0;
     const score: number = Math.ceil(Math.random() * 20);
     const reroll: number | null = score <= rerollVal ? Math.ceil(Math.random() * 20) : null;
 
