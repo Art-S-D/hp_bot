@@ -1,6 +1,6 @@
 import { IPlayer } from "mongo";
 
-export type Stat = "corps" | "esprit" | "coeur";
+export type Stat = "corps" | "esprit" | "coeur" | "magie";
 export type Competence =
     | "bluff"
     | "farce"
@@ -14,6 +14,18 @@ export type Competence =
     | "discretion"
     | "persuasion"
     | "romance";
+
+export type Reroll =
+    | Stat
+    | Competence
+    | "astronomie"
+    | "botanique"
+    | "dcfm"
+    | "enchantement"
+    | "histoire"
+    | "metamorphose"
+    | "potions"
+    | "vol";
 
 export type DiceRollResult = {
     score: number;
@@ -57,22 +69,33 @@ const REROLLS = {
     },
 };
 
-export default function diceRoll(player: IPlayer, stat: Stat, comp: Competence) {
+export interface IDiceRollArgs {
+    player: IPlayer;
+    stat: Stat;
+    comp: Competence;
+    reroll: Reroll | undefined;
+    difficulty: number | undefined;
+}
+
+export default function diceRoll({ player, stat, comp, reroll = REROLLS[stat][comp], difficulty = 15 }: IDiceRollArgs) {
     const statVal: number = player.getStat(stat) ?? 0;
     const compVal: number = player.getStat(comp) ?? 0;
-    const rerollType: string | null = REROLLS[stat][comp] || null;
-    const rerollVal: number = (!!rerollType && player.getStat(rerollType)) || 0;
+    const rerollType: number = (!!reroll && player.getStat(reroll)) || 0;
+
     const score: number = Math.ceil(Math.random() * 20);
-    const reroll: number | null = score <= rerollVal ? Math.ceil(Math.random() * 20) : null;
+    const computedScore = score + statVal + compVal;
 
-    let msg = `${stat} + ${comp}${rerollType ? ` / ${rerollType}` : ""}\n`;
-    msg += `${score} + ${statVal} + ${compVal} ${rerollType ? `/ ${rerollVal}` : ""} = ${score + statVal + compVal}`;
+    const rerollVal: number | null = computedScore <= rerollType ? Math.ceil(Math.random() * 20) : null;
 
-    if (rerollType && reroll)
-        msg += `\n${reroll} + ${statVal} + ${compVal} ${rerollType ? `/ ${rerollVal}` : ""} = ${
-            reroll + statVal + compVal
+    let msg = `${stat} + ${comp}${reroll ? ` / ${reroll}` : ""} | ${difficulty}\n`; // sum up
+    msg += `${score} + ${statVal} + ${compVal} ${reroll ? `/ ${rerollType}` : ""} = ${computedScore}`; // first roll
+
+    if (rerollType && rerollVal)
+        msg += `\n${rerollVal} + ${statVal} + ${compVal} ${reroll ? `/ ${rerollType}` : ""} = ${
+            // reroll
+            rerollVal + statVal + compVal
         }`;
-    msg += `\t <@293149809387241472>${(reroll ?? score) >= 15 ? ":white_check_mark:" : ":x:"} `;
+    msg += `\t <@293149809387241472>${(rerollVal ?? score) > difficulty ? ":white_check_mark:" : ":x:"} `; // notify game master
 
     return {
         score,

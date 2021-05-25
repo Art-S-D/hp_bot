@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
+        "paths": {
+            "mongo": ["packages/mongo"]
+        },
         "module": "commonjs",
+        "target": "ESNext",
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "strict": true,
