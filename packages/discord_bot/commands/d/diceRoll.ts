@@ -85,7 +85,7 @@ export default function diceRoll({ player, stat, comp, reroll = REROLLS[stat][co
     const score: number = Math.ceil(Math.random() * 20);
     const computedScore = score + statVal + compVal;
 
-    const rerollVal: number | null = computedScore <= rerollType ? Math.ceil(Math.random() * 20) : null;
+    const rerollVal: number | null = score <= rerollType ? Math.ceil(Math.random() * 20) : null;
 
     let msg = `${stat} + ${comp}${reroll ? ` / ${reroll}` : ""} | ${difficulty}\n`; // sum up
     msg += `${score} + ${statVal} + ${compVal} ${reroll ? `/ ${rerollType}` : ""} = ${computedScore}`; // first roll
@@ -95,7 +95,7 @@ export default function diceRoll({ player, stat, comp, reroll = REROLLS[stat][co
             // reroll
             rerollVal + statVal + compVal
         }`;
-    msg += `\t <@293149809387241472>${(rerollVal ?? score) > difficulty ? ":white_check_mark:" : ":x:"} `; // notify game master
+    msg += `\t <@293149809387241472>${(rerollVal ?? computedScore) > difficulty ? ":white_check_mark:" : ":x:"} `; // notify game master
 
     return {
         score,
