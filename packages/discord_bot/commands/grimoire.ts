@@ -27,6 +27,6 @@ client.on("interaction", async (interaction) => {
         })) as Buffer;
 
         const attachment = new MessageAttachment(buffer, `${player.name}.png`);
-        interaction.reply(attachment);
+        interaction.reply("", { embeds: [attachment] });
     }
 });
