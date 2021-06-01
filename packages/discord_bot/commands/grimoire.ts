@@ -1,21 +1,32 @@
-import { Message } from "discord.js";
+import { Message, MessageAttachment, ApplicationCommandData, CommandInteraction } from "discord.js";
 import { Player, IPlayer } from "mongo";
+import client from "../client";
+import generateGrimoire from "grimoire";
+import nodeHtmlToImage from "node-html-to-image";
 
-const statsToPrint = ["stats", "competences", "matieres"];
+const commandData: ApplicationCommandData = {
+    name: "grimoire",
+    description: "Afficher les compétences du joueur",
+};
 
-function printGrimoire(player: IPlayer) {
-  let res = player.name + "\n";
-  for (let i of statsToPrint) {
-    res += i + ":\n";
-    for (let j in player[i]) res += "\t" + j + ": " + player[i][j] + "\n";
-    res += "\n";
-  }
-  return res;
-}
+client.once("ready", () => {
+    client.application?.commands?.create(commandData);
+});
+client.on("interaction", async (interaction) => {
+    if (interaction.isCommand() && interaction.commandName === "grimoire") {
+        const player = await Player.getPlayerFromRole(interaction);
 
-export async function grimoire(msg: Message, player: IPlayer | null) {
-  if (!player) throw "joueur inconnu";
-  msg.reply(printGrimoire(<IPlayer>player.toJSON()), { split: true });
-}
+        if (!player) throw "joueur inconnu";
 
-grimoire.critical = true;
+        const grim = generateGrimoire(player);
+        const buffer = (await nodeHtmlToImage({
+            html: grim,
+            puppeteerArgs: {
+                args: ["--no-sandbox"],
+            },
+        })) as Buffer;
+
+        const attachment = new MessageAttachment(buffer, `${player.name}.png`);
+        interaction.reply(attachment);
+    }
+});

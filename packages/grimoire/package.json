@@ -1,0 +1,21 @@
+{
+    "name": "grimoire",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "license": "MIT",
+    "scripts": {
+        "dev": "ts-node-dev --watch grimoire.pug app.ts ",
+        "start": "ts-node app.ts"
+    },
+    "dependencies": {
+        "@types/node": "^15.6.1",
+        "express": "^4.17.1",
+        "node-html-to-image": "^3.1.0",
+        "pug": "^3.0.2",
+        "ts-node": "^10.0.0",
+        "typescript": "^4.3.2"
+    },
+    "devDependencies": {
+        "ts-node-dev": "^1.1.6"
+    }
+}

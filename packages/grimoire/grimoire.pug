@@ -1,0 +1,200 @@
+- const statCell = "flex flex-col items-center border-2 rounded-full justify-around h-16 w-16 z-10 bg-white absolute border-gray-500";
+- const compCell = "z-10 absolute";
+-
+    const pos = {
+        esprit: {
+            x: Math.cos(Math.PI / 2),
+            y: Math.sin(Math.PI / 2),
+        },
+        coeur: {
+            x: Math.cos(-5 * Math.PI / 6),
+            y: Math.sin(-5 * Math.PI / 6),
+        },
+        corps: {
+            x: Math.cos(-Math.PI / 6),
+            y: Math.sin(-Math.PI / 6),
+        },
+        socioMental:{
+            x: Math.cos(Math.PI / 6),
+            y: Math.sin(Math.PI / 6),
+        },
+        physicoMental: {
+            x: Math.cos(5 * Math.PI / 6),
+            y: Math.sin(5 * Math.PI / 6),
+        },
+        physicoSocial: {
+            x: Math.cos(-Math.PI / 2),
+            y: Math.sin(-Math.PI / 2),
+        }
+    };
+    function cellPosition(cell){
+        if (cell === "magie")
+            return `transform: translate(-50%, -50%); left: 50%; top: 50%`;
+        const {x,y} = pos[cell];
+        return `transform: translate(${x * 50 - 50}%, ${y * 50 - 50}%); left: ${((1 - x)/ 2) * 100}%; top: ${((1 - y)/ 2) * 100}%`;
+    }
+    function position(cell, center = 5){
+        if (cell === "magie")
+            return {x: "50%", y: "50%"};
+        const {x,y} = pos[cell];
+        return {
+            x: `${((1 - x)/ 2) * 100 + x * center}%`,
+            y: `${((1 - y)/ 2) * 100 + y * center}%`,
+        };
+    }
+    function matiere(stat){
+        if (stat === -2)return "N";
+        if (stat === 0)return "M";
+        if (stat === 2)return 'B';
+        if (stat === 4)return "E";
+        if (stat === 6)return "G";
+        return "";
+    }
+
+doctype html
+html
+    head
+        title Grimoire
+        link(href='https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css', rel='stylesheet')
+        style(type="text/css").
+            @font-face {
+                font-family:"virgil";
+                src: url("https://virgil.excalidraw.com/Virgil.woff2");
+            }
+            * {
+                font-family: virgil;
+            }
+            .matieres-list > li:nth-child(2n) {
+                margin-left: 1rem;
+            }
+            .matieres-list > li:nth-child(2n+1) > div{
+                margin-right: 1.5rem;
+            }
+    body(style="width: 55rem;")
+        div.w-full.border-b-2.m-4
+            p.text-xl #{name}
+
+        div.flex.flex-row.p-10.items-start
+
+            div.flew.flex-col
+                ul.matieres-list
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.astronomie)}
+                        p.w-5 #{matieres.astronomie}
+                        p Astronomie
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                                p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.botanique)}
+                        p.w-5 #{matieres.botanique}
+                        p Botanique
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.dcfm)}
+                        p.w-5 #{matieres.dcfm}
+                        p Défense contre les forces du Mal
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.enchantement)}
+                        p.w-5 #{matieres.enchantement}
+                        p Enchantement
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.histoire)}
+                        p.w-5 #{matieres.histoire}
+                        p Histoire de la Magie
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.metamorphose)}
+                        p.w-5 #{matieres.metamorphose}
+                        p Métamorphose
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.potions)}
+                        p.w-5 #{matieres.potions}
+                        p Potions
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.vol)}
+                        p.w-5 #{matieres.vol}
+                        p Vol
+
+                ul.matieres-list.mt-10
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.arithmancie)}
+                        p.w-5 #{matieres.arithmancie}
+                        p Arithmancie
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                                p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.Divination)}
+                        p.w-5 #{matieres.Divination}
+                        p Divination
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.moldus)}
+                        p.w-5 #{matieres.moldus}
+                        p Etude des Moldus
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.runes)}
+                        p.w-5 #{matieres.runes}
+                        p Etude des Runes
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.soins)}
+                        p.w-5 #{matieres.soins}
+                        p Soins aux creatures magiques
+
+
+            div.h-96.w-96
+
+                svg.absolute.h-96.w-96
+                    circle(cx="50%", cy="50%", r="40%", fill-opacity="0", stroke="black", stroke-width="1")
+                    line(x1=position("esprit").x, y1=position("esprit").y, x2=position("corps").x, y2=position("corps").y, stroke="black")
+                    line(x1=position("esprit").x, y1=position("esprit").y, x2=position("coeur").x, y2=position("coeur").y, stroke="black")
+                    line(x1=position("corps").x, y1=position("corps").y, x2=position("coeur").x, y2=position("coeur").y, stroke="black")
+
+                    line(x1=position("magie").x, y1=position("magie").y, x2=position("socioMental", 22).x, y2=position("socioMental", 22).y, stroke="black")
+                    line(x1=position("magie").x, y1=position("magie").y, x2=position("physicoMental", 22).x, y2=position("physicoMental", 22).y, stroke="black")
+                    line(x1=position("magie").x, y1=position("magie").y, x2=position("physicoSocial", 22).x, y2=position("physicoSocial", 22).y, stroke="black")
+
+                div.h-full.w-full.relative
+                    div(class=statCell, style=cellPosition("esprit"))
+                        p #{stats.esprit}
+                        p Esprit
+
+                    div(class=statCell, style=cellPosition("coeur"))
+                        p #{stats.coeur}
+                        p Coeur
+
+                    div(class=statCell, style=cellPosition("corps"))
+                        p #{stats.corps}
+                        p Corps
+
+                    div(class=statCell, style=cellPosition("magie"))
+                        p #{stats.magie}
+                        p Magie
+
+
+                    div(class=compCell, style=cellPosition("socioMental"))
+                        ul.text-sm
+                            li(class = "ml-3.5").bg-white #{competences.bluff} Bluff
+                            li(class = "ml-2").bg-white   #{competences.farce} Farce
+                            li(class = "ml-0.5").bg-white #{competences.tactique} Tactique
+                            li(class = "ml-0").bg-white   #{competences.rumeur} Rumeur
+                    div(class=compCell, style=cellPosition("physicoMental"))
+                        ul.text-sm
+                            li(class = "ml-0 whitespace-nowrap").bg-white Bagarre #{competences.bagarre}
+                            li(class = "ml-1 whitespace-nowrap").bg-white Endurance #{competences.endurance}
+                            li(class = "ml-2.5 whitespace-nowrap").bg-white Perception #{competences.perception}
+                            li(class = "ml-4 whitespace-nowrap").bg-white Précision #{competences.precision}
+
+                    div(class=compCell, style=cellPosition("physicoSocial"))
+                        ul.text-sm
+                            li.bg-white #{competences.decorum} Decorum
+                            li.bg-white #{competences.discretion} Discrétion
+                            li.bg-white #{competences.persuasion} Persuasion
+                            li.bg-white #{competences.romance} Romance
+
+

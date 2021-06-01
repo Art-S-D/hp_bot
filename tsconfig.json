@@ -9,8 +9,9 @@
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "strict": true,
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "esModuleInterop": true
     },
-    "include": ["packages"],
+    "include": ["packages/**/*"],
     "exclude": ["node_modules"]
 }
