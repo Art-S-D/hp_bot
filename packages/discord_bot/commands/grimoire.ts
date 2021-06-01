@@ -1,4 +1,4 @@
-import { Message, MessageAttachment, ApplicationCommandData, CommandInteraction } from "discord.js";
+import { Message, MessageAttachment, ApplicationCommandData, MessageEmbed } from "discord.js";
 import { Player, IPlayer } from "mongo";
 import client from "../client";
 import generateGrimoire from "grimoire";
@@ -30,9 +30,11 @@ client.on("interaction", async (interaction) => {
     if (interaction.isCommand() && interaction.commandName === "grimoire") {
         const player = await Player.getPlayerFromRole(interaction);
 
-        const attachment = getAttachment(player);
+        const attachment = await getAttachment(player);
 
-        interaction.reply("", { embeds: [attachment] });
+        await interaction.reply("", {
+            embeds: [new MessageEmbed({ title: `Grimoire-${player.name}`, files: [attachment] })],
+        });
     }
 });
 
