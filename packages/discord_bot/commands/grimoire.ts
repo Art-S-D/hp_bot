@@ -9,6 +9,20 @@ const commandData: ApplicationCommandData = {
     description: "Afficher les compétences du joueur",
 };
 
+async function getAttachment(player: IPlayer | null): Promise<MessageAttachment> {
+    if (!player) throw "joueur inconnu";
+
+    const grim = generateGrimoire(player);
+    const buffer = (await nodeHtmlToImage({
+        html: grim,
+        puppeteerArgs: {
+            args: ["--no-sandbox"],
+        },
+    })) as Buffer;
+
+    return new MessageAttachment(buffer, `${player.name}.png`);
+}
+
 client.once("ready", () => {
     client.application?.commands?.create(commandData);
 });
@@ -16,17 +30,13 @@ client.on("interaction", async (interaction) => {
     if (interaction.isCommand() && interaction.commandName === "grimoire") {
         const player = await Player.getPlayerFromRole(interaction);
 
-        if (!player) throw "joueur inconnu";
+        const attachment = getAttachment(player);
 
-        const grim = generateGrimoire(player);
-        const buffer = (await nodeHtmlToImage({
-            html: grim,
-            puppeteerArgs: {
-                args: ["--no-sandbox"],
-            },
-        })) as Buffer;
-
-        const attachment = new MessageAttachment(buffer, `${player.name}.png`);
         interaction.reply("", { embeds: [attachment] });
     }
 });
+
+export async function grimoire(msg: Message, player: IPlayer | null) {
+    const attachment = await getAttachment(player);
+    msg.reply(attachment);
+}

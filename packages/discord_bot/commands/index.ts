@@ -5,8 +5,7 @@ export * from "./merci";
 export * from "./no";
 export * from "./not_cool";
 export * from "./jeux";
-
-import "./grimoire";
+export * from "./grimoire";
 
 export interface ICommand extends Function {
     critical?: boolean;
