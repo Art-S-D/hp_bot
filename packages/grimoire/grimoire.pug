@@ -14,11 +14,11 @@
             x: Math.cos(-Math.PI / 6),
             y: Math.sin(-Math.PI / 6),
         },
-        socioMental:{
+        physicoMental:{
             x: Math.cos(Math.PI / 6),
             y: Math.sin(Math.PI / 6),
         },
-        physicoMental: {
+        socioMental: {
             x: Math.cos(5 * Math.PI / 6),
             y: Math.sin(5 * Math.PI / 6),
         },
@@ -31,14 +31,14 @@
         if (cell === "magie")
             return `transform: translate(-50%, -50%); left: 50%; top: 50%`;
         const {x,y} = pos[cell];
-        return `transform: translate(${x * 50 - 50}%, ${y * 50 - 50}%); left: ${((1 - x)/ 2) * 100}%; top: ${((1 - y)/ 2) * 100}%`;
+        return `transform: translate(${-x * 50 - 50}%, ${y * 50 - 50}%); left: ${((1 + x)/ 2) * 100}%; top: ${((1 - y)/ 2) * 100}%`;
     }
     function position(cell, center = 5){
         if (cell === "magie")
             return {x: "50%", y: "50%"};
         const {x,y} = pos[cell];
         return {
-            x: `${((1 - x)/ 2) * 100 + x * center}%`,
+            x: `${((1 + x)/ 2) * 100 - x * center}%`,
             y: `${((1 - y)/ 2) * 100 + y * center}%`,
         };
     }

@@ -46,4 +46,4 @@ app.get("/", async (req, res) => {
     res.status(200).send(grim);
 });
 
-app.listen(8080, () => console.log("app listening on localhost://8080"));
+app.listen(8080, () => console.log("app listening on http://localhost:8080"));
