@@ -71,10 +71,10 @@ html
                 margin-right: 1.5rem;
             }
     body(style="width: 55rem;")
-        div.w-full.border-b-2.m-4
+        div.w-full.border-b-2.p-4.pb-0
             p.text-xl #{name}
 
-        div.flex.flex-row.p-10.items-start
+        div.flex.flex-row.p-4.pl-10.items-start.justify-around
 
             div.flew.flex-col
                 ul.matieres-list
@@ -145,6 +145,16 @@ html
                             p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.soins)}
                         p.w-5 #{matieres.soins}
                         p Soins aux creatures magiques
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.soins)}
+                        p.w-5 #{matieres.soins}
+                        p Soins aux creatures magiques
+                    li.flex.flex-row
+                        div(style="transform: rotateZ(45deg);").border-2.border-gray-500.justify-center.justify-items-center.w-7.h-7.mr-2
+                            p(style="transform: rotateZ(-45deg);").w-5.ml-1 #{matiere(matieres.advancedDuel)}
+                        p.w-5 #{matieres.advancedDuel}
+                        p Duel
 
 
             div.h-96.w-96
