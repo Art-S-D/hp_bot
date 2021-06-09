@@ -4,6 +4,8 @@ import client from "../../client";
 import { Player } from "mongo";
 import diceRoll, { Stat, Competence, Reroll } from "./diceRoll";
 
+import { shazam } from "../../utils";
+
 const commandData: ApplicationCommandData = {
     name: "d",
     description: "Lancer un dé",
@@ -92,13 +94,17 @@ client.on("interaction", async (interaction) => {
             (interaction as CommandInteraction).options.find((option) => option.name === name)?.value;
 
         // cast is fine here since the discord slash command should check the args correctly
-        let { msg } = diceRoll({
+        let { msg, rawScore } = diceRoll({
             player,
             stat: getOption("caractéristiques") as Stat,
             comp: getOption("compétence") as Competence,
             reroll: getOption("relance") as Reroll | undefined,
             difficulty: getOption("difficulté") as number | undefined,
         });
-        interaction.reply(msg);
+        await interaction.reply(msg);
+        if (rawScore === 20) {
+            const reply = await interaction.fetchReply();
+            shazam(reply);
+        }
     }
 });

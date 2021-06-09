@@ -2,17 +2,8 @@ import { Message } from "discord.js";
 import grammar = require("./grammar.js");
 import { IPlayer } from "mongo";
 
+import { shazam } from "../../utils";
 import { addEnduranceRerollReactions, isLearningRoll } from "./enduranceDie";
-
-async function shazam(msg: Message) {
-    await msg.react("🇸");
-    await msg.react("🇭");
-    await msg.react("🇦");
-    await msg.react("🇿");
-    await msg.react("🅰️");
-    await msg.react("🇲");
-    // await msg.react("⚡");
-}
 
 async function reply_roll(
     msg: Message,
