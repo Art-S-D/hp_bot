@@ -32,6 +32,13 @@ export interface IPlayer extends Document {
         metamorphose: number;
         potions: number;
         vol: number;
+        alchimie: number;
+        arithmancie: number;
+        divination: number;
+        duel: number;
+        emoldu: number;
+        runes: number;
+        scam: number;
     };
     jeux: {
         echecs: number;
@@ -82,6 +89,13 @@ const PlayerSchema = new Schema({
         metamorphose: statType,
         potions: statType,
         vol: statType,
+        alchimie: statType,
+        arithmancie: statType,
+        divination: statType,
+        duel: statType,
+        emoldu: statType,
+        runes: statType,
+        scam: statType,
     },
     jeux: {
         echecs: statType,
