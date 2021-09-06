@@ -95,7 +95,7 @@ const PlayerSchema = new Schema({
         duel: statType,
         emoldu: statType,
         runes: statType,
-        scam: statType,
+        sacm: statType,
     },
     jeux: {
         echecs: statType,
