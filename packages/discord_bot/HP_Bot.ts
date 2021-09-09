@@ -43,7 +43,7 @@ client.on("ready", () => {
     console.log(`Logged in as ${client?.user?.tag}!`);
 });
 
-client.on("message", async (msg: Message) => {
+client.on("messageCreate", async (msg: Message) => {
     try {
         runResponses(msg);
         await runCommand(msg);

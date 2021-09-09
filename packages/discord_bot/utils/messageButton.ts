@@ -19,13 +19,11 @@ export async function messageButton(
     await addReactions(msg, options);
 
     const reaction = await msg
-        .awaitReactions(
-            (reaction, user) => replierIds.includes(user.id) && options.includes(reaction.emoji.name || ""),
-            {
-                time: RESPONSE_TIME,
-                max: 1,
-            }
-        )
+        .awaitReactions({
+            filter: (reaction, user) => replierIds.includes(user.id) && options.includes(reaction.emoji.name || ""),
+            time: RESPONSE_TIME,
+            max: 1,
+        })
         .catch((e) => {
             console.warn(e);
             return undefined;

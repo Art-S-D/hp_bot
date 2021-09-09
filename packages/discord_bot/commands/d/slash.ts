@@ -1,4 +1,4 @@
-import { ApplicationCommandData, CommandInteraction } from "discord.js";
+import { ApplicationCommandData, CommandInteraction, Message } from "discord.js";
 
 import client from "../../client";
 import { Player } from "mongo";
@@ -41,6 +41,8 @@ const commandData: ApplicationCommandData = {
                 { name: "discretion", value: "discretion" },
                 { name: "persuasion", value: "persuasion" },
                 { name: "romance", value: "romance" },
+
+                { name: "magie", value: "magie" },
             ],
         },
         {
@@ -86,12 +88,12 @@ const commandData: ApplicationCommandData = {
 client.once("ready", () => {
     client.application?.commands?.create(commandData);
 });
-client.on("interaction", async (interaction) => {
+client.on("interactionCreate", async (interaction) => {
     if (interaction.isCommand() && interaction.commandName === "d") {
         const player = await Player.getPlayerFromRole(interaction);
 
         const getOption = (name: string): number | string | boolean | undefined =>
-            (interaction as CommandInteraction).options.find((option) => option.name === name)?.value;
+            (interaction as CommandInteraction).options.get(name)?.value;
 
         // cast is fine here since the discord slash command should check the args correctly
         let { msg, rawScore } = diceRoll({
@@ -104,7 +106,7 @@ client.on("interaction", async (interaction) => {
         await interaction.reply(msg);
         if (rawScore === 20) {
             const reply = await interaction.fetchReply();
-            shazam(reply);
+            shazam(reply as Message);
         }
     }
 });

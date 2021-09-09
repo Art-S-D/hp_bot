@@ -127,7 +127,7 @@ PlayerSchema.methods.getStat = function (this: IPlayer, stat: string): number | 
 
 PlayerSchema.statics.getPlayerFromRole = async function (this: any, msg: any): Promise<IPlayer | null> {
     return await this.findOne({
-        name: { $in: msg.member.roles.cache.array().map((r) => r.name) },
+        name: { $in: msg.member.roles.cache.map((r) => r.name) },
     });
 };
 

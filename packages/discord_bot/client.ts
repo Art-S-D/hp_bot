@@ -1,5 +1,5 @@
 import { Client, Intents } from "discord.js";
 
 export default new Client({
-    intents: new Intents([Intents.NON_PRIVILEGED]),
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS],
 });

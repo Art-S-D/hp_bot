@@ -4,7 +4,7 @@
     "private": true,
     "dependencies": {
         "mongo": "*",
-        "discord.js": "discordjs/discord.js#b376f31af9881b9cd3f82ac4a42a468947cce482",
+        "discord.js": "13.1.0",
         "jest": "^24.9.0",
         "mockingoose": "^2.13.2",
         "nodemon": "^2.0.4",
