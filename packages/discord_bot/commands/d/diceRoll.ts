@@ -95,7 +95,7 @@ export default function diceRoll({ player, stat, comp, reroll = REROLLS[stat][co
             // reroll
             rerollVal + statVal + compVal
         }`;
-    msg += `\t <@293149809387241472>${(rerollVal ?? computedScore) > difficulty ? ":white_check_mark:" : ":x:"} `; // notify game master
+    msg += `\t <@293149809387241472>${(rerollVal ?? computedScore) >= difficulty ? ":white_check_mark:" : ":x:"} `; // notify game master
 
     return {
         rawScore: score,
